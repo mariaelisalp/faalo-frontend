@@ -1,0 +1,117 @@
+<div class="flex min-h-screen">
+
+  <div class="w-full md:w-2/3 bg-white">
+    <div class="flex flex-col gap-y-4 pt-10 px-4 sm:px-0">
+
+      <div class="w-full flex justify-center">
+        <img src="/Faalo-logo.png" alt="faalo logo"
+             class="w-full max-w-[300px] h-auto">
+      </div>
+    
+      <h2 class="text-xl sm:text-xl text-shadow-sm text-center font-bold">Register</h2>
+    </div>
+    
+    <div class="flex items-center justify-center py-8">
+    
+      <div class="w-full max-w-sm px-4">
+    
+          <div class="mb-6 flex justify-center" >
+            <app-upload-profile-photo class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2"></app-upload-profile-photo>
+          </div>
+      
+          <form [formGroup]="forms" (ngSubmit)="create()" class="flex flex-col gap-y-3">
+              <div class="flex flex-col">
+                <app-form-label for="name">Name</app-form-label>
+                <app-second-input-field
+                    placeholder="enter your name"
+                    formControlName="name"
+                    id="name"
+                    name="name">
+                </app-second-input-field>
+
+                <p class="text-sm ml-2 pt-2 text-red-500"
+                *ngIf="forms.get('email')?.touched && forms.get('email')?.hasError('required')">
+                Name is required
+                </p>
+              </div>
+      
+              <div class="flex flex-col">
+                <app-form-label for="email">Email</app-form-label>
+                <app-second-input-field
+                    placeholder="enter your email"
+                    formControlName="email"
+                    id="email"
+                    name="email">
+                </app-second-input-field>
+
+                <p class="text-sm ml-2 pt-2 text-red-500"
+                *ngIf="forms.get('email')?.touched && forms.get('email')?.hasError('required')">
+                Email is required
+                </p>
+
+                <p class="text-sm ml-2 pt-2 text-red-500"
+                *ngIf="forms.get('email')?.touched && forms.get('email')?.hasError('email')">
+                Email must have a valid format
+                </p>
+
+                <p class="text-sm ml-2 pt-2 text-red-500"
+                *ngIf="errorMessage != '' ">
+                Email already taken by another user
+                </p>
+
+              </div>
+      
+              <div class="flex flex-col">
+                <app-form-label for="password">Password</app-form-label>
+                <app-password-input-field placeholder="enter your password" formControlName="password" id="password" name="password"></app-password-input-field>
+
+                <p class="text-sm ml-2 pt-2 text-red-500"
+                    *ngIf="forms.get('password')?.touched && forms.get('password')?.hasError('required')">
+                    Password is required
+                </p>
+
+                <p class="text-sm ml-2 pt-2 text-red-500"
+                    *ngIf="forms.get('password')?.touched && forms.get('password')?.hasError('minlength')">
+                    Password must have at least 8 characters
+                </p>
+
+              </div>
+
+      
+              <div class="flex flex-col">
+                <app-form-label for="confirmPassword">Confirm Password</app-form-label>
+                <app-password-input-field placeholder="confirm password" formControlName="confirmPassword" id="confirmPassword" name="confirmPassword"></app-password-input-field>
+
+                <p class="text-sm ml-2 pt-2 text-red-500"
+                    *ngIf="forms.get('confirmPassword')?.touched && forms.get('confirmPassword')?.hasError('required')">
+                    Required field
+                </p>
+
+                <p class="text-sm ml-2 pt-2 text-red-500"
+                *ngIf="forms.get('confirmPassword')?.touched && forms.hasError('passwordMismatch')">
+                Passwords don't match
+                </p>
+
+              </div>
+      
+              <div class="mb-2 pt-4">
+                <app-input-button class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2" type="submit" >Sign up</app-input-button>
+              </div>
+
+          </form>
+      
+          <div class="flex justify-center text-center pb-5">
+            <a routerLink="/login"
+               class="text-[var(--color-secondary)] text-sm underline underline-offset-2 decoration-[var(--color-secondary)] hover:opacity-80 focus:outline-hidden focus:opacity-80">
+              Already have an account? Log in
+            </a>
+          </div>
+        
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="hidden md:block md:w-1/3 bg-[var(--color-primary)]"></div>
+
+</div>
