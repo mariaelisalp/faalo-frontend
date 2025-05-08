@@ -59,7 +59,7 @@ export class LoginComponent implements AfterViewInit{
     return this.service.login(loginDto).subscribe(
       {
         next: (res) => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/home']);
         },
         error: (err) => {
           this.errorMessage = err.message;

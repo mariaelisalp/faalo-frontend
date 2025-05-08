@@ -3,12 +3,16 @@
 @import "preline/variants.css";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
     --color-primary: #5D5D81;
     --color-primary-hover: #A04C03;
     --color-secondary: #3B3355;
+    --color-purple-gray: #BFCDE0;
     --color-light-gray: #E5E5E5;
 }
+
   
 body{
     font-family: "Poppins", sans-serif;

@@ -1,20 +1,82 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild,} from '@angular/core';
 import { AuthService } from '../../core/auth/auth.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SidebarComponent } from '../../shared/navigation/sidebar/sidebar.component';
+import { ThemeToggleComponent } from '../../shared/buttons/theme-toggle/theme-toggle.component';
+import { NavigationToggleComponent } from '../../shared/buttons/navigation-toggle/navigation-toggle.component';
+import { CommonModule } from '@angular/common';
+import { LanguageService } from '../services/language.service';
+import { Language } from '../interfaces/language.interface';
+import { CenterModalComponent } from '../../shared/modals/center-modal/center-modal.component';
+import { InputFieldComponent } from '../../shared/fields/input-field/input-field.component';
+import { InputButtonComponent } from '../../shared/buttons/input-button/input-button.component';
+import { Router } from '@angular/router';
+import { LanguageButtonComponent } from '../../shared/buttons/language-button/language-button.component';
+import { LanguageResponse } from '../interfaces/response/language-response.interface';
 
 @Component({
   selector: 'app-home',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, SidebarComponent, InputFieldComponent, ThemeToggleComponent, 
+    NavigationToggleComponent, CommonModule, CenterModalComponent, InputButtonComponent, LanguageButtonComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
 
-  constructor(private service: AuthService){}
+  isSidebarOpen = true;
+  public languages: LanguageResponse[] = [];
+  @ViewChild('hsScaleAnimationModal') modalElement!: ElementRef;
+
+  form = new FormGroup({
+    language: new FormControl('', [Validators.required])
+  });
+
+  constructor(private auth: AuthService, private language: LanguageService, private router: Router){}
+
+  ngOnInit(){
+    this.getLanguages();
+    
+  }
+
+  toggleSidebar(){
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
 
   logout(){
-    console.log('vamos saindo')
-    return this.service.logout();
+    return this.auth.logout();
+  }
+
+  createLanguage(){
+
+    if(this.form.invalid){
+      return;
+    }
+
+    const language: Language = {
+      name: this.form.get('language')?.value || ''
+    }
+
+    return this.language.create(language).subscribe({
+      next: () => {
+        this.closeModal();
+        this.getLanguages();
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    });
+  }
+
+  closeModal() {
+    
+  }
+
+  getLanguages(){
+    this.language.findMany().subscribe((res) => {
+        this.languages =  res.data
+        console.log(this.languages)
+      }, 
+    )
   }
 
 }
