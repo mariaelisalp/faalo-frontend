@@ -19,4 +19,8 @@ export class LanguageService {
     return this.http.get<ApiResponse<LanguageResponse[]>>('api/languages');
   }
 
+  findOne(id: number){
+    return this.http.get<ApiResponse<LanguageResponse>>(`api/languages/${id}`);
+  }
+
 }

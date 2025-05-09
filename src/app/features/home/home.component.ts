@@ -10,14 +10,14 @@ import { Language } from '../interfaces/language.interface';
 import { CenterModalComponent } from '../../shared/modals/center-modal/center-modal.component';
 import { InputFieldComponent } from '../../shared/fields/input-field/input-field.component';
 import { InputButtonComponent } from '../../shared/buttons/input-button/input-button.component';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { LanguageButtonComponent } from '../../shared/buttons/language-button/language-button.component';
 import { LanguageResponse } from '../interfaces/response/language-response.interface';
 
 @Component({
   selector: 'app-home',
   imports: [ReactiveFormsModule, SidebarComponent, InputFieldComponent, ThemeToggleComponent, 
-    NavigationToggleComponent, CommonModule, CenterModalComponent, InputButtonComponent, LanguageButtonComponent],
+    NavigationToggleComponent, CommonModule, CenterModalComponent, InputButtonComponent, LanguageButtonComponent, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

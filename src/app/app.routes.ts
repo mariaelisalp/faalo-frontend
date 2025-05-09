@@ -7,6 +7,7 @@ import { PasswordResetEmailComponent } from './core/auth/pages/password-reset-em
 import { AuthGuard } from './core/auth/guards/auth.guard';
 import { HomeComponent } from './features/home/home.component';
 import { IsSignedIn } from './core/auth/guards/is-signed-in.guard';
+import { LanguageDashboardComponent } from './features/language-dashboard/language-dashboard.component';
 
 export const routes: Routes = [
     {path: 'register', component: RegisterComponent, canActivate: [IsSignedIn]},
@@ -14,5 +15,6 @@ export const routes: Routes = [
     {path: 'email-verification', component: EmailVerificationComponent},
     {path: 'password-reset', component: PasswordResetComponent},
     {path: 'forgot-password', component: PasswordResetEmailComponent, canActivate: [IsSignedIn]},
-    {path: 'home', component: HomeComponent, canActivate: [AuthGuard], title: 'Home'}
+    {path: 'home', component: HomeComponent, canActivate: [AuthGuard], title: 'Home'},
+    {path: 'dashboard/:languageId', component: LanguageDashboardComponent, canActivate: [AuthGuard], title: 'Dashboard'}
 ];

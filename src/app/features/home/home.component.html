@@ -1,7 +1,6 @@
 <div class="flex h-screen bg-white dark:bg-neutral-800">
     <app-sidebar [isSidebarOpen]="isSidebarOpen" (toggleSidebar)="toggleSidebar()"></app-sidebar>
 
-    <!-- Main Content -->
     <div [ngClass]="{'pl-72': isSidebarOpen, 'pl-0': !isSidebarOpen}" class="flex-1 w-full transition-all duration-300 p-12 overflow-auto">
         <app-navigation-toggle [isOpen]="isSidebarOpen" (toggleSidebar)="toggleSidebar()"></app-navigation-toggle>
       
@@ -14,9 +13,11 @@
     
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     <div *ngFor="let lang of languages">
-                        <app-language-button class="w-full">
-                            <p class="text-xl font-medium text-[var(--color-secondary)] dark:text-white">{{ lang.name }}</p>
-                        </app-language-button>
+                        <a routerLink="/dashboard/{{ lang.id }}">
+                            <app-language-button class="w-full">
+                                <p class="text-xl font-medium text-[var(--color-secondary)] dark:text-white">{{ lang.name }}</p>
+                            </app-language-button>
+                        </a>
                     </div>
     
                     <app-language-button class="w-full">
