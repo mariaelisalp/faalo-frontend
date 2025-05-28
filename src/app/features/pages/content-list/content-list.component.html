@@ -1,0 +1,136 @@
+<app-basic-layout>
+    <div class="flex-1 flex-col p-12 overflow-auto">
+        <div class="flex flex-col gap-y-8">
+            <button (click)="back()"
+                class="flex size-8 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6 text-black dark:text-white">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+                </svg>
+            </button>
+
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div *ngIf="!topicId">
+                    <p class="text-3xl font-semibold text-[var(--color-secondary)] dark:text-white">
+                        Content
+                    </p>
+                </div>
+
+                <div *ngIf="topicId">
+
+                    <div class="flex flex-col gap-2">
+                        <p class="text-xl font-semibold text-[var(--color-secondary)] dark:text-white">
+                            Content
+                        </p>
+
+                        <p class="text-3xl font-semibold text-[var(--color-secondary)] dark:text-white">
+                            {{ topicName }}
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <app-input-button (onClick)="addContentPage()" class="w-40 h-20">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+
+                        Add content
+
+                    </app-input-button>
+
+                    <app-input-button class="w-35 h-20" aria-haspopup="dialog" aria-expanded="false"
+                        aria-controls="hs-scale-animation-modal" data-hs-overlay="#hs-scale-animation-modal">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+
+                        Add topic
+
+                    </app-input-button>
+                </div>
+            </div>
+
+            <hr class="border-[var(--color-primary)] dark:border-white">
+
+            <div class="grid grid-cols-12 gap-4">
+
+                <div class="col-span-3">
+                    <p class="text-xl pb-3 font-bold text-[var(--color-secondary)] dark:text-white">
+                        Your topics</p>
+
+                    <div *ngIf="topics.length == 0" class="text-gray-500 dark:text-neutral-200 text-sm">
+                        Your topics will appear here.
+                    </div>
+
+                    <div *ngFor="let topic of topics" class="pb-3">
+                        <a routerLink="/{{ languageId }}/content" [queryParams]="{ topic: topic.id }">
+
+                            <app-input-button>
+                                {{ topic.name }}
+                            </app-input-button>
+                        </a>
+                    </div>
+
+
+                </div>
+
+                <div class="w-px h-full bg-[var(--color-secondary)] dark:bg-white mx-2"></div>
+
+                <div class="col-span-8">
+                    <p class="text-xl pb-3 font-bold text-[var(--color-secondary)] dark:text-white">Your contents</p>
+
+                    <div class=" justify-start">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+                            *ngIf="contents">
+                            <div *ngFor="let content of contents">
+                                <a routerLink="/{{ languageId }}/content/{{ content.id }}">
+                                    <app-content-button class="w-full rounded-full dark:bg-white">{{ content.title
+                                        }}</app-content-button>
+                                </a>
+                            </div>
+
+                            <div *ngIf="contents.length == 0"
+                                class="flex items-center justify-center col-span-full pt-20">
+
+                                <div class="flex gap-2 bg-white border border-gray-200 shadow-2xs rounded-xl p-4 md:p-5 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400">
+                                    <p class="text-sm text-gray-500 dark:text-neutral-200">Start adding contents</p>
+
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        strokeWidth={1.5} stroke="currentColor"
+                                        class="size-6 text-gray-500 dark:text-neutral-200">
+                                        <path strokeLinecap="round" strokeLinejoin="round"
+                                            d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                                    </svg>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <app-center-modal id="hs-scale-animation-modal" title="Add new topic">
+                <ng-template #customContent>
+                    <form [formGroup]="form">
+                        <app-input-field id="topic" placeholder="type topic name"
+                            formControlName="topic"></app-input-field>
+                    </form>
+                </ng-template>
+
+                <ng-template #customFooter>
+                    <app-input-button (onClick)="createTopic()">Save</app-input-button>
+                </ng-template>
+            </app-center-modal>
+
+
+        </div>
+
+    </div>
+</app-basic-layout>

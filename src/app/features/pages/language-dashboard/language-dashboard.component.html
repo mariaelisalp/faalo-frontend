@@ -1,0 +1,37 @@
+<app-basic-layout>
+    <div class="flex-1 flex-col p-12 overflow-auto">
+        <div class="flex flex-col gap-y-10">
+
+            <button routerLink="/home"
+                class="flex size-8 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6 text-black dark:text-white">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+                </svg>
+            </button>
+
+            <p class="text-3xl pt-5 font-semibold text-[var(--color-secondary)] dark:text-white"> {{ language.name }}
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <app-module-button>
+                    <p class="text-xl font-medium text-white dark:text-white">Texts</p>
+                </app-module-button>
+
+                <a routerLink="/{{ language.id }}/content">
+                    <app-module-button>
+                        <p class="text-xl font-medium text-white dark:text-white">Contents</p>
+                    </app-module-button>
+                </a>
+
+                <app-module-button>
+                    <p class="text-xl font-medium text-white dark:text-white">Vocabulary</p>
+                </app-module-button>
+
+                <app-module-button>
+                    <p class="text-xl font-medium text-white dark:text-white">Resources</p>
+                </app-module-button>
+            </div>
+        </div>
+    </div>
+</app-basic-layout>

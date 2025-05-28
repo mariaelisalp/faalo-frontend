@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { NavigationToggleComponent } from '../../buttons/navigation-toggle/navigation-toggle.component';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
+import { TokenService } from '../../../core/auth/token.service';
+import { UserService } from '../../../core/auth/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,7 +17,19 @@ export class SidebarComponent {
   @Input() isSidebarOpen: boolean = false;
   @Output() toggleSidebar = new EventEmitter<void>();
 
-  constructor(private auth: AuthService, private router: Router){}
+  public userName: string = '';
+
+  constructor(private auth: AuthService, private router: Router, private token: TokenService, private user: UserService){}
+
+  ngOnInit(){
+    const token = this.token.decodeToken();
+    
+    this.user.findByEmail().subscribe(
+      (res) => {
+        this.userName = res.data.name;
+      }
+    )
+  }
 
   onToggleSidebar() {
     this.toggleSidebar.emit();

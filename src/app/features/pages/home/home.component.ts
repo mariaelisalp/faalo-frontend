@@ -1,23 +1,24 @@
 import { Component, ElementRef, ViewChild,} from '@angular/core';
-import { AuthService } from '../../core/auth/auth.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SidebarComponent } from '../../shared/navigation/sidebar/sidebar.component';
-import { ThemeToggleComponent } from '../../shared/buttons/theme-toggle/theme-toggle.component';
-import { NavigationToggleComponent } from '../../shared/buttons/navigation-toggle/navigation-toggle.component';
 import { CommonModule } from '@angular/common';
-import { LanguageService } from '../services/language.service';
-import { Language } from '../interfaces/language.interface';
-import { CenterModalComponent } from '../../shared/modals/center-modal/center-modal.component';
-import { InputFieldComponent } from '../../shared/fields/input-field/input-field.component';
-import { InputButtonComponent } from '../../shared/buttons/input-button/input-button.component';
+import { SidebarComponent } from '../../../shared/navigation/sidebar/sidebar.component';
+import { NavigationToggleComponent } from '../../../shared/buttons/navigation-toggle/navigation-toggle.component';
+import { InputFieldComponent } from '../../../shared/fields/input-field/input-field.component';
+import { CenterModalComponent } from '../../../shared/modals/center-modal/center-modal.component';
+import { ThemeToggleComponent } from '../../../shared/buttons/theme-toggle/theme-toggle.component';
+import { InputButtonComponent } from '../../../shared/buttons/input-button/input-button.component';
+import { LanguageButtonComponent } from '../../../shared/buttons/language-button/language-button.component';
 import { Router, RouterModule } from '@angular/router';
-import { LanguageButtonComponent } from '../../shared/buttons/language-button/language-button.component';
-import { LanguageResponse } from '../interfaces/response/language-response.interface';
+import { LanguageResponse } from '../../interfaces/response/language-response.interface';
+import { AuthService } from '../../../core/auth/auth.service';
+import { LanguageService } from '../../services/language.service';
+import { Language } from '../../interfaces/language.interface';
+import { BasicLayoutComponent } from '../../basic-layout/basic-layout.component';
 
 @Component({
   selector: 'app-home',
-  imports: [ReactiveFormsModule, SidebarComponent, InputFieldComponent, ThemeToggleComponent, 
-    NavigationToggleComponent, CommonModule, CenterModalComponent, InputButtonComponent, LanguageButtonComponent, RouterModule],
+  imports: [ReactiveFormsModule, BasicLayoutComponent, InputFieldComponent, ThemeToggleComponent, CommonModule, 
+    CenterModalComponent, InputButtonComponent, LanguageButtonComponent, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

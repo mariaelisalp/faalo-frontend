@@ -5,9 +5,12 @@ import { EmailVerificationComponent } from './core/auth/pages/email-verification
 import { PasswordResetComponent } from './core/auth/pages/password-reset/password-reset.component';
 import { PasswordResetEmailComponent } from './core/auth/pages/password-reset-email/password-reset-email.component';
 import { AuthGuard } from './core/auth/guards/auth.guard';
-import { HomeComponent } from './features/home/home.component';
 import { IsSignedIn } from './core/auth/guards/is-signed-in.guard';
-import { LanguageDashboardComponent } from './features/language-dashboard/language-dashboard.component';
+import { ContentListComponent } from './features/pages/content-list/content-list.component';
+import { ContentPageComponent } from './features/pages/content-page/content-page.component';
+import { HomeComponent } from './features/pages/home/home.component';
+import { LanguageDashboardComponent } from './features/pages/language-dashboard/language-dashboard.component';
+import { TopicTreeNode } from './features/interfaces/response/topic-tree.class';
 
 export const routes: Routes = [
     {path: 'register', component: RegisterComponent, canActivate: [IsSignedIn]},
@@ -16,5 +19,9 @@ export const routes: Routes = [
     {path: 'password-reset', component: PasswordResetComponent},
     {path: 'forgot-password', component: PasswordResetEmailComponent, canActivate: [IsSignedIn]},
     {path: 'home', component: HomeComponent, canActivate: [AuthGuard], title: 'Home'},
-    {path: 'dashboard/:languageId', component: LanguageDashboardComponent, canActivate: [AuthGuard], title: 'Dashboard'}
+    {path: 'dashboard/:languageId', component: LanguageDashboardComponent, canActivate: [AuthGuard], title: 'Dashboard'},
+    {path: ':languageId/content', component: ContentListComponent, canActivate: [AuthGuard], title: 'Content'},
+    {path: ':languageId/content/:id', component: ContentPageComponent, canActivate: [AuthGuard]},
+
+    
 ];

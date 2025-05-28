@@ -1,0 +1,13 @@
+<div class="flex h-screen bg-white dark:bg-neutral-800">
+    <app-sidebar [isSidebarOpen]="isSidebarOpen" (toggleSidebar)="toggleSidebar()"></app-sidebar>
+
+    <app-navigation-toggle *ngIf="!isSidebarOpen" [isOpen]="isSidebarOpen"
+            (toggleSidebar)="toggleSidebar()"></app-navigation-toggle>
+
+    <div [ngClass]="{'pl-72 ': isSidebarOpen, 'pl-0': !isSidebarOpen}"
+        class="flex-1 w-full transition-all duration-300 p-12 overflow-auto">
+
+        <ng-content></ng-content>
+    </div>
+
+</div>

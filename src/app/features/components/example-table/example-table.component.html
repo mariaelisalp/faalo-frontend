@@ -1,0 +1,33 @@
+<div>
+    <div *ngIf="examples.length > 0">
+        <p class="pb-4 dark:text-neutral-200">Examples</p>
+        <app-editable-table [dataList]="examples"></app-editable-table>
+    </div>
+
+    <div class="flex justify-start sm:justify-end pt-5">
+        <app-input-button aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-scale-animation-modal-example"
+            data-hs-overlay="#hs-scale-animation-modal-example">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+
+            Add example
+        </app-input-button>
+    </div>
+
+    <app-center-modal id="hs-scale-animation-modal-example" title="Add example">
+        <ng-template #customContent>
+            <form [formGroup]="form">
+                <textarea id="example" formControlName="example"
+                    class="border-transparent font-medium focus:ring-0 focus:outline-none ring-0 dark:text-white dark:border-transparent w-full"
+                    autofocus></textarea>
+            </form>
+        </ng-template>
+
+        <ng-template #customFooter>
+            <app-input-button (click)="create()">Save</app-input-button>
+        </ng-template>
+
+    </app-center-modal>
+</div>
