@@ -1,0 +1,69 @@
+<app-basic-layout>
+
+    <div class="flex-1 flex-col pt-10 pl-10">
+
+        <button (click)="back()"
+            class="flex size-8 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 justify-center items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6 text-black dark:text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+            </svg>
+        </button>
+
+        <div class="flex flex-row justify-between items-center">
+            <p class="text-3xl pt-2 font-semibold text-[var(--color-secondary)] dark:text-white">
+                Vocabulary
+            </p>
+
+            <app-input-button class="w-25 h-9" aria-haspopup="dialog" aria-expanded="false"
+                aria-controls="hs-scale-animation-modal" data-hs-overlay="#hs-scale-animation-modal">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+
+                New
+            </app-input-button>
+
+        </div>
+
+    </div>
+
+    <div class="flex h-full w-full p-10">
+        <div class="h-full w-50 bg-gray-100 dark:bg-neutral-900 rounded-lg">
+            <div class="p-4">
+                <p class="font-bold text-[var(--color-secondary)] dark:text-neutral-100">Collections</p>
+            </div>
+        </div>
+
+        <div class="w-px h-full bg-gray-400 dark:bg-neutral mx-2"></div>
+
+        <div class="flex flex-col flex-1 gap-y-8 pl-4 pr-4 pb-4">
+
+            <div *ngIf="vocabularies.length > 0">
+                <div *ngFor="let vocabulary of vocabularies" class="grid grid-cols-4">
+                    <a routerLink="/{{ languageId }}/vocabulary/{{ vocabulary.id}}"
+                        [queryParams]="{ vocabulary: vocabulary.name }">
+                        <app-image-card [title]="vocabulary.name"></app-image-card>
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <app-center-modal id="hs-scale-animation-modal" title="Add new vocabulary">
+        <ng-template #customContent>
+            <form [formGroup]="formVocab">
+                <app-input-field id="vocabulary" placeholder="type vocabulary name"
+                    formControlName="name"></app-input-field>
+            </form>
+        </ng-template>
+
+        <ng-template #customFooter>
+            <app-input-button (onClick)="createVocabulary()">Save</app-input-button>
+        </ng-template>
+    </app-center-modal>
+
+</app-basic-layout>

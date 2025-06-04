@@ -14,9 +14,6 @@
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <app-module-button>
-                    <p class="text-xl font-medium text-white dark:text-white">Texts</p>
-                </app-module-button>
 
                 <a routerLink="/{{ language.id }}/content">
                     <app-module-button>
@@ -24,15 +21,29 @@
                     </app-module-button>
                 </a>
 
-                <app-module-button>
-                    <p class="text-xl font-medium text-white dark:text-white">Vocabulary</p>
-                </app-module-button>
+                <a routerLink="/{{ language.id }}/vocabulary">
+                    <app-module-button>
+                        <p class="text-xl font-medium text-white dark:text-white">Vocabulary</p>
+                    </app-module-button>
+                </a>
 
                 <a routerLink="/{{ language.id }}/resources">
                     <app-module-button>
                         <p class="text-xl font-medium text-white dark:text-white">Resources</p>
                     </app-module-button>
                 </a>
+
+                <div class="hs-tooltip [--placement:bottom] inline-block relative">
+                    <app-module-button [disabled]="true" class="hs-tooltip-toggle">
+                        <p class="text-xl font-medium text-white dark:text-white">Texts</p>
+                    </app-module-button>
+
+                    <span
+                        class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-neutral-700"
+                        role="tooltip">
+                        We're working on that
+                    </span>
+                </div>
             </div>
         </div>
     </div>
