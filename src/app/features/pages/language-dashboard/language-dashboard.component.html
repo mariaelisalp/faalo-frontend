@@ -28,9 +28,11 @@
                     <p class="text-xl font-medium text-white dark:text-white">Vocabulary</p>
                 </app-module-button>
 
-                <app-module-button>
-                    <p class="text-xl font-medium text-white dark:text-white">Resources</p>
-                </app-module-button>
+                <a routerLink="/{{ language.id }}/resources">
+                    <app-module-button>
+                        <p class="text-xl font-medium text-white dark:text-white">Resources</p>
+                    </app-module-button>
+                </a>
             </div>
         </div>
     </div>

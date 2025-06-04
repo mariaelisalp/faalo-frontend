@@ -11,6 +11,8 @@ import { ContentPageComponent } from './features/pages/content-page/content-page
 import { HomeComponent } from './features/pages/home/home.component';
 import { LanguageDashboardComponent } from './features/pages/language-dashboard/language-dashboard.component';
 import { TopicTreeNode } from './features/interfaces/response/topic-tree.class';
+import { ResourceListComponent } from './features/pages/resource-list/resource-list.component';
+import { CollectionPageComponent } from './features/pages/collection-page/collection-page.component';
 
 export const routes: Routes = [
     {path: 'register', component: RegisterComponent, canActivate: [IsSignedIn]},
@@ -22,6 +24,7 @@ export const routes: Routes = [
     {path: 'dashboard/:languageId', component: LanguageDashboardComponent, canActivate: [AuthGuard], title: 'Dashboard'},
     {path: ':languageId/content', component: ContentListComponent, canActivate: [AuthGuard], title: 'Content'},
     {path: ':languageId/content/:id', component: ContentPageComponent, canActivate: [AuthGuard]},
-
+    {path: ':languageId/resources', component: ResourceListComponent, canActivate: [AuthGuard], title: 'Resources'},
+    {path: ':languageId/resources/:collectionId', component: CollectionPageComponent, canActivate: [AuthGuard], title: 'Resources: collection'}
     
 ];

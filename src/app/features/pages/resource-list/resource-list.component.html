@@ -1,0 +1,203 @@
+<app-basic-layout>
+    <div class="flex-1 flex-col p-12 overflow-auto">
+        <div class="flex flex-col gap-y-8">
+            <button (click)="back()"
+                class="flex size-8 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6 text-black dark:text-white">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+                </svg>
+            </button>
+
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+
+                <p class="text-3xl font-semibold text-[var(--color-secondary)] dark:text-white">
+                    Resources
+                </p>
+
+                <div class="flex gap-4">
+                    <app-input-button aria-haspopup="dialog" aria-expanded="false"
+                        aria-controls="hs-scale-animation-modal" data-hs-overlay="#hs-scale-animation-modal">
+                        New collection
+                    </app-input-button>
+
+                    <app-input-button (click)="openModal()" aria-haspopup="dialog" aria-expanded="false"
+                        aria-controls="hs-medium-modal" data-hs-overlay="#hs-medium-modal">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+
+                        Add resource
+                    </app-input-button>
+                </div>
+
+            </div>
+
+            <hr class="border-[var(--color-primary)] dark:border-white">
+
+
+            <div *ngIf="collections.length == 0">
+                <p class="text-sm text-gray-500 dark:text-neutral-100">Your resources collections will appear here.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div *ngFor="let collection of collections">
+                    <a routerLink="/{{ languageId }}/resources/{{ collection.id}}">
+                        <app-language-button>
+                            <div class="flex flex-col gap-y-2 items-center">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="size-10 text-[var(--color-secondary)] dark:text-white">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                                </svg>
+
+                                <p class="text-lg font-medium text-[var(--color-secondary)] dark:text-white">
+                                    {{collection.name}}
+                                </p>
+
+                            </div>
+                        </app-language-button>
+                    </a>
+                </div>
+            </div>
+
+            <hr class="border-[var(--color-primary)] dark:border-white">
+
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <p class="text-xl font-semibold text-[var(--color-secondary)] dark:text-white">
+                    All resources
+                </p>
+
+                
+                <form class="flex flex-row gap-2 justify-end items-center">
+                    <app-input-field placeholder="Search" id="search"></app-input-field>
+
+                    <app-input-button class="w-12 h-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                            stroke="currentColor"
+                            class="size-10 text-white focus:text-[var(--color-secondary)] dark:text-neutral-200">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                    </app-input-button>
+                </form>
+                
+
+            </div>
+
+            <div *ngIf="resources.length == 0" class="flex flex-col items-center justify-center p-20">
+
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
+                    stroke="currentColor" class="size-15 text-gray-500 dark:text-neutral-200">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
+                </svg>
+
+                <p class="text text-gray-500 dark:text-neutral-200">Start adding resources</p>
+
+            </div>
+
+            <app-resource-table *ngIf="resources.length > 0" [resourceList]="resources" (editResource)="handleEdit($event)"></app-resource-table>
+        </div>
+
+
+
+    </div>
+
+    <app-medium-modal id="hs-medium-modal" title="Add new resource">
+        <ng-template #customContent>
+            <form [formGroup]="form">
+                <div class="grid grid-cols-2 gap-2 gap-y-8">
+                    <div>
+                        <app-form-label>Name</app-form-label>
+                        <app-input-field placeholder="resource name" formControlName="name"></app-input-field>
+                    </div>
+
+                    <div>
+                        <app-form-label>Description</app-form-label>
+                        <app-input-field placeholder="add a description"
+                            formControlName="description"></app-input-field>
+                    </div>
+
+                    <div>
+                        <app-form-label>Type</app-form-label>
+                        <select formControlName="type" data-hs-select='{
+                                "placeholder": "Select...",
+                                "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+                                "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative px-4 py-2.5 ps-4 pe-9 flex gap-x-2 text-nowrap w-full cursor-pointer bg-white border-2 border-gray-400 rounded-xl text-start text-sm focus:outline-none focus:ring-0 focus:border-2 focus:border-[var(--color-secondary)] dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 focus:shadow-md focus:shadow-[var(--color-primary)] focus:ring-0 focus:outline-none dark:placeholder-gray-300 dark:border-[var(--color-primary)] dark:focus:bg-neutral-700 dark:text-white",
+                                "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-gray-200 rounded-xl overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 dark:bg-neutral-900 dark:border-neutral-700",
+                                "optionClasses": "py-2 px-4 w-full text-sm text-gray-800 cursor-pointer hover:bg-gray-100 rounded-xl focus:outline-hidden focus:bg-gray-100 hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-neutral-200 dark:focus:bg-neutral-800",
+                                "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-3.5 text-blue-600 dark:text-blue-500 \" xmlns=\"http:.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>",
+                                "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"shrink-0 size-3.5 text-gray-500 dark:text-neutral-500 \" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
+                            }' class="hidden">
+                            <option value="">Choose</option>
+                            <option value="URL">URL</option>
+                            <option value="File">File</option>
+                        </select>
+                    </div>
+
+                    <div *ngIf="modalIsOpen">
+                        <app-form-label>Add to a collection</app-form-label>
+                        <select formControlName="collection" data-hs-select='{
+                            "hasSearch": true,
+                            "placeholder": "Selecione uma coleção...",
+                            "toggleTag": "<button type=\"button\"></button>",
+                            "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative px-4 py-2.5 ps-4 pe-9 flex gap-x-2 text-nowrap w-full cursor-pointer bg-white border-2 border-gray-400 rounded-xl text-start text-sm focus:outline-none focus:ring-0 focus:border-2 focus:border-[var(--color-secondary)] dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 focus:shadow-md focus:shadow-[var(--color-primary)] focus:ring-0 focus:outline-none dark:placeholder-gray-300 dark:border-[var(--color-primary)] dark:focus:bg-neutral-700 dark:text-white",
+                            "menuClasses": "z-50 mt-2 py-2 w-full bg-white ...",
+                            "optionClasses": "block px-4 py-2 text-sm text-gray-800 ...",
+                            "optionDisabledClasses": "opacity-50 pointer-events-none",
+                            "optionSelectedClasses": "text-white bg-sky-500"
+                        }' [ngClass]="{ 'hidden': !modalIsOpen }"
+                            class="relative z-20 block w-full px-4 py-2 text-sm text-gray-800 border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500">
+                            <option value="">No collection</option>
+                            <option *ngFor="let collection of collections" value="{{ collection.id}}">
+                                {{ collection.name }}
+                            </option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div *ngIf="selectedType === 'URL'" class="pt-8">
+                    <app-form-label>Resource URL</app-form-label>
+
+                    <app-input-field placeholder="insert your resource URL here"
+                        formControlName="access"></app-input-field>
+                </div>
+
+                <div *ngIf="selectedType === 'File'" class="pt-8">
+
+                    <app-form-label>Upload file</app-form-label>
+
+                    <app-file-upload formControlName="access" (fileSelected)="onFileSelected($event)"
+                        progress="progress"></app-file-upload>
+
+                </div>
+            </form>
+        </ng-template>
+
+        <ng-template #customFooter>
+
+            <app-input-button (click)="create()">Save</app-input-button>
+
+        </ng-template>
+
+    </app-medium-modal>
+
+    <app-center-modal id="hs-scale-animation-modal" title="New collection">
+        <ng-template #customContent>
+            <form [formGroup]="collectionForm">
+                <app-input-field id="collection" placeholder="insert collection name"
+                    formControlName="collection"></app-input-field>
+            </form>
+        </ng-template>
+
+        <ng-template #customFooter>
+            <app-input-button (onClick)="createCollection()">Save</app-input-button>
+        </ng-template>
+    </app-center-modal>
+
+</app-basic-layout>

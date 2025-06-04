@@ -1,4 +1,5 @@
-<input 
+<div class="relative">
+  <input 
   class="block w-full rounded-xl border-2 border-gray-400 px-4 py-2.5 sm:text-sm placeholder-gray-500 focus:border-[var(--color-secondary)] focus:border-2 focus:shadow-md focus:shadow-[var(--color-primary)] focus:ring-0 focus:outline-none dark:placeholder-gray-300 dark:border-[var(--color-primary)] dark:focus:bg-neutral-700 dark:text-white"
   [id]="id"
   [name]="name"
@@ -9,3 +10,6 @@
   (blur)="onTouched()"
   [disabled]="isDisabled"
 />
+
+<ng-content></ng-content>
+</div>

@@ -1,0 +1,141 @@
+<app-basic-layout>
+    <div class="flex-1 flex-col p-12 overflow-auto">
+        <div class="flex flex-col gap-y-8">
+            <button (click)="back()"
+                class="flex size-8 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6 text-black dark:text-white">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+                </svg>
+            </button>
+
+            <div class="flex flex-col gap-4">
+
+                <p class="text-xl font-semibold text-[var(--color-secondary)] dark:text-white">
+                    Resources
+                </p>
+
+                <div class="flex flex-row justify-between">
+                    <div class="flex gap-2">
+                        <p class="text-3xl font-semibold text-[var(--color-secondary)] dark:text-white">
+                            {{ name }}
+                        </p>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-9 text-[var(--color-secondary)] dark:text-white">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                        </svg>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-scale-animation-modal"
+                            data-hs-overlay="#hs-scale-animation-modal"
+                            class="flex cursor-pointer hover:bg-gray-100 hover:rounded-full w-9 items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor"
+                                class="size-6 text-[var(--color-secondary)] hover:text-black dark:hover:text-[var(--color-secondary)] dark:text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                            </svg>
+                        </button>
+
+                        <button aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-delete-animation-modal"
+                            data-hs-overlay="#hs-delete-animation-modal"
+                            class="flex cursor-pointer hover:bg-gray-100 hover:rounded-full w-9 items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor"
+                                class="size-6 text-red-700 hover:text-black dark:hover:text-[var(--color-secondary)] dark:text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                            </svg>
+                        </button>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+            <hr class="border-[var(--color-primary)] dark:border-white">
+
+
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <p class="text-xl font-semibold text-[var(--color-secondary)] dark:text-white">
+                    All resources
+                </p>
+
+                <form class="flex flex-row gap-2 justify-end items-center">
+                    <app-input-field placeholder="Search" id="search"></app-input-field>
+
+                    <app-input-button class="w-12 h-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                            stroke="currentColor"
+                            class="size-10 text-white focus:text-[var(--color-secondary)] dark:text-neutral-200">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                    </app-input-button>
+                </form>
+
+            </div>
+
+            <div *ngIf="resources.length == 0" class="flex flex-col items-center justify-center p-20">
+
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
+                    stroke="currentColor" class="size-15 text-gray-500 dark:text-neutral-200">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
+                </svg>
+
+                <p class="text text-gray-500 dark:text-neutral-200">Start adding resources</p>
+
+
+            </div>
+
+            <app-resource-table *ngIf="resources.length > 0" [resourceList]="resources"></app-resource-table>
+        </div>
+
+
+    </div>
+
+
+
+    <app-center-modal id="hs-scale-animation-modal" title="Edit collection">
+        <ng-template #customContent>
+            <form [formGroup]="collectionForm">
+                <app-input-field id="collection" placeholder="insert collection name"
+                    formControlName="collection"></app-input-field>
+            </form>
+        </ng-template>
+
+        <ng-template #customFooter>
+            <app-input-button (onClick)="saveCollectionChange()">Save changes</app-input-button>
+        </ng-template>
+    </app-center-modal>
+
+    <app-center-modal id="hs-delete-animation-modal" title="Delete">
+        <ng-template #customContent>
+            <p>Are you sure you want to delete this collection? You won't be able to recover it unless you keep the resources (they will appear in the root).</p>
+        </ng-template>
+
+        <ng-template #customFooter>
+            <app-input-button>Keep the resources</app-input-button>
+            <app-danger-button (onClick)="deleteCollection()" routerLink="/{{ languageId}}/resources">Delete all</app-danger-button>
+        </ng-template>
+    </app-center-modal>
+
+    <app-center-modal id="hs-delete-resource-animation-modal" title="Delete">
+        <ng-template #customContent>
+            <p>Are you sure you want to delete this resource? You won't be able to recover it.</p>
+        </ng-template>
+
+        <ng-template #customFooter>
+            <app-danger-button (onClick)="deleteResource()" routerLink="/{{ languageId}}/resources">Delete</app-danger-button>
+        </ng-template>
+    </app-center-modal>
+
+    
+
+</app-basic-layout>

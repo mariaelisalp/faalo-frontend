@@ -36,4 +36,12 @@ export class TopicService {
 
     return this.http.get<ApiResponse<TopicResponse[]>>(`api/${languageId}/topics?moduleType=${moduleType}`);
   }
+
+  update(languageId: number, id: number, topic: {name: string},){
+    return this.http.patch(`api/${languageId}/topics/${id}`, topic);
+  }
+
+  delete(languageId:number, id:number){
+    return this.http.delete(`api/${languageId}/topics/${id}`);
+  }
 }

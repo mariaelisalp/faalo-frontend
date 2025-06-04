@@ -35,6 +35,8 @@
               "src/styles.scss"
             ],
             "scripts": [
+              "node_modules/lodash/lodash.min.js",
+              "node_modules/dropzone/dist/dropzone-min.js",
               "node_modules/preline/dist/index.js"
             ]
           },
