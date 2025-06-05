@@ -19,9 +19,11 @@
                 <div *ngIf="topicId">
 
                     <div class="flex flex-col gap-2">
-                        <p class="text-xl font-semibold text-[var(--color-secondary)] dark:text-white">
-                            Content
-                        </p>
+                        <a routerLink="/{{ languageId }}/content">
+                            <p class="text-xl cursor-pointer font-semibold text-[var(--color-secondary)] dark:text-white hover:text-[var(--color-primary)]">
+                                Content
+                            </p>
+                        </a>
 
                         <p class="text-3xl font-semibold text-[var(--color-secondary)] dark:text-white">
                             {{ topicName }}
@@ -59,23 +61,23 @@
             <div class="grid grid-cols-12 gap-4">
 
                 <div class="col-span-3">
-                    <p class="text-xl pb-3 font-bold text-[var(--color-secondary)] dark:text-white">
-                        Your topics</p>
+                    <div class="p-4 bg-gray-100 rounded-lg dark:bg-neutral-700">
 
-                    <div *ngIf="topics.length == 0" class="text-gray-500 dark:text-neutral-200 text-sm">
-                        Your topics will appear here.
-                    </div>
+                        <p class="text-xl pb-3 font-bold text-[var(--color-secondary)] dark:text-white">
+                            Your topics</p>
 
-                    <div *ngFor="let topic of topics" class="pb-3">
+                        <!--<div *ngFor="let topic of topics" class="pb-3">
                         <a routerLink="/{{ languageId }}/content" [queryParams]="{ topic: topic.id }">
 
                             <app-input-button>
                                 {{ topic.name }}
                             </app-input-button>
                         </a>
+                    </div>-->
+
+                        <app-topics-tree></app-topics-tree>
+
                     </div>
-
-
                 </div>
 
                 <div class="w-px h-full bg-[var(--color-secondary)] dark:bg-white mx-2"></div>
@@ -96,7 +98,8 @@
                             <div *ngIf="contents.length == 0"
                                 class="flex items-center justify-center col-span-full pt-20">
 
-                                <div class="flex gap-2 bg-white border border-gray-200 shadow-2xs rounded-xl p-4 md:p-5 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400">
+                                <div
+                                    class="flex gap-2 bg-white border border-gray-200 shadow-2xs rounded-xl p-4 md:p-5 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400">
                                     <p class="text-sm text-gray-500 dark:text-neutral-200">Start adding contents</p>
 
 
