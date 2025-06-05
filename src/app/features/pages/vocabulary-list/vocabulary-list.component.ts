@@ -14,11 +14,14 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { InputButtonComponent } from '../../../shared/buttons/input-button/input-button.component';
 import { CenterModalComponent } from '../../../shared/modals/center-modal/center-modal.component';
 import { InputFieldComponent } from '../../../shared/fields/input-field/input-field.component';
+import { SecondaryButtonComponent } from '../../../shared/buttons/secondary-button/secondary-button.component';
+import { HSOverlay } from 'preline/dist';
+import { FormLabelComponent } from '../../../shared/labels/form-label/form-label.component';
 
 @Component({
   selector: 'app-vocabulary-list',
   imports: [CommonModule, BasicLayoutComponent, ImageCardComponent, InputButtonComponent, CenterModalComponent, ReactiveFormsModule,
-     InputFieldComponent, RouterModule],
+    InputFieldComponent, RouterModule, SecondaryButtonComponent, FormLabelComponent],
   templateUrl: './vocabulary-list.component.html',
   styleUrl: './vocabulary-list.component.scss'
 })
@@ -26,33 +29,43 @@ export class VocabularyListComponent {
 
   vocabularies: VocabularyResponse[] = [];
   collections: TopicResponse[] = [];
+  modalIsOpen = false;
   languageId: number;
 
 
   formVocab = new FormGroup({
-    name: new FormControl('', Validators.required)
+    name: new FormControl('', Validators.required),
+    collection: new FormControl('')
   });
 
   formCol = new FormGroup({
     name: new FormControl('', Validators.required)
   });
 
-  constructor(private location: Location, private vocabularyService: VocabularyService, private topicService: TopicService, 
-    private activatedRoute:ActivatedRoute){
+  constructor(private location: Location, private vocabularyService: VocabularyService, private topicService: TopicService,
+    private activatedRoute: ActivatedRoute) {
     this.languageId = this.activatedRoute.snapshot.params['languageId'];
   }
 
-  back(){
+  back() {
     this.location.back();
   }
 
-  ngOnInit(){
+  openModal() {
+    console.log('chamou a função')
+    this.getCollections();
+    this.modalIsOpen = true;
+
+    console.log(this.collections, "collections");
+  }
+
+  ngOnInit() {
     this.getVocabularies();
     this.getCollections();
   }
 
-  createCollection(){
-    if(this.formCol.invalid){
+  createCollection() {
+    if (this.formCol.invalid) {
       return;
     }
 
@@ -63,13 +76,13 @@ export class VocabularyListComponent {
 
     this.topicService.create(collection, this.languageId).subscribe({
       next: (res) => {
-        
+
       }
     })
   }
 
-  createVocabulary(){
-    if(this.formVocab.invalid){
+  createVocabulary() {
+    if (this.formVocab.invalid) {
       return;
     }
 
@@ -77,12 +90,28 @@ export class VocabularyListComponent {
       name: this.formVocab.get('name')?.value || '',
     }
 
-    this.vocabularyService.create(vocabulary, this.languageId).subscribe({
+    const collection = this.formVocab.get('collection')?.value;
 
-    })
+    if (collection) {
+
+      console.log('id da coleção:', collection)
+      this.vocabularyService.createByTopic(vocabulary, this.languageId, +collection).subscribe({
+        next: (res) => {
+          this.getVocabularies();
+          console.log('criado')
+        }
+      })
+    }
+    else {
+      this.vocabularyService.create(vocabulary, this.languageId).subscribe({
+        next: (res) => {
+          this.getVocabularies();
+        }
+      });
+    }
   }
 
-  getCollections(){
+  getCollections() {
     this.topicService.findAll(this.languageId, ModuleType.VOCABULARY).subscribe({
       next: (res) => {
         this.collections = res.data;
@@ -90,14 +119,12 @@ export class VocabularyListComponent {
     });
   }
 
-  getVocabularies(){
+  getVocabularies() {
     this.vocabularyService.findMany(this.languageId).subscribe({
       next: (res) => {
         this.vocabularies = res.data;
       }
     });
   }
-
-  updateCollection(){}
 
 }

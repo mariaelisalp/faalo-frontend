@@ -25,14 +25,18 @@
                 <hr class="border-[var(--color-primary)] dark:border-white">
 
                 <div class="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-8 gap-4">
-                    <div *ngFor="let word of words" class="hs-tooltip [--placement:bottom] inline-block relative">
-                        <app-secondary-button class="hs-tooltip-toggle">{{ word.word }}</app-secondary-button>
 
-                        <span
-                            class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-neutral-700"
-                            role="tooltip">
-                            {{ word.translation}}
-                        </span>
+                    <div *ngFor="let word of words"
+                        class="hs-tooltip [--trigger:click] [--placement:bottom] inline-block">
+                        <app-secondary-button class="hs-tooltip-toggle">
+                            {{ word.word }}
+                            <span
+                                class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-3 px-4 bg-white border border-gray-200 text-sm text-gray-600 rounded-lg shadow-md dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200"
+                                role="tooltip">
+                                {{ word.translation }}
+                            </span>
+                        </app-secondary-button>
+
                     </div>
 
                     <app-rounded-button aria-haspopup="dialog" aria-expanded="false"

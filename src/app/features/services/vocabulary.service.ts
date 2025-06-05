@@ -15,9 +15,15 @@ export class VocabularyService {
         return this.http.post<ApiResponse<VocabularyResponse>>(`api/${languageId}/vocabulary`, vocabulary);
     }
 
-    createByTopic(){}
+    createByTopic(vocabulary: Vocabulary, languageId: number, topicId: number){
+        return this.http.post(`api/${languageId}/vocabulary/${topicId}`, vocabulary);
+    }
 
-    findMany(languageId: number){
+    findMany(languageId: number, topicId?: number){
+        if(topicId){
+            return this.http.get<ApiResponse<VocabularyResponse[]>>(`api/${languageId}/vocabulary?topicId=${topicId}`);
+        }
+
         return this.http.get<ApiResponse<VocabularyResponse[]>>(`api/${languageId}/vocabulary`);
     }
 

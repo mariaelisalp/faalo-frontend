@@ -8,6 +8,7 @@ import { NoteFieldComponent } from '../../../shared/fields/note-field/note-field
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, finalize, map, Observable, of, Subscription } from 'rxjs';
 import { Note } from '../../interfaces/note.interface';
+import { HSDropdown, HSOverlay } from 'preline/dist';
 
 @Component({
   selector: 'app-notes-offcanvas',
@@ -34,8 +35,12 @@ export class NotesOffcanvasComponent implements OnInit {
     this.loadNotes();
   }
 
+  ngAfterViewInit(){
+    HSOverlay.autoInit();
+    HSDropdown.autoInit();
+  }
+
   ngOnDestroy() {
-    // Cancela todas as assinaturas para evitar memory leaks
     this.saveSubscriptions.forEach(sub => sub.unsubscribe());
   }
 
@@ -51,17 +56,14 @@ export class NotesOffcanvasComponent implements OnInit {
         this.notes = res.data;
         const notesArray = this.notesForm.get('notes') as FormArray;
         
-        // Limpa o array atual em caso de recarregamento
         while (notesArray.length) {
           notesArray.removeAt(0);
         }
 
-        // Adiciona cada nota ao FormArray
         this.notes.forEach(note => {
           const noteGroup = this.createNoteFormGroup(note);
           notesArray.push(noteGroup);
           
-          // Configura o autosave para esta nota específica
           this.setupAutoSave(notesArray.length - 1, noteGroup);
         });
       },
@@ -79,14 +81,14 @@ export class NotesOffcanvasComponent implements OnInit {
   }
 
   setupAutoSave(index: number, noteGroup: FormGroup) {
-    // Observa mudanças neste grupo de formulário específico
+
     const subscription = noteGroup.valueChanges.pipe(
-      debounceTime(1000), // Aguarda 1 segundo de inatividade
+      debounceTime(1000), 
       distinctUntilChanged((prev, curr) => {
-        // Compara apenas o conteúdo, ignorando mudanças no ID
+
         return prev.content === curr.content;
       }),
-      filter(() => !this.savingInProgress) // Evita salvar se já houver um salvamento em curso
+      filter(() => !this.savingInProgress) 
     ).subscribe(value => {
       this.saveNote(value, index);
     });
@@ -130,7 +132,6 @@ export class NotesOffcanvasComponent implements OnInit {
         const noteGroup = this.createNoteFormGroup(createdNote);
         notesArray.push(noteGroup);
         
-        // Configura o autosave para a nova nota
         this.setupAutoSave(notesArray.length - 1, noteGroup);
       },
       error: (err) => {
@@ -143,13 +144,11 @@ export class NotesOffcanvasComponent implements OnInit {
     const notesArray = this.notesForm.get('notes') as FormArray;
     const noteToRemove = notesArray.at(index).value;
     
-    // Remove a assinatura correspondente
     if (this.saveSubscriptions[index]) {
       this.saveSubscriptions[index].unsubscribe();
       this.saveSubscriptions.splice(index, 1);
     }
     
-    // Exclui a nota do backend
     if (noteToRemove.id) {
       this.notesService.delete(this.moduleId, noteToRemove.id).subscribe({
         next: () => {
@@ -161,7 +160,6 @@ export class NotesOffcanvasComponent implements OnInit {
       });
     }
     
-    // Remove do formulário
     notesArray.removeAt(index);
   }
 

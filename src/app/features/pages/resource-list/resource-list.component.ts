@@ -20,11 +20,14 @@ import { Topic } from '../../interfaces/topic.interface';
 import { ModuleType } from '../../enum/module-type.enum';
 import { LanguageButtonComponent } from '../../../shared/buttons/language-button/language-button.component';
 import { ResourceTableComponent } from '../../../shared/tables/resource-table/resource-table.component';
+import { DangerButtonComponent } from '../../../shared/buttons/danger-button/danger-button.component';
 
+declare var HSOverlay: any;
 @Component({
   selector: 'app-resource-list',
   imports: [BasicLayoutComponent, CommonModule, ResourceTableComponent, InputButtonComponent, InputFieldComponent, MediumModalComponent,
-    FormLabelComponent, ReactiveFormsModule, SelectFieldComponent, FileUploadComponent, CenterModalComponent, LanguageButtonComponent, RouterModule
+    FormLabelComponent, ReactiveFormsModule, SelectFieldComponent, FileUploadComponent, CenterModalComponent, LanguageButtonComponent,
+    RouterModule, 
   ],
   templateUrl: './resource-list.component.html',
   styleUrl: './resource-list.component.scss'
@@ -57,6 +60,8 @@ export class ResourceListComponent {
     this.languageId = this.activatedRoute.snapshot.params['languageId'];
   }
 
+  selectedResource: any;
+
   back() {
     this.location.back();
   }
@@ -77,8 +82,8 @@ export class ResourceListComponent {
     console.log(file)
   }
 
-  openModal(){
-    console.log('chamou a função')
+  openModal() {
+
     this.getCollections();
     this.modalIsOpen = true;
 
@@ -86,7 +91,7 @@ export class ResourceListComponent {
     console.log(this.modalIsOpen)
   }
 
-  handleEdit(resource: ResourceResponse){}
+  handleEdit(resource: ResourceResponse) { }
 
   create() {
     if (this.form.invalid) {
@@ -97,11 +102,11 @@ export class ResourceListComponent {
     resource.append('name', this.form.get('name')?.value);
     resource.append('type', this.form.get('type')?.value);
     resource.append('description', this.form.get('description')?.value);
-    
-    if(this.selectedType == 'URL'){
+
+    if (this.selectedType == 'URL') {
       resource.append('access', this.form.get('access')?.value || '');
     }
-    else{
+    else {
       resource.append('file', this.selectedFile!);
     }
 
@@ -165,5 +170,7 @@ export class ResourceListComponent {
       }
     });
   }
+
+  deleteResource() { }
 
 }

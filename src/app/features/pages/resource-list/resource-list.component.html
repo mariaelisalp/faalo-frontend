@@ -71,7 +71,7 @@
                     All resources
                 </p>
 
-                
+
                 <form class="flex flex-row gap-2 justify-end items-center">
                     <app-input-field placeholder="Search" id="search"></app-input-field>
 
@@ -84,7 +84,7 @@
                         </svg>
                     </app-input-button>
                 </form>
-                
+
 
             </div>
 
@@ -100,7 +100,8 @@
 
             </div>
 
-            <app-resource-table *ngIf="resources.length > 0" [resourceList]="resources" (editResource)="handleEdit($event)"></app-resource-table>
+            <app-resource-table *ngIf="resources.length > 0" [resourceList]="resources"
+                (editResource)="handleEdit($event)"></app-resource-table>
         </div>
 
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { BasicLayoutComponent } from '../../basic-layout/basic-layout.component';
 import { CommonModule, Location } from '@angular/common';
 import { WordService } from '../../services/word.service';
@@ -16,11 +16,12 @@ import { FormLabelComponent } from '../../../shared/labels/form-label/form-label
 import { WordResponse } from '../../interfaces/response/word-response.interface';
 import { ModuleType } from '../../enum/module-type.enum';
 import { NotesOffcanvasComponent } from '../../components/notes-offcanvas/notes-offcanvas.component';
+import { HSOverlay, HSStaticMethods } from 'preline/dist';
 
 @Component({
   selector: 'app-vocabulary-page',
   imports: [BasicLayoutComponent, SecondaryButtonComponent, RoundedButtonComponent, CenterModalComponent, ReactiveFormsModule,
-     InputFieldComponent, NoteFieldComponent, InputButtonComponent, FormLabelComponent, CommonModule, NotesOffcanvasComponent],
+    InputFieldComponent, NoteFieldComponent, InputButtonComponent, FormLabelComponent, CommonModule, NotesOffcanvasComponent],
   templateUrl: './vocabulary-page.component.html',
   styleUrl: './vocabulary-page.component.scss'
 })
@@ -32,9 +33,9 @@ export class VocabularyPageComponent {
   vocabularyId: number
   moduleType = ModuleType.VOCABULARY;
 
-  constructor(private location: Location, private wordService: WordService, private route: ActivatedRoute){
+  constructor(private location: Location, private wordService: WordService, private route: ActivatedRoute) {
     this.languageId = this.route.snapshot.params['languageId'];
-    this.vocabularyId =  this.route.snapshot.params['id'];
+    this.vocabularyId = this.route.snapshot.params['id'];
     this.name = this.route.snapshot.queryParams['vocabulary'];
   }
 
@@ -44,16 +45,16 @@ export class VocabularyPageComponent {
     description: new FormControl('')
   })
 
-  back(){
+  back() {
     this.location.back();
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getWords();
   }
 
-  createWord(){
-    if(this.wordForm.invalid){
+  createWord() {
+    if (this.wordForm.invalid) {
       return;
     }
 
@@ -66,7 +67,7 @@ export class VocabularyPageComponent {
     this.wordService.create(word, this.vocabularyId).subscribe();
   }
 
-  getWords(){
+  getWords() {
     this.wordService.findMany(this.vocabularyId).subscribe({
       next: (res) => {
         this.words = res.data

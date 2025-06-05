@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-secondary-button',
@@ -9,7 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class SecondaryButtonComponent {
   @Output() onClick = new EventEmitter();
-
+  @HostBinding('class') hostClass = '';
   @Input() disabled: boolean = false;
   @Input() type: string = 'submit';
 }
