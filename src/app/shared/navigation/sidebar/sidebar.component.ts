@@ -6,6 +6,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { TokenService } from '../../../core/auth/token.service';
 import { UserService } from '../../../core/auth/user.service';
+import { HSDropdown, HSStaticMethods } from 'preline/dist';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,11 +20,11 @@ export class SidebarComponent {
 
   public userName: string = '';
 
-  constructor(private auth: AuthService, private router: Router, private token: TokenService, private user: UserService){}
+  constructor(private auth: AuthService, private router: Router, private token: TokenService, private user: UserService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     const token = this.token.decodeToken();
-    
+
     this.user.findByEmail().subscribe(
       (res) => {
         this.userName = res.data.name;
@@ -35,7 +36,7 @@ export class SidebarComponent {
     this.toggleSidebar.emit();
   }
 
-  logout(){
+  logout() {
     this.auth.logout();
     this.router.navigate(['/login'])
   }

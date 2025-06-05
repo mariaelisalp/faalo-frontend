@@ -13,6 +13,9 @@ import { LanguageDashboardComponent } from './features/pages/language-dashboard/
 import { TopicTreeNode } from './features/interfaces/response/topic-tree.class';
 import { ResourceListComponent } from './features/pages/resource-list/resource-list.component';
 import { CollectionPageComponent } from './features/pages/collection-page/collection-page.component';
+import { VocabularyListComponent } from './features/pages/vocabulary-list/vocabulary-list.component';
+import { VocabularyPageComponent } from './features/pages/vocabulary-page/vocabulary-page.component';
+import { VocabularyCollectionComponent } from './features/pages/vocabulary-collection/vocabulary-collection.component';
 
 export const routes: Routes = [
     {path: 'register', component: RegisterComponent, canActivate: [IsSignedIn]},
@@ -25,6 +28,9 @@ export const routes: Routes = [
     {path: ':languageId/content', component: ContentListComponent, canActivate: [AuthGuard], title: 'Content'},
     {path: ':languageId/content/:id', component: ContentPageComponent, canActivate: [AuthGuard]},
     {path: ':languageId/resources', component: ResourceListComponent, canActivate: [AuthGuard], title: 'Resources'},
-    {path: ':languageId/resources/:collectionId', component: CollectionPageComponent, canActivate: [AuthGuard], title: 'Resources: collection'}
+    {path: ':languageId/resources/:collectionId', component: CollectionPageComponent, canActivate: [AuthGuard], title: 'Resources: collection'},
+    {path: ':languageId/vocabulary', component: VocabularyListComponent, canActivate: [AuthGuard], title: 'Vocabulary'},
+    {path: ':languageId/vocabulary/:id', component: VocabularyPageComponent, canActivate: [AuthGuard], title: 'Vocabulary'},
+    {path: ':languageId/vocabulary/collection/:id', component: VocabularyCollectionComponent, canActivate: [AuthGuard], title: 'Collection'}
     
 ];

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SidebarComponent } from '../../shared/navigation/sidebar/sidebar.component';
 import { NavigationToggleComponent } from '../../shared/buttons/navigation-toggle/navigation-toggle.component';
 import { CommonModule } from '@angular/common';
+import { HSDropdown, HSStaticMethods } from 'preline/dist';
 
 @Component({
   selector: 'app-basic-layout',
@@ -15,6 +16,11 @@ export class BasicLayoutComponent {
 
   toggleSidebar(){
     this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  ngAfterViewInit() {
+    HSDropdown.autoInit();
+    HSStaticMethods.autoInit();
   }
 
 }

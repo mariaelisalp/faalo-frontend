@@ -7,6 +7,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 import { LanguageResponse } from '../../interfaces/response/language-response.interface';
 import { BasicLayoutComponent } from '../../basic-layout/basic-layout.component';
+import { HSStaticMethods } from 'preline/dist';
 
 @Component({
   selector: 'app-language-dashboard',
@@ -18,26 +19,30 @@ export class LanguageDashboardComponent {
   isSidebarOpen = true;
   public language!: LanguageResponse;
 
-  constructor(private activatedRoute: ActivatedRoute, private service: LanguageService){}
+  constructor(private activatedRoute: ActivatedRoute, private service: LanguageService) { }
 
 
-  toggleSidebar(){
+  toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
-  ngOnInit(){
+  ngOnInit() {
     const languageId = this.activatedRoute.snapshot.params['languageId'];
     console.log(languageId)
 
     this.getLanguage(languageId);
   }
 
-  getLanguage(id: number){
+  getLanguage(id: number) {
     return this.service.findOne(id).subscribe({
       next: (res) => {
         this.language = res.data;
         console.log(this.language);
       }
     });
+  }
+
+  ngAfterViewInit() {
+    HSStaticMethods.autoInit();
   }
 }

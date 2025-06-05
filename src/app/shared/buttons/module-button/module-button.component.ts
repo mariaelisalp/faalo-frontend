@@ -9,5 +9,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ModuleButtonComponent {
 
-  @Input() isOpen: boolean = true;
+  @Input() disabled: boolean = false;
 }
