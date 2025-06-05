@@ -22,16 +22,18 @@ import { InputButtonComponent } from '../../../shared/buttons/input-button/input
 import { ExampleTableComponent } from '../../components/example-table/example-table.component';
 import { TopicsTreeComponent } from '../../../shared/navigation/topics-tree/topics-tree.component';
 import { HSDropdown, HSOverlay } from 'preline/dist';
+import { TopicResponse } from '../../interfaces/response/topic-response.interface';
+import { TopicService } from '../../services/topic.service';
 
 @Component({
   selector: 'app-content-page',
-  imports: [ReactiveFormsModule, BasicLayoutComponent, CommonModule, RouterModule, CenterModalComponent, 
+  imports: [ReactiveFormsModule, BasicLayoutComponent, CommonModule, RouterModule, CenterModalComponent,
     TextareaComponent, InputFieldComponent, MediumLabelComponent, DangerButtonComponent, OverflowMenuComponent, NotesOffcanvasComponent,
     FormsModule, InputButtonComponent, ExampleTableComponent, TopicsTreeComponent],
   templateUrl: './content-page.component.html',
   styleUrl: './content-page.component.scss'
 })
-export class ContentPageComponent implements AfterViewInit{
+export class ContentPageComponent implements AfterViewInit {
 
   isSidebarOpen = true;
   count = 0;
@@ -41,6 +43,8 @@ export class ContentPageComponent implements AfterViewInit{
   public topicId: number;
   public moduleType: ModuleType;
   public content!: ContentResponse;
+  topics: TopicResponse[] = [];
+  selectedTopicId: number | null = null;
   html: SafeHtml = '';
 
   @ViewChild('hs-dropdown-custom-icon-trigger') modalElement!: ElementRef;
@@ -53,7 +57,7 @@ export class ContentPageComponent implements AfterViewInit{
   });
 
   constructor(private contentService: ContentService, private activatedRoute: ActivatedRoute, private router: Router,
-    private sanitizer: DomSanitizer, private location: Location, ) {
+    private sanitizer: DomSanitizer, private location: Location, private topicService: TopicService) {
 
     this.languageId = this.activatedRoute.snapshot.params['languageId'];
     this.contentId = this.activatedRoute.snapshot.params['id'];
@@ -70,12 +74,13 @@ export class ContentPageComponent implements AfterViewInit{
     }
   }
 
-  back(){
+  back() {
     this.location.back();
   }
 
   ngOnInit() {
     this.getContent();
+    this.getTopics();
 
     const inputToSave$ = this.form.valueChanges.pipe(
       debounceTime(300),
@@ -93,7 +98,7 @@ export class ContentPageComponent implements AfterViewInit{
     const savesCompleted$ = inputToSave$.pipe(
       mergeMap(value => {
         const content: Content = {
-          title: value.title ?? '',
+          title: value.title ?? 'Untitled',
           content: value.content ?? ''
         };
         return this.saveChanges(content);
@@ -118,6 +123,14 @@ export class ContentPageComponent implements AfterViewInit{
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
+
+  getTopics() {
+  this.topicService.findMany(this.languageId, this.moduleType).subscribe({
+    next: (res) => {
+      this.topics = res.data
+    }
+  });
+}
 
   saveChanges(content: Content) {
 

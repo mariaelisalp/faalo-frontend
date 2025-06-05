@@ -2,12 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModuleType } from '../../../features/enum/module-type.enum';
 import { TopicTreeNode } from '../../../features/interfaces/response/topic-tree.class';
 import { TopicService } from '../../../features/services/topic.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HSAccordion } from 'preline/dist';
 
 @Component({
   selector: 'app-topics-tree',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './topics-tree.component.html',
   styleUrl: './topics-tree.component.scss'
 })
@@ -18,6 +19,10 @@ export class TopicsTreeComponent implements OnInit{
 
   constructor(private topicService: TopicService, private activatedRoute: ActivatedRoute){
     this.languageId = this.activatedRoute.snapshot.params['languageId'];
+  }
+
+  ngAfterViewInit(): void {
+    HSAccordion.autoInit(); 
   }
 
   ngOnInit(): void {

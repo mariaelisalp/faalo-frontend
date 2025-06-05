@@ -14,11 +14,12 @@ import { Content } from '../../interfaces/content.interface';
 import { ContentResponse } from '../../interfaces/response/content-response.interface';
 import { ContentButtonComponent } from '../../../shared/buttons/content-button/content-button.component';
 import { BasicLayoutComponent } from '../../basic-layout/basic-layout.component';
+import { TopicsTreeComponent } from '../../../shared/navigation/topics-tree/topics-tree.component';
 
 @Component({
   selector: 'app-content-list',
   imports: [BasicLayoutComponent, CommonModule, InputButtonComponent,
-    CenterModalComponent, ReactiveFormsModule, InputFieldComponent, ContentButtonComponent, RouterModule],
+    CenterModalComponent, ReactiveFormsModule, InputFieldComponent, ContentButtonComponent, RouterModule, TopicsTreeComponent],
   templateUrl: './content-list.component.html',
   styleUrl: './content-list.component.scss'
 })
