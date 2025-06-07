@@ -117,7 +117,7 @@
         </ng-template>
 
         <ng-template #customFooter>
-            <app-input-button (onClick)="updateCollection()">Save changes</app-input-button>
+            <app-input-button (onClick)="updateCollection()" aria-label="Close" data-hs-overlay="#hs-scale-animation-modal">Save changes</app-input-button>
         </ng-template>
     </app-center-modal>
 
@@ -128,7 +128,7 @@
 
         <ng-template #customFooter>
             <app-input-button>Keep the resources</app-input-button>
-            <app-danger-button (onClick)="deleteCollection()" routerLink="/{{ languageId}}/vocabulary">Delete
+            <app-danger-button (onClick)="deleteCollection()" routerLink="/{{ languageId}}/vocabulary" aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Delete
                 all</app-danger-button>
         </ng-template>
     </app-center-modal>

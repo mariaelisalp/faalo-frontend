@@ -73,16 +73,9 @@
 
 
                 <form class="flex flex-row gap-2 justify-end items-center">
-                    <app-input-field placeholder="Search" id="search"></app-input-field>
+                    <app-input-field placeholder="Search" id="search" [(ngModel)]="searchTerm"
+                        name="search"></app-input-field>
 
-                    <app-input-button class="w-12 h-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
-                            stroke="currentColor"
-                            class="size-10 text-white focus:text-[var(--color-secondary)] dark:text-neutral-200">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                        </svg>
-                    </app-input-button>
                 </form>
 
 
@@ -100,7 +93,7 @@
 
             </div>
 
-            <app-resource-table *ngIf="resources.length > 0" [resourceList]="resources"
+            <app-resource-table *ngIf="filteredResources.length > 0" [resourceList]="filteredResources"
                 (editResource)="handleEdit($event)"></app-resource-table>
         </div>
 
@@ -182,7 +175,8 @@
 
         <ng-template #customFooter>
 
-            <app-input-button (click)="create()">Save</app-input-button>
+            <app-input-button (click)="create()" aria-label="Close"
+                data-hs-overlay="#hs-medium-modal">Save</app-input-button>
 
         </ng-template>
 
@@ -197,7 +191,8 @@
         </ng-template>
 
         <ng-template #customFooter>
-            <app-input-button (onClick)="createCollection()">Save</app-input-button>
+            <app-input-button (onClick)="createCollection()" aria-label="Close"
+                data-hs-overlay="#hs-scale-animation-modal">Save</app-input-button>
         </ng-template>
     </app-center-modal>
 

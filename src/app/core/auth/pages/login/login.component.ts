@@ -2,7 +2,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../auth.service';
 import { Login } from '../../../interfaces/login.interface';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputFieldComponent } from '../../../../shared/fields/input-field/input-field.component';
 import { InputButtonComponent } from '../../../../shared/buttons/input-button/input-button.component';
 import { Router, RouterModule } from '@angular/router';
@@ -10,6 +10,8 @@ import { FormLabelComponent } from '../../../../shared/labels/form-label/form-la
 import { Title } from '@angular/platform-browser';
 import { HSStaticMethods } from 'preline/dist';
 import { PasswordInputFieldComponent } from '../../../../shared/fields/password-input-field/password-input-field.component';
+import { TypeWriterService } from '../../../../features/services/type-writer.service';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -18,18 +20,20 @@ import { PasswordInputFieldComponent } from '../../../../shared/fields/password-
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements AfterViewInit{
+export class LoginComponent implements AfterViewInit {
 
   showPassword = false;
   errorMessage: string = '';
+  slogan: string = "One language at a time, in your way"
+  typed$!: Observable<String>;
 
   forms = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)])
-    }
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)])
+  }
   )
-  
-  constructor(private service: AuthService, private title: Title, private router: Router){}
+
+  constructor(private service: AuthService, private title: Title, private router: Router, private typeWriter: TypeWriterService) { }
 
   ngAfterViewInit(): void {
     if (typeof HSStaticMethods !== 'undefined') {
@@ -37,17 +41,25 @@ export class LoginComponent implements AfterViewInit{
     }
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.title.setTitle('Login');
+    this.sloganTyping();
   }
 
-  togglePassword(){
+  sloganTyping() {
+    this.typed$ = this.typeWriter
+
+      .getTypewriterEffect(['One language at a time...', '...in your way.'])
+      .pipe(map((text) => text));
+  }
+
+  togglePassword() {
     this.showPassword = !this.showPassword;
   }
 
-  login(){
-    
-    if(this.forms.invalid){
+  login() {
+
+    if (this.forms.invalid) {
       return;
     }
 

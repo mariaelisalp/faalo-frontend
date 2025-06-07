@@ -16,6 +16,7 @@ import { CollectionPageComponent } from './features/pages/collection-page/collec
 import { VocabularyListComponent } from './features/pages/vocabulary-list/vocabulary-list.component';
 import { VocabularyPageComponent } from './features/pages/vocabulary-page/vocabulary-page.component';
 import { VocabularyCollectionComponent } from './features/pages/vocabulary-collection/vocabulary-collection.component';
+import { UserProfileComponent } from './core/user/pages/user-profile/user-profile.component';
 
 export const routes: Routes = [
     {path: 'register', component: RegisterComponent, canActivate: [IsSignedIn]},
@@ -31,6 +32,7 @@ export const routes: Routes = [
     {path: ':languageId/resources/:collectionId', component: CollectionPageComponent, canActivate: [AuthGuard], title: 'Resources: collection'},
     {path: ':languageId/vocabulary', component: VocabularyListComponent, canActivate: [AuthGuard], title: 'Vocabulary'},
     {path: ':languageId/vocabulary/:id', component: VocabularyPageComponent, canActivate: [AuthGuard], title: 'Vocabulary'},
-    {path: ':languageId/vocabulary/collection/:id', component: VocabularyCollectionComponent, canActivate: [AuthGuard], title: 'Collection'}
+    {path: ':languageId/vocabulary/collection/:id', component: VocabularyCollectionComponent, canActivate: [AuthGuard], title: 'Collection'},
+    {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard], title: 'My Account'}
     
 ];

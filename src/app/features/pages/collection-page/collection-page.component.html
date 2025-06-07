@@ -67,16 +67,8 @@
                 </p>
 
                 <form class="flex flex-row gap-2 justify-end items-center">
-                    <app-input-field placeholder="Search" id="search"></app-input-field>
-
-                    <app-input-button class="w-12 h-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
-                            stroke="currentColor"
-                            class="size-10 text-white focus:text-[var(--color-secondary)] dark:text-neutral-200">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                        </svg>
-                    </app-input-button>
+                    <app-input-field placeholder="Search" id="search" [(ngModel)]="searchTerm"
+                        name="search"></app-input-field>
                 </form>
 
             </div>
@@ -94,7 +86,8 @@
 
             </div>
 
-            <app-resource-table *ngIf="resources.length > 0" [resourceList]="resources"></app-resource-table>
+            <app-resource-table *ngIf="filteredResources.length > 0" [resourceList]="filteredResources"
+                (editResource)="handleEdit($event)"></app-resource-table>
         </div>
 
 
@@ -111,18 +104,20 @@
         </ng-template>
 
         <ng-template #customFooter>
-            <app-input-button (onClick)="saveCollectionChange()">Save changes</app-input-button>
+            <app-input-button (onClick)="saveCollectionChange()" aria-label="Close" data-hs-overlay="#hs-scale-animation-modal">Save changes</app-input-button>
         </ng-template>
     </app-center-modal>
 
     <app-center-modal id="hs-delete-animation-modal" title="Delete">
         <ng-template #customContent>
-            <p>Are you sure you want to delete this collection? You won't be able to recover it unless you keep the resources (they will appear in the root).</p>
+            <p>Are you sure you want to delete this collection? You won't be able to recover it unless you keep the
+                resources (they will appear in the root).</p>
         </ng-template>
 
         <ng-template #customFooter>
             <app-input-button>Keep the resources</app-input-button>
-            <app-danger-button (onClick)="deleteCollection()" routerLink="/{{ languageId}}/resources">Delete all</app-danger-button>
+            <app-danger-button (onClick)="deleteCollection()" routerLink="/{{ languageId}}/resources" aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Delete
+                all</app-danger-button>
         </ng-template>
     </app-center-modal>
 
@@ -132,10 +127,11 @@
         </ng-template>
 
         <ng-template #customFooter>
-            <app-danger-button (onClick)="deleteResource()" routerLink="/{{ languageId}}/resources">Delete</app-danger-button>
+            <app-danger-button (onClick)="deleteResource()"
+                routerLink="/{{ languageId}}/resources">Delete</app-danger-button>
         </ng-template>
     </app-center-modal>
 
-    
+
 
 </app-basic-layout>

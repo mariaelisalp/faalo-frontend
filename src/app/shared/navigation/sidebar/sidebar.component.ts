@@ -5,8 +5,7 @@ import { NavigationToggleComponent } from '../../buttons/navigation-toggle/navig
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { TokenService } from '../../../core/auth/token.service';
-import { UserService } from '../../../core/auth/user.service';
-import { HSDropdown, HSStaticMethods } from 'preline/dist';
+import { UserService } from '../../../core/user/services/user.service';
 
 @Component({
   selector: 'app-sidebar',

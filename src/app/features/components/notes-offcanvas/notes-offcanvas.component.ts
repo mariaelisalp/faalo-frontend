@@ -68,8 +68,8 @@ export class NotesOffcanvasComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.error('Erro ao carregar notas:', err);
-      }
+        this.notes = [];
+      },
     });
   }
 

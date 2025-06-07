@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ResourceService } from '../../services/resource.service';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BasicLayoutComponent } from '../../basic-layout/basic-layout.component';
 import { CommonModule, Location } from '@angular/common';
 import { EditableTableComponent } from '../../../shared/tables/editable-table/editable-table.component';
@@ -27,7 +27,7 @@ declare var HSOverlay: any;
   selector: 'app-resource-list',
   imports: [BasicLayoutComponent, CommonModule, ResourceTableComponent, InputButtonComponent, InputFieldComponent, MediumModalComponent,
     FormLabelComponent, ReactiveFormsModule, SelectFieldComponent, FileUploadComponent, CenterModalComponent, LanguageButtonComponent,
-    RouterModule, 
+    RouterModule, FormsModule
   ],
   templateUrl: './resource-list.component.html',
   styleUrl: './resource-list.component.scss'
@@ -39,6 +39,7 @@ export class ResourceListComponent {
   selectedType: string = '';
   selectedFile: File | null = null;
   languageId: number;
+  searchTerm: string = '';
 
   modalIsOpen = false;
 
@@ -75,6 +76,17 @@ export class ResourceListComponent {
     this.getCollections();
     this.getResources();
 
+  }
+
+  get filteredResources() {
+    if (!this.searchTerm.trim()) {
+      return this.resources;
+    }
+
+    return this.resources.filter(resource =>
+      resource.name.toLowerCase().includes(this.searchTerm) ||
+      resource.access.toLowerCase().includes(this.searchTerm)
+    );
   }
 
   onFileSelected(file: File) {

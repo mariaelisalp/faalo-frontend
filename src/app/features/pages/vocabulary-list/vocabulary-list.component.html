@@ -112,7 +112,7 @@
         </ng-template>
 
         <ng-template #customFooter>
-            <app-input-button (onClick)="createVocabulary()">Save</app-input-button>
+            <app-input-button (onClick)="createVocabulary()" aria-label="Close" data-hs-overlay="#hs-scale-animation-modal">Save</app-input-button>
         </ng-template>
     </app-center-modal>
 
@@ -125,7 +125,7 @@
         </ng-template>
 
         <ng-template #customFooter>
-            <app-input-button (onClick)="createCollection()">Save</app-input-button>
+            <app-input-button (onClick)="createCollection()" aria-label="Close" data-hs-overlay="#hs-col-animation-modal">Save</app-input-button>
         </ng-template>
     </app-center-modal>
 

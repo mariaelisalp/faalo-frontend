@@ -11,7 +11,7 @@ import { ResourceResponse } from '../../interfaces/response/resource-response.in
 import { TopicService } from '../../services/topic.service';
 import { ModuleType } from '../../enum/module-type.enum';
 import { ResourceTableComponent } from '../../../shared/tables/resource-table/resource-table.component';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormLabelComponent } from '../../../shared/labels/form-label/form-label.component';
 import { FileUploadComponent } from '../../../shared/upload/file-upload/file-upload.component';
 import { CenterModalComponent } from '../../../shared/modals/center-modal/center-modal.component';
@@ -27,18 +27,18 @@ declare global {
 @Component({
   selector: 'app-collection-page',
   imports: [BasicLayoutComponent, InputButtonComponent,FileUploadComponent, CenterModalComponent, FormLabelComponent, InputFieldComponent, 
-    ResourceTableComponent, MediumModalComponent, CommonModule, ReactiveFormsModule, RouterModule, DangerButtonComponent],
+    ResourceTableComponent, MediumModalComponent, CommonModule, ReactiveFormsModule, RouterModule, DangerButtonComponent, FormsModule],
   templateUrl: './collection-page.component.html',
   styleUrl: './collection-page.component.scss'
 })
 export class CollectionPageComponent {
   languageId: number;
   collectionId: number
-  //collections: TopicResponse[] = '';
   name?: string;
   selectedType: string = '';
   resources: ResourceResponse[] = [];
   modalIsOpen = false;
+  searchTerm: string = '';
 
   @ViewChild('hsScaleAnimationModal') modalElement!: ElementRef;
 
@@ -62,6 +62,17 @@ export class CollectionPageComponent {
 
   back(){
     this.location.back()
+  }
+
+   get filteredResources() {
+    if (!this.searchTerm.trim()) {
+      return this.resources;
+    }
+
+    return this.resources.filter(resource =>
+      resource.name.toLowerCase().includes(this.searchTerm) ||
+      resource.access.toLowerCase().includes(this.searchTerm)
+    );
   }
 
   getResources(){

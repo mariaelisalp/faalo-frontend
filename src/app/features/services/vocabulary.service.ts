@@ -36,6 +36,7 @@ export class VocabularyService {
     }
 
     delete(languageId: number, id: number){
+        console.log(languageId, id)
         return this.http.delete(`api/${languageId}/vocabulary/${id}`);
     }
 

@@ -76,7 +76,7 @@ export class VocabularyListComponent {
 
     this.topicService.create(collection, this.languageId).subscribe({
       next: (res) => {
-
+        this.getCollections();
       }
     })
   }

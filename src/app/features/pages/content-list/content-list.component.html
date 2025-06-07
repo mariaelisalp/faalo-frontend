@@ -33,7 +33,7 @@
 
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <app-input-button (onClick)="addContentPage()" class="w-40 h-20">
+                    <app-input-button (onClick)="addContentPage()">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -43,7 +43,7 @@
 
                     </app-input-button>
 
-                    <app-input-button class="w-35 h-20" aria-haspopup="dialog" aria-expanded="false"
+                    <app-input-button aria-haspopup="dialog" aria-expanded="false"
                         aria-controls="hs-scale-animation-modal" data-hs-overlay="#hs-scale-animation-modal">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
@@ -128,7 +128,7 @@
                 </ng-template>
 
                 <ng-template #customFooter>
-                    <app-input-button (onClick)="createTopic()">Save</app-input-button>
+                    <app-input-button (onClick)="createTopic()" aria-label="Close" data-hs-overlay="#hs-scale-animation-modal">Save</app-input-button>
                 </ng-template>
             </app-center-modal>
 

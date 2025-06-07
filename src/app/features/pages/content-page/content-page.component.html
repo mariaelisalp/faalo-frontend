@@ -50,10 +50,12 @@
 
                     </app-input-field>
 
+                    <div>
+                        <app-medium-label class="pb-5">Content</app-medium-label>
 
-
-                    <app-textarea placeholder="Type anything you want here" id="content" formControlName="content"
-                        name="content" (input)="updatePreview(form.get('content')?.value || '')"></app-textarea>
+                        <app-textarea placeholder="Type anything you want here" id="content" formControlName="content"
+                            name="content" (input)="updatePreview(form.get('content')?.value || '')"></app-textarea>
+                    </div>
 
                     <!--<div class="prose max-w-none dark:prose-invert mt-8" [innerHTML]="html"></div>-->
 

@@ -15,6 +15,7 @@ import { ContentResponse } from '../../interfaces/response/content-response.inte
 import { ContentButtonComponent } from '../../../shared/buttons/content-button/content-button.component';
 import { BasicLayoutComponent } from '../../basic-layout/basic-layout.component';
 import { TopicsTreeComponent } from '../../../shared/navigation/topics-tree/topics-tree.component';
+import { HSAccordion } from 'preline/dist';
 
 @Component({
   selector: 'app-content-list',
@@ -65,6 +66,10 @@ export class ContentListComponent {
 
     });
 
+  }
+
+  ngAfterViewInit(): void {
+    HSAccordion.autoInit();
   }
 
   createTopic() {
@@ -138,7 +143,7 @@ export class ContentListComponent {
     if (this.topicId) {
       this.contentService.create(content, this.languageId,).subscribe({
         next: (res) => {
-          this.router.navigate([`/${this.languageId}/content/${res.data.id}`], { queryParams: { topic: this.topicId }});
+          this.router.navigate([`/${this.languageId}/content/${res.data.id}`], { queryParams: { topic: this.topicId } });
         }
       });
     }
