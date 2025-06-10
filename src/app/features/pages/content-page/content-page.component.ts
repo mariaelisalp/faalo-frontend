@@ -24,12 +24,13 @@ import { TopicsTreeComponent } from '../../../shared/navigation/topics-tree/topi
 import { HSDropdown, HSOverlay } from 'preline/dist';
 import { TopicResponse } from '../../interfaces/response/topic-response.interface';
 import { TopicService } from '../../services/topic.service';
+import { TranslatorComponent } from '../../components/translator/translator.component';
 
 @Component({
   selector: 'app-content-page',
   imports: [ReactiveFormsModule, BasicLayoutComponent, CommonModule, RouterModule, CenterModalComponent,
     TextareaComponent, InputFieldComponent, MediumLabelComponent, DangerButtonComponent, OverflowMenuComponent, NotesOffcanvasComponent,
-    FormsModule, InputButtonComponent, ExampleTableComponent, TopicsTreeComponent],
+    FormsModule, InputButtonComponent, ExampleTableComponent, TopicsTreeComponent, TranslatorComponent],
   templateUrl: './content-page.component.html',
   styleUrl: './content-page.component.scss'
 })

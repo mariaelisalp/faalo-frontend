@@ -9,8 +9,8 @@ import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
 })
 export class RightOffcanvasComponent {
 
-  @Input() title: string = '';
-  @Input() id?: string;
+  @Input() offcanvasId: string = 'hs-offcanvas-right'; 
+  @Input() title: string = 'Título';
 
   @ContentChild('customContent') customContent!: TemplateRef<any>;
 
