@@ -68,11 +68,8 @@ export class ContentPageComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-
-    if (typeof HSOverlay || typeof HSDropdown !== 'undefined') {
-      HSOverlay.autoInit();
-      HSDropdown.autoInit();
-    }
+    HSOverlay.autoInit();
+    HSDropdown.autoInit();
   }
 
   back() {
@@ -126,12 +123,12 @@ export class ContentPageComponent implements AfterViewInit {
   }
 
   getTopics() {
-  this.topicService.findMany(this.languageId, this.moduleType).subscribe({
-    next: (res) => {
-      this.topics = res.data
-    }
-  });
-}
+    this.topicService.findMany(this.languageId, this.moduleType).subscribe({
+      next: (res) => {
+        this.topics = res.data
+      }
+    });
+  }
 
   saveChanges(content: Content) {
 

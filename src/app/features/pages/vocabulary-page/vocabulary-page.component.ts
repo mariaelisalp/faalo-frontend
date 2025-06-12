@@ -16,15 +16,17 @@ import { FormLabelComponent } from '../../../shared/labels/form-label/form-label
 import { WordResponse } from '../../interfaces/response/word-response.interface';
 import { ModuleType } from '../../enum/module-type.enum';
 import { NotesOffcanvasComponent } from '../../components/notes-offcanvas/notes-offcanvas.component';
-import { HSOverlay, HSTooltip } from 'preline/dist';
+import { HSDropdown, HSOverlay, HSStaticMethods, HSTooltip } from 'preline/dist';
 import { DangerButtonComponent } from '../../../shared/buttons/danger-button/danger-button.component';
 import { VocabularyService } from '../../services/vocabulary.service';
 import { Vocabulary } from '../../interfaces/vocabulary.interface';
+import { TranslatorComponent } from '../../components/translator/translator.component';
 
 @Component({
   selector: 'app-vocabulary-page',
   imports: [BasicLayoutComponent, SecondaryButtonComponent, RoundedButtonComponent, CenterModalComponent, ReactiveFormsModule,
-    InputFieldComponent, NoteFieldComponent, InputButtonComponent, FormLabelComponent, CommonModule, NotesOffcanvasComponent, DangerButtonComponent, RouterModule],
+    InputFieldComponent, NoteFieldComponent, InputButtonComponent, FormLabelComponent, CommonModule, NotesOffcanvasComponent, 
+    DangerButtonComponent, RouterModule, TranslatorComponent],
   templateUrl: './vocabulary-page.component.html',
   styleUrl: './vocabulary-page.component.scss'
 })
@@ -35,6 +37,7 @@ export class VocabularyPageComponent {
   languageId: number;
   vocabularyId: number
   moduleType = ModuleType.VOCABULARY;
+  isPopoverOpenIndex: number | null = null;
 
   constructor(private location: Location, private wordService: WordService, private route: ActivatedRoute, private router: Router, private vocabularyService: VocabularyService) {
     this.languageId = this.route.snapshot.params['languageId'];
@@ -68,8 +71,9 @@ export class VocabularyPageComponent {
   }
 
   ngAfterViewInit() {
+    HSStaticMethods.autoInit();
     HSOverlay.autoInit();
-    HSTooltip.autoInit();
+    HSDropdown.autoInit();
   }
 
   createWord() {
@@ -137,8 +141,48 @@ export class VocabularyPageComponent {
 
   }
 
-  updateWord() { }
+  togglePopover(index: number): void {
+    if (this.isPopoverOpenIndex == index) {
+      this.isPopoverOpenIndex = null; 
+    } else {
+      this.isPopoverOpenIndex = index; 
+    }
+  }
 
-  deleteWord() { }
+  isPopoverOpen(index: number): boolean {
+    return this.isPopoverOpenIndex == index;
+  }
+
+  updateWord() {
+    /*this.wordService.findOne(this.vocabularyId, id).subscribe({
+      next: (res) => {
+        this.editWordForm.patchValue({
+          word: res.data.word,
+          translation: res.data.translation,
+          definition: res.data.definition
+        });
+      }
+    });
+
+    if(this.editWordForm.invalid){
+      return;
+    }
+
+    const word: Word = {
+      word: this.editWordForm.get('word')?.value || '',
+      translation: this.editWordForm.get('translation')?.value || '',
+      definition: this.editWordForm.get('definition')?.value || ''
+    }
+
+    this.wordService.update(word, this.vocabularyId, id).subscribe();*/
+  }
+
+  deleteWord(id: number) {
+    this.wordService.delete(this.vocabularyId, id).subscribe({
+      next: () => {
+        
+      }
+    });
+  }
 
 }

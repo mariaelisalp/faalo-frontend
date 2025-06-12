@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import { HSOverlay } from 'preline/dist';
 
 @Component({
   selector: 'app-medium-modal',
@@ -14,4 +15,8 @@ export class MediumModalComponent {
 
   @ContentChild('customContent') customContent!: TemplateRef<any>;
   @ContentChild('customFooter') customFooter!: TemplateRef<any>;
+
+  ngAfterViewInit(){
+    HSOverlay.autoInit();
+  }
 }

@@ -22,12 +22,13 @@ export class EmailVerificationComponent {
   });
 
   errorMessage: string = '';
+  verified = false;
 
-  constructor(private service: AuthService, private router: Router){}
+  constructor(private service: AuthService, private router: Router) { }
 
-  sendCode(){
+  sendCode() {
 
-    if(this.form.invalid){
+    if (this.form.invalid) {
       return;
     }
 
@@ -39,9 +40,15 @@ export class EmailVerificationComponent {
 
     return this.service.sendVerificationCode(code).subscribe({
       next: (res) => {
-        this.router.navigate(['/home']);
+        console.log(res)
+        this.verified = true;
+        
+        setTimeout(() => {
+          this.router.navigate(['/home']);
+        }, 3000);
       },
       error: (err) => {
+        console.log(err)
         this.errorMessage = err.message;
       },
     })

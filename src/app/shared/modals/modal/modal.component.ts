@@ -1,23 +1,24 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, ContentChild, ElementRef, Input, TemplateRef, ViewChild } from '@angular/core';
+import { HSOverlay } from 'preline/dist';
 
 @Component({
   selector: 'app-modal',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss'
 })
 export class ModalComponent {
-  @ViewChild('modal') private modal!: ElementRef;
+  @Input() id?: string;
+  @Input() title?: string;
+  @Input() content?: string;
 
-  open(){
-    const modal = this.modal.nativeElement;
-    modal.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
-    modal.classList.add('opacity-100');
+  @ContentChild('customContent') customContent!: TemplateRef<any>;
+  @ContentChild('customFooter') customFooter!: TemplateRef<any>;
+
+  ngOnInit(){
+    HSOverlay.autoInit();
   }
 
-  close(){
-    const modal = this.modal.nativeElement;
-    modal.classList.remove('opacity-100');
-    modal.classList.add('opacity-0', 'pointer-events-none');
-  }
+  
 }

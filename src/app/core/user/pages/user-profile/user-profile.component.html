@@ -17,7 +17,8 @@
             </svg>
         </div>
 
-        <div (click)="signOut()" class="flex flex-row gap-1 items-center hover:bg-gray-100 hover:rounded-lg p-2 cursor-pointer">
+        <div (click)="signOut()"
+            class="flex flex-row gap-1 items-center hover:bg-gray-100 hover:rounded-lg p-2 cursor-pointer">
             <p class="font-semibold text-sm text-red-700 dark:text-red-200">
                 Sign out
             </p>
@@ -44,8 +45,29 @@
                 </div>
 
                 <div>
-                    <app-form-label>Email</app-form-label>
-                    <app-input-field placeholder="type name" formControlName="email"></app-input-field>
+                    <app-form-label class="flex-1">Email</app-form-label>
+
+                    <div class="flex flex-row gap-1 items-center w-full">
+                        <app-input-field placeholder="type name" formControlName="email"></app-input-field>
+
+                        <div *ngIf="user.isVerified == false" class="hs-tooltip [--placement:right] inline-block">
+                            <button type="button" class="hs-tooltip-toggle items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-7 text-[var(--color-secondary)] dark:text-white cursor-pointer">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                                </svg>
+
+                                <span
+                                    class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-neutral-700"
+                                    role="tooltip">
+                                    Please verify your email.
+                                </span>
+                            </button>
+
+                        </div>
+                    </div>
+
 
                     <p class="text-sm ml-2 pt-2 text-red-500"
                         *ngIf="form.get('email')?.touched && form.get('email')?.hasError('email')">

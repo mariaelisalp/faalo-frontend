@@ -11,12 +11,13 @@ import { Title } from '@angular/platform-browser';
 import { PasswordInputFieldComponent } from '../../../../shared/fields/password-input-field/password-input-field.component';
 import { CommonModule } from '@angular/common';
 import { passwordMatchValidator } from '../../validators/password-match.validator';
+import { SpinnerComponent } from '../../../../shared/elements/spinner/spinner.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [ReactiveFormsModule, SecondInputFieldComponent, FormLabelComponent, InputButtonComponent, 
-    UploadProfilePhotoComponent, RouterModule, PasswordInputFieldComponent, CommonModule],
+    UploadProfilePhotoComponent, RouterModule, PasswordInputFieldComponent, CommonModule, SpinnerComponent],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
@@ -32,6 +33,7 @@ export class RegisterComponent{
     {validators: passwordMatchValidator}
   )
 
+  sent = false;
   errorMessage: string = '';
 
   constructor(private service: AuthService, private title: Title, private router: Router) {}
@@ -41,10 +43,10 @@ export class RegisterComponent{
   }
 
   create() {
-
-    console.log('create chamada');
+    this.sent = true;
 
     if(this.forms.invalid){
+      this.sent = false;
       return;
     }
 
@@ -64,6 +66,7 @@ export class RegisterComponent{
           this.router.navigate(['/email-verification']);
         },
         error: (err) => {
+          this.sent = false
           this.errorMessage = err.message;
         }
       }

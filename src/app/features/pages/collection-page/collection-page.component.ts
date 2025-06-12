@@ -26,7 +26,7 @@ declare global {
 
 @Component({
   selector: 'app-collection-page',
-  imports: [BasicLayoutComponent, InputButtonComponent,FileUploadComponent, CenterModalComponent, FormLabelComponent, InputFieldComponent, 
+  imports: [BasicLayoutComponent, InputButtonComponent, FileUploadComponent, CenterModalComponent, FormLabelComponent, InputFieldComponent,
     ResourceTableComponent, MediumModalComponent, CommonModule, ReactiveFormsModule, RouterModule, DangerButtonComponent, FormsModule],
   templateUrl: './collection-page.component.html',
   styleUrl: './collection-page.component.scss'
@@ -50,32 +50,37 @@ export class CollectionPageComponent {
     collection: new FormControl('', Validators.required)
   })
 
-  constructor(private location: Location, private resourceService: ResourceService, private activatedRoute: ActivatedRoute, private topic: TopicService){
+  constructor(private location: Location, private resourceService: ResourceService, private activatedRoute: ActivatedRoute, private topic: TopicService) {
     this.languageId = this.activatedRoute.snapshot.params['languageId'];
     this.collectionId = this.activatedRoute.snapshot.params['collectionId'];
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getResources();
     this.getCollection();
   }
 
-  back(){
+  back() {
     this.location.back()
   }
 
-   get filteredResources() {
+  get filteredResources() {
     if (!this.searchTerm.trim()) {
       return this.resources;
     }
 
     return this.resources.filter(resource =>
       resource.name.toLowerCase().includes(this.searchTerm) ||
-      resource.access.toLowerCase().includes(this.searchTerm)
+      (
+        resource.type === 'URL'
+          ? resource.access?.toLowerCase().includes(this.searchTerm)
+          : resource.fileName?.toLowerCase().includes(this.searchTerm)
+      )
+
     );
   }
 
-  getResources(){
+  getResources() {
     this.resourceService.findMany(this.languageId, this.collectionId).subscribe({
       next: (res) => {
         this.resources = res.data
@@ -83,7 +88,7 @@ export class CollectionPageComponent {
     })
   }
 
-  getCollection(){
+  getCollection() {
     this.topic.findOne(this.languageId, this.collectionId, ModuleType.RESOURCE).subscribe({
       next: (res) => {
         this.name = res.data.name;
@@ -93,17 +98,17 @@ export class CollectionPageComponent {
   }
 
   handleEdit(resource: ResourceResponse) {
-  this.collectionForm.patchValue({
-    collection: resource.name 
-  });
+    this.collectionForm.patchValue({
+      collection: resource.name
+    });
 
-  const modal = window.HSOverlay?.getInstance('#hs-scale-animation-modal');
-  modal?.open();
-}
+    const modal = window.HSOverlay?.getInstance('#hs-scale-animation-modal');
+    modal?.open();
+  }
 
-  saveResourceChanges(){}
+  saveResourceChanges() { }
 
-  saveCollectionChange(){
+  saveCollectionChange() {
     const collection = {
       name: this.collectionForm.get('collection')?.value || ''
     }
@@ -115,14 +120,14 @@ export class CollectionPageComponent {
     })
   }
 
-  moveResourcesToRoot(){
+  moveResourcesToRoot() {
     //this.resourceService.update
   }
 
-  deleteCollection(){
+  deleteCollection() {
     this.topic.delete(this.languageId, this.collectionId).subscribe();
   }
 
-  deleteResource(){}
+  deleteResource() { }
 
 }

@@ -7,10 +7,12 @@ import { Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../../../../shared/modals/modal/modal.component';
 import { ErrorMessageComponent } from '../../../../shared/error-message/error-message.component';
+import { HSOverlay } from 'preline/dist';
+import { CenterModalComponent } from '../../../../shared/modals/center-modal/center-modal.component';
 
 @Component({
   selector: 'app-password-reset-email',
-  imports: [InputFieldComponent, InputButtonComponent, ReactiveFormsModule, CommonModule, ModalComponent, ErrorMessageComponent],
+  imports: [InputFieldComponent, InputButtonComponent, ReactiveFormsModule, CommonModule, ModalComponent, ErrorMessageComponent, CenterModalComponent],
   templateUrl: './password-reset-email.component.html',
   styleUrl: './password-reset-email.component.scss'
 })
@@ -22,11 +24,11 @@ export class PasswordResetEmailComponent {
 
   sent = false;
   errorMessage: string = '';
-  @ViewChild(ModalComponent) modal!: ModalComponent
 
   constructor(private service: AuthService, private title: Title,){}
 
   ngOnInit(){
+    HSOverlay.autoInit();
     this.title.setTitle('Forgot my password');
   }
 
@@ -42,7 +44,6 @@ export class PasswordResetEmailComponent {
     return this.service.sendResetPasswordEmail(email).subscribe({
       next: () => {
         this.sent = true;
-        this.modal.open();
       },
       error: (err) => {
         if(err.status == 404){

@@ -11,8 +11,8 @@
                                 <td class="px-4 py-4 text-sm text-gray-800 dark:text-neutral-200">
                                     {{ example.content }}
                                 </td>
-                                <td class="px-6 py-4 text-end text-sm">
-                                    <button type="button"
+                                <td class="flex px-6 py-4 text-end text-sm items-center">
+                                    <button type="button" (click)="onEdit(example)"
                                         class="pr-2 text-neutral-800 hover:text-blue-800 dark:text-neutral-200 dark:hover:text-white">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-5">
@@ -22,7 +22,7 @@
 
                                     </button>
 
-                                    <button type="button"
+                                    <button type="button" (click)="onDelete(example)"
                                         class="text-neutral-800 hover:text-red-800 dark:text-neutral-200 dark:hover:text-red-400">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-6">

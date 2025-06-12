@@ -9,7 +9,7 @@ import { VocabularyService } from '../../services/vocabulary.service';
 import { InputFieldComponent } from '../../../shared/fields/input-field/input-field.component';
 import { InputButtonComponent } from '../../../shared/buttons/input-button/input-button.component';
 import { DangerButtonComponent } from '../../../shared/buttons/danger-button/danger-button.component';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ModuleType } from '../../enum/module-type.enum';
 import { ImageCardComponent } from '../../../shared/buttons/image-card/image-card.component';
 import { HSDropdown, HSOverlay, HSStaticMethods } from 'preline/dist';
@@ -17,7 +17,7 @@ import { HSDropdown, HSOverlay, HSStaticMethods } from 'preline/dist';
 @Component({
   selector: 'app-vocabulary-collection',
   imports: [BasicLayoutComponent, CommonModule, CenterModalComponent, InputFieldComponent, InputButtonComponent, DangerButtonComponent,
-    ReactiveFormsModule, RouterModule, ImageCardComponent],
+    ReactiveFormsModule, RouterModule, ImageCardComponent, FormsModule],
   templateUrl: './vocabulary-collection.component.html',
   styleUrl: './vocabulary-collection.component.scss'
 })
@@ -26,6 +26,7 @@ export class VocabularyCollectionComponent {
   vocabularies: VocabularyResponse[] = [];
   languageId: number;
   collectionId: number;
+  searchTerm: string = '';
 
   constructor(private route: ActivatedRoute, private topicService: TopicService, private vocabularyService: VocabularyService, private location: Location) {
     this.name = this.route.snapshot.queryParams['name'];
@@ -44,6 +45,17 @@ export class VocabularyCollectionComponent {
 
   ngOnInit() {
     this.getVocabularies();
+    this.getCollection();
+  }
+
+  get filteredVocabularies() {
+    if (!this.searchTerm.trim()) {
+      return this.vocabularies;
+    }
+
+    return this.vocabularies.filter(vocabulary =>
+      vocabulary.name.toLowerCase().includes(this.searchTerm)
+    );
   }
 
   getVocabularies() {
@@ -58,7 +70,7 @@ export class VocabularyCollectionComponent {
     this.topicService.findOne(this.languageId, this.collectionId, ModuleType.VOCABULARY).subscribe({
       next: (res) => {
         this.name = res.data.name;
-        this.collectionForm.get('collection')?.setValue(this.name);
+        this.collectionForm.get('collection')?.patchValue(this.name);
       }
     })
   }

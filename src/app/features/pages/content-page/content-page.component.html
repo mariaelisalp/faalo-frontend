@@ -57,10 +57,9 @@
                             name="content" (input)="updatePreview(form.get('content')?.value || '')"></app-textarea>
                     </div>
 
-                    <!--<div class="prose max-w-none dark:prose-invert mt-8" [innerHTML]="html"></div>-->
 
-                    <app-example-table *ngIf="contentId && moduleType" [moduleId]="contentId"
-                        [moduleType]="moduleType"></app-example-table>
+                    <!--<app-example-table *ngIf="contentId && moduleType" [moduleId]="contentId"
+                        [moduleType]="moduleType"></app-example-table>-->
 
                 </div>
             </form>
@@ -98,8 +97,7 @@
         </div>
     </div>
 
-    <app-notes-offcanvas [moduleId]="+contentId"
-        [moduleType]="moduleType"></app-notes-offcanvas>
+    <app-notes-offcanvas [moduleId]="+contentId" [moduleType]="moduleType"></app-notes-offcanvas>
 
     <app-translator></app-translator>
 

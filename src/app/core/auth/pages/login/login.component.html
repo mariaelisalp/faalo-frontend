@@ -62,7 +62,12 @@
                 
 
                 <div class="mb-2">
-                    <app-input-button class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2" type="submit" >Sign in</app-input-button>
+                    <app-input-button class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2" type="submit" [disabled]="forms.invalid">
+                        <div *ngIf="!sent">Sign in</div>
+
+                        <app-spinner *ngIf="sent" class="flex items-center"></app-spinner>
+                    </app-input-button>
+
                 </div>
 
             </form>

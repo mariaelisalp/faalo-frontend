@@ -65,6 +65,7 @@ export class VocabularyListComponent {
   }
 
   createCollection() {
+    console.log('está sendo chamada')
     if (this.formCol.invalid) {
       return;
     }

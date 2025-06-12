@@ -3,7 +3,6 @@ import { ResourceService } from '../../services/resource.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BasicLayoutComponent } from '../../basic-layout/basic-layout.component';
 import { CommonModule, Location } from '@angular/common';
-import { EditableTableComponent } from '../../../shared/tables/editable-table/editable-table.component';
 import { ResourceResponse } from '../../interfaces/response/resource-response.interface';
 import { InputButtonComponent } from '../../../shared/buttons/input-button/input-button.component';
 import { InputFieldComponent } from '../../../shared/fields/input-field/input-field.component';
@@ -12,7 +11,6 @@ import { MediumModalComponent } from '../../../shared/modals/medium-modal/medium
 import { FormLabelComponent } from '../../../shared/labels/form-label/form-label.component';
 import { SelectFieldComponent } from '../../../shared/fields/select-field/select-field.component';
 import { FileUploadComponent } from '../../../shared/upload/file-upload/file-upload.component';
-import { Resource } from '../../interfaces/resource.interface';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CenterModalComponent } from '../../../shared/modals/center-modal/center-modal.component';
 import { TopicService } from '../../services/topic.service';
@@ -20,7 +18,6 @@ import { Topic } from '../../interfaces/topic.interface';
 import { ModuleType } from '../../enum/module-type.enum';
 import { LanguageButtonComponent } from '../../../shared/buttons/language-button/language-button.component';
 import { ResourceTableComponent } from '../../../shared/tables/resource-table/resource-table.component';
-import { DangerButtonComponent } from '../../../shared/buttons/danger-button/danger-button.component';
 
 declare var HSOverlay: any;
 @Component({
@@ -78,6 +75,10 @@ export class ResourceListComponent {
 
   }
 
+  ngAfterViewInit() {
+    HSOverlay.autoInit();
+  }
+
   get filteredResources() {
     if (!this.searchTerm.trim()) {
       return this.resources;
@@ -85,7 +86,12 @@ export class ResourceListComponent {
 
     return this.resources.filter(resource =>
       resource.name.toLowerCase().includes(this.searchTerm) ||
-      resource.access.toLowerCase().includes(this.searchTerm)
+      (
+        resource.type === 'URL'
+          ? resource.access?.toLowerCase().includes(this.searchTerm)
+          : resource.fileName?.toLowerCase().includes(this.searchTerm)
+      )
+
     );
   }
 
@@ -127,6 +133,7 @@ export class ResourceListComponent {
     }
 
     const collection = this.form.get('collection')?.value;
+    console.log("collection vazia quando cria:", collection);
 
     if (collection) {
       console.log('criando....')
@@ -182,7 +189,4 @@ export class ResourceListComponent {
       }
     });
   }
-
-  deleteResource() { }
-
 }

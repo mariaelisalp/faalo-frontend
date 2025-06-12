@@ -1,7 +1,50 @@
 <div>
-    <div *ngIf="examples.length > 0">
-        <p class="pb-4 dark:text-neutral-200">Examples</p>
-        <app-editable-table [exampleList]="examples"></app-editable-table>
+    <div class="flex flex-col">
+        <div class="-m-1.5 overflow-x-auto">
+            <div class="p-1 min-w-full inline-block align-middle">
+                <div
+                    class="border border-gray-300 bg-gray-100 rounded-lg shadow-xs overflow-hidden dark:bg-neutral-700 dark:border-neutral-500 dark:shadow-gray-900">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+                        <tbody class="divide-y divide-gray-200 dark:divide-neutral-500" *ngIf="examples.length > 0">
+
+
+                            <tr *ngFor="let example of examples" class="flex items-center">
+                                <td class="px-4 py-4 text-sm text-gray-800 dark:text-neutral-200">
+                                    {{ example.content }}
+                                </td>
+                                <td class="flex px-6 py-4 text-end text-sm items-center">
+                                    <div>
+                                        <button (click)="setId(example.id)" aria-expanded="false"
+                                            aria-controls="hs-edit-modal"
+                                            data-hs-overlay="#hs-edit-modal"
+                                            class="pr-2 text-neutral-800 hover:text-[var(--color-primary)]  dark:text-neutral-200 dark:hover:text-[var(--color-primary)] ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-5 cursor-pointer">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                                            </svg>
+
+                                        </button>
+
+                                        <button (click)="deleteExample(example.id)"
+                                            class="text-neutral-800 hover:text-red-800 dark:text-neutral-200 dark:hover:text-red-400">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-6 cursor-pointer">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                            </svg>
+
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="flex justify-start sm:justify-end pt-5">
@@ -26,8 +69,26 @@
         </ng-template>
 
         <ng-template #customFooter>
-            <app-input-button (click)="create()">Save</app-input-button>
+            <app-input-button (click)="create()" aria-label="Close"
+                data-hs-overlay="#hs-scale-animation-modal-example">Save</app-input-button>
         </ng-template>
 
     </app-center-modal>
+
+    <app-center-modal id="hs-edit-modal" title="Edit example">
+        <ng-template #customContent>
+            <form [formGroup]="editForm">
+                <textarea id="example" formControlName="example"
+                    class="border-transparent font-medium focus:ring-0 focus:outline-none ring-0 dark:text-white dark:border-transparent w-full"
+                    autofocus></textarea>
+            </form>
+        </ng-template>
+
+        <ng-template #customFooter>
+            <app-input-button (click)="editExample()" aria-label="Close"
+                data-hs-overlay="#hs-edit-modal">Save</app-input-button>
+        </ng-template>
+
+    </app-center-modal>
+
 </div>

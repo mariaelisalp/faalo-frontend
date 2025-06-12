@@ -16,14 +16,17 @@ export class ExampleService{
       return this.http.post<ApiResponse<ExampleResponse>>(`api/${moduleId}/example`, example)
     }
 
-    findOne(){}
+    findOne(id: number, moduleId: number){
+      return this.http.get<ApiResponse<ExampleResponse>>(`api/${moduleId}/example/${id}`);
+    }
 
     findMany(moduleType: ModuleType, moduleId: number){
-      console.log('teste', moduleId, moduleType)
       return this.http.get<ApiResponse<ExampleResponse[]>>(`api/${moduleId}/example?moduleType=${moduleType}`)
     }
 
-    update(){}
+    update(example: Example, id: number, moduleId: number){
+      return this.http.patch(`api/${moduleId}/example/${id}`, example);
+    }
 
     delete(id: number, moduleId: number){
       return this.http.delete(`api/${moduleId}/example/${id}`);
