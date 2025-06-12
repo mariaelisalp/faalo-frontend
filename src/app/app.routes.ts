@@ -17,8 +17,10 @@ import { VocabularyListComponent } from './features/pages/vocabulary-list/vocabu
 import { VocabularyPageComponent } from './features/pages/vocabulary-page/vocabulary-page.component';
 import { VocabularyCollectionComponent } from './features/pages/vocabulary-collection/vocabulary-collection.component';
 import { UserProfileComponent } from './core/user/pages/user-profile/user-profile.component';
+import { LandingPageComponent } from './features/pages/landing-page/landing-page.component';
 
 export const routes: Routes = [
+    {path: '', component: LandingPageComponent, title: 'Faalo'},
     {path: 'register', component: RegisterComponent, canActivate: [IsSignedIn]},
     {path: 'login', component: LoginComponent, canActivate: [IsSignedIn]},
     {path: 'email-verification', component: EmailVerificationComponent},
