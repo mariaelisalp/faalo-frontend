@@ -18,13 +18,14 @@ import { VocabularyPageComponent } from './features/pages/vocabulary-page/vocabu
 import { VocabularyCollectionComponent } from './features/pages/vocabulary-collection/vocabulary-collection.component';
 import { UserProfileComponent } from './core/user/pages/user-profile/user-profile.component';
 import { LandingPageComponent } from './features/pages/landing-page/landing-page.component';
+import { RedirectGuard } from './core/auth/guards/redirect.guard';
 
 export const routes: Routes = [
     {path: '', component: LandingPageComponent, title: 'Faalo'},
     {path: 'register', component: RegisterComponent, canActivate: [IsSignedIn]},
     {path: 'login', component: LoginComponent, canActivate: [IsSignedIn]},
-    {path: 'email-verification', component: EmailVerificationComponent},
-    {path: 'password-reset', component: PasswordResetComponent},
+    {path: 'email-verification', component: EmailVerificationComponent, canActivate: [AuthGuard, RedirectGuard]},
+    {path: 'password-reset', component: PasswordResetComponent, canActivate: [IsSignedIn]},
     {path: 'forgot-password', component: PasswordResetEmailComponent, canActivate: [IsSignedIn]},
     {path: 'home', component: HomeComponent, canActivate: [AuthGuard], title: 'Home'},
     {path: 'dashboard/:languageId', component: LanguageDashboardComponent, canActivate: [AuthGuard], title: 'Dashboard'},

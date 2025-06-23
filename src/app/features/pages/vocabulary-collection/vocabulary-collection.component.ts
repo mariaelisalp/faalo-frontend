@@ -64,7 +64,7 @@ export class VocabularyCollectionComponent {
         this.vocabularies = res.data;
       }
     })
-   }
+  }
 
   getCollection() {
     this.topicService.findOne(this.languageId, this.collectionId, ModuleType.VOCABULARY).subscribe({
@@ -89,6 +89,19 @@ export class VocabularyCollectionComponent {
 
   deleteCollection() {
     this.topicService.delete(this.languageId, this.collectionId).subscribe();
+  }
+
+  moveVocabulariesToRoot() {
+    const topic = { id: null }
+
+    for (const content of this.vocabularies) {
+      this.vocabularyService.updateTopic(this.languageId, content.id, topic).subscribe(() => {
+        console.log('chegando tudo')
+      });
+      console.log('movido');
+    }
+
+    this.deleteCollection();
   }
 
   ngAfterViewInit() {

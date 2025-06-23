@@ -122,11 +122,11 @@
 
     <app-center-modal id="hs-delete-animation-modal" title="Delete">
         <ng-template #customContent>
-            <p>Are you sure you want to delete this collection?</p>
+            <p>Are you sure you want to delete this collection? You can delete everything related to it or you can keep de vocabularies in the main list.</p>
         </ng-template>
 
         <ng-template #customFooter>
-            <app-input-button>Keep the resources</app-input-button>
+            <app-input-button (click)="moveVocabulariesToRoot()" aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">I want to keep the vocabularies</app-input-button>
             <app-danger-button (onClick)="deleteCollection()" routerLink="/{{ languageId}}/vocabulary"
                 aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Delete
                 all</app-danger-button>

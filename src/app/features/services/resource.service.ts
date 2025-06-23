@@ -45,6 +45,10 @@ export class ResourceService{
         return this.http.patch(`api/${languageId}/resources/${id}?topicId=${topicId}`, resource)
     }
 
+    updateTopic(languageId: number, id:number, topic: {id: number | null}){
+        return this.http.put(`api/${languageId}/resources/${id}`, topic);
+    }
+
     delete(id: number, languageId: number){
         return this.http.delete(`api/${languageId}/resources/${id}`);
     }

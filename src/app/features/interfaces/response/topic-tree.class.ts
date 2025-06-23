@@ -4,6 +4,7 @@ export class TopicTreeNode {
     id: number;
     name: string;
     parent?: number;
+    expanded: boolean = false
 
     tree: TopicTreeNode[] = [];
 

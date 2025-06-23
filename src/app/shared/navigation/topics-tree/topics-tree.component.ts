@@ -21,8 +21,12 @@ export class TopicsTreeComponent implements OnInit{
     this.languageId = this.activatedRoute.snapshot.params['languageId'];
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(){
     HSAccordion.autoInit(); 
+  }
+
+  toggleNode(node: TopicTreeNode){
+    node.expanded = !node.expanded;
   }
 
   ngOnInit(): void {

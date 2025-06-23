@@ -1,5 +1,5 @@
 <div class="flex flex-col justify-center items-center pt-10">
-    <p class="text-3xl font-semibold text-[var(--color-secondary)] pb-5">Thanks for joining Faalo!</p>
+    <p class="flex items-end text-3xl font-bold text-[var(--color-secondary)] pb-5">Thanks for joining <span><img class="w-30 ml-2" src="/Faalo.svg" alt=""></span>!</p>
     <h4>We've just sent a verification code on your email.</h4>
     <div class="flex justify-center items-center pt-20 px-4 sm:px-6">
 
@@ -12,26 +12,39 @@
                     <app-input-field id="code" name="code" formControlName="code"
                         placeholder="enter code"></app-input-field>
 
-                    <p class="text-sm ml-2 pt-2 text-red-500"
-                        *ngIf="errorMessage">
+                    <p class="text-sm ml-2 pt-2 text-red-500" *ngIf="errorMessage">
                         {{ errorMessage }}
                     </p>
 
-                    <app-input-button class="w-30 sm:w-40 pt-5" type="submit" [disabled]="form.invalid">Send
-                        code</app-input-button>
+                    <div class="flex flex-row gap-4 items-center">
+                        <div>
+                            <ng-container *ngIf="!countdownFinished; else showButton">
+                                <app-cooldown [duration]="30" [message]="'Resend code in'"
+                                    (cooldownFinished)="onCountDownFinished()">
+                                </app-cooldown>
+                            </ng-container>
+
+                            <ng-template #showButton>
+                                <app-input-button (click)="resendCode()">Resend code</app-input-button>
+                            </ng-template>
+                        </div>
+
+                        <app-input-button type="submit" [disabled]="form.invalid">Verify
+                            email</app-input-button>
+                    </div>
                 </div>
             </form>
 
         </div>
     </div>
 
-    <p class="pt-10"><a
+    <p class="pt-10 pb-5"><a
             class="text-[var(--color-secondary)] text-sm underline underline-offset-2 decoration-[var(--color-secondary)] hover:opacity-80 focus:outline-hidden focus:opacity-80"
             routerLink="/home">Skip for now.</a></p>
 
     <!-- Toast -->
     <div *ngIf="verified"
-        class="max-w-xs pt-5 bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-neutral-800 dark:border-neutral-700"
+        class="max-w-xs bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-neutral-800 dark:border-neutral-700"
         role="alert" tabindex="-1" aria-labelledby="hs-toast-success-example-label">
         <div class="flex p-4">
             <div class="shrink-0">

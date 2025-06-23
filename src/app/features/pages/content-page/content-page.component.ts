@@ -57,6 +57,10 @@ export class ContentPageComponent implements AfterViewInit {
     content: new FormControl<string>('', Validators.required)
   });
 
+  editTopicForm = new FormGroup({
+    topic: new FormControl('')
+  })
+
   constructor(private contentService: ContentService, private activatedRoute: ActivatedRoute, private router: Router,
     private sanitizer: DomSanitizer, private location: Location, private topicService: TopicService) {
 
@@ -157,6 +161,15 @@ export class ContentPageComponent implements AfterViewInit {
         this.updatePreview(this.content.content);
       }
     });
+  }
+
+  updateTopic() {
+    const value = this.editTopicForm.get('topic')?.value;
+    console.log('valuee', value)
+    const topic = { id: value !== '' ? Number(value) : null };
+
+    this.contentService.updateTopic(this.languageId, this.contentId, topic).subscribe();
+
   }
 
   delete() {

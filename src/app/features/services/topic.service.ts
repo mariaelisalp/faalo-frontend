@@ -38,7 +38,7 @@ export class TopicService {
   }
 
   update(languageId: number, id: number, topic: {name: string},){
-    return this.http.patch(`api/${languageId}/topics/${id}`, topic);
+    return this.http.patch<ApiResponse<TopicResponse>>(`api/${languageId}/topics/${id}`, topic);
   }
 
   delete(languageId:number, id:number){

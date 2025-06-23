@@ -15,12 +15,15 @@ import { ContentResponse } from '../../interfaces/response/content-response.inte
 import { ContentButtonComponent } from '../../../shared/buttons/content-button/content-button.component';
 import { BasicLayoutComponent } from '../../basic-layout/basic-layout.component';
 import { TopicsTreeComponent } from '../../../shared/navigation/topics-tree/topics-tree.component';
-import { HSAccordion } from 'preline/dist';
+import { HSAccordion, HSOverlay } from 'preline/dist';
+import { OverflowMenuComponent } from '../../../shared/navigation/overflow-menu/overflow-menu.component';
+import { DangerButtonComponent } from '../../../shared/buttons/danger-button/danger-button.component';
 
 @Component({
   selector: 'app-content-list',
   imports: [BasicLayoutComponent, CommonModule, InputButtonComponent,
-    CenterModalComponent, ReactiveFormsModule, InputFieldComponent, ContentButtonComponent, RouterModule, TopicsTreeComponent],
+    CenterModalComponent, ReactiveFormsModule, InputFieldComponent, ContentButtonComponent, RouterModule, TopicsTreeComponent,
+    OverflowMenuComponent, DangerButtonComponent],
   templateUrl: './content-list.component.html',
   styleUrl: './content-list.component.scss'
 })
@@ -29,12 +32,16 @@ export class ContentListComponent {
   public topics: TopicResponse[] = [];
   public contents: ContentResponse[] = [];
   languageId: number;
-  topicId?: number
+  topicId!: number
   topicName: string = '';
   moduleType = ModuleType.CONTENT;
   showTopicField: boolean = false;
 
   form = new FormGroup({
+    topic: new FormControl('', [Validators.required])
+  });
+
+  editForm = new FormGroup({
     topic: new FormControl('', [Validators.required])
   });
 
@@ -68,8 +75,9 @@ export class ContentListComponent {
 
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     HSAccordion.autoInit();
+    HSOverlay.autoInit();
   }
 
   createTopic() {
@@ -105,12 +113,29 @@ export class ContentListComponent {
     }
   }
 
+  updateTopic() {
+
+    if (this.editForm.invalid) {
+      return;
+    }
+
+    const topic = {
+      name: this.editForm.get('topic')?.value || '',
+    }
+
+    this.topicService.update(this.languageId, this.topicId, topic).subscribe({
+      next: (res) => {
+        this.topicName = res.data.name;
+      }
+    }
+    );
+  }
+
   findManyTopics() {
 
     this.topicService.findMany(this.languageId, this.moduleType, this.topicId).subscribe((res) => {
       this.topics = res.data;
-    }
-    );
+    });
   }
 
   findOneTopic() {
@@ -118,6 +143,10 @@ export class ContentListComponent {
 
       this.topicService.findOne(this.languageId, this.topicId, this.moduleType).subscribe((res) => {
         this.topicName = res.data.name;
+
+        this.editForm.patchValue({
+          topic: this.topicName
+        });
       })
     }
   }
@@ -132,6 +161,22 @@ export class ContentListComponent {
         console.log(err)
       }
     });
+  }
+
+  moveContentsToRoot() {
+    const topic = { id: null }
+
+    for (const content of this.contents) {
+      this.contentService.updateTopic(this.languageId, content.id, topic).subscribe();
+      console.log('movido');
+    }
+
+    this.deleteTopic();
+
+  }
+
+  deleteTopic() {
+    this.topicService.delete(this.languageId, this.topicId).subscribe();
   }
 
   addContentPage() {

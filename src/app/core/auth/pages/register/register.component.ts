@@ -12,6 +12,7 @@ import { PasswordInputFieldComponent } from '../../../../shared/fields/password-
 import { CommonModule } from '@angular/common';
 import { passwordMatchValidator } from '../../validators/password-match.validator';
 import { SpinnerComponent } from '../../../../shared/elements/spinner/spinner.component';
+import { NavigationService } from '../../navigation.service';
 
 @Component({
   selector: 'app-register',
@@ -36,7 +37,7 @@ export class RegisterComponent{
   sent = false;
   errorMessage: string = '';
 
-  constructor(private service: AuthService, private title: Title, private router: Router) {}
+  constructor(private service: AuthService, private title: Title, private router: Router, private navigation: NavigationService) {}
 
   ngOnInit(){
     this.title.setTitle('Register');
@@ -63,6 +64,7 @@ export class RegisterComponent{
     return this.service.create(user).subscribe(
       {
         next: (res) => {
+          this.navigation.setRedirected(true);
           this.router.navigate(['/email-verification']);
         },
         error: (err) => {

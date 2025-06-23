@@ -35,6 +35,10 @@ export class VocabularyService {
         return this.http.patch<ApiResponse<VocabularyResponse>>(`api/${languageId}/vocabulary/${id}`, vocabulary);
     }
 
+    updateTopic(languageId: number, id:number, topic: {id: number | null}){
+        return this.http.put(`api/${languageId}/vocabulary/${id}`, topic);
+    }
+
     delete(languageId: number, id: number){
         console.log(languageId, id)
         return this.http.delete(`api/${languageId}/vocabulary/${id}`);

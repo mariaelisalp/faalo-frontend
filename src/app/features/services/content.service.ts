@@ -40,6 +40,11 @@ export class ContentService {
         return this.http.patch<ApiResponse<ContentResponse>>(`api/${languageId}/content/${id}`, content);
     }
 
+    updateTopic(languageId: number, id:number, topic: {id: number | null}){
+        console.log('chegando aqui')
+        return this.http.put(`api/${languageId}/content/${id}`, topic);
+    }
+
     delete(id: number, languageId: number){
         return this.http.delete(`api/${languageId}/content/${id}`);
     }
