@@ -53,6 +53,8 @@ export class AuthService {
     return this.http.post('api/verify-email', code);
   }
 
-  resendVerficationEmail(){}
+  resendVerficationEmail(){
+    return this.http.post('api/resend-code', null);
+  }
 
 }

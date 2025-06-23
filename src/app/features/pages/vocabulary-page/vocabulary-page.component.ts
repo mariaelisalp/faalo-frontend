@@ -21,6 +21,8 @@ import { DangerButtonComponent } from '../../../shared/buttons/danger-button/dan
 import { VocabularyService } from '../../services/vocabulary.service';
 import { Vocabulary } from '../../interfaces/vocabulary.interface';
 import { TranslatorComponent } from '../../components/translator/translator.component';
+import { TopicResponse } from '../../interfaces/response/topic-response.interface';
+import { TopicService } from '../../services/topic.service';
 
 @Component({
   selector: 'app-vocabulary-page',
@@ -34,12 +36,16 @@ export class VocabularyPageComponent {
 
   name: string = '';
   words: WordResponse[] = [];
+  collections: TopicResponse[] = [];
   languageId: number;
-  vocabularyId: number
+  vocabularyId: number;
+  wordId!: number;
+  isEditVocabularyOpen = false;
   moduleType = ModuleType.VOCABULARY;
   isPopoverOpenIndex: number | null = null;
 
-  constructor(private location: Location, private wordService: WordService, private route: ActivatedRoute, private router: Router, private vocabularyService: VocabularyService) {
+  constructor(private location: Location, private wordService: WordService, private route: ActivatedRoute, private router: Router, 
+    private vocabularyService: VocabularyService, private topicService: TopicService) {
     this.languageId = this.route.snapshot.params['languageId'];
     this.vocabularyId = this.route.snapshot.params['id'];
     this.name = this.route.snapshot.queryParams['vocabulary'];
@@ -58,7 +64,8 @@ export class VocabularyPageComponent {
   });
 
   editVocabularyForm = new FormGroup({
-    name: new FormControl('', Validators.required)
+    name: new FormControl('', Validators.required),
+    collection: new FormControl('')
   });
 
   back() {
@@ -102,6 +109,27 @@ export class VocabularyPageComponent {
     })
   }
 
+  getCollections() {
+    this.topicService.findAll(this.languageId, ModuleType.VOCABULARY).subscribe({
+      next: (res) => {
+        this.collections = res.data;
+      }
+    });
+  }
+
+  getWord() {
+    this.wordService.findOne(this.vocabularyId, this.wordId).subscribe({
+      next: (res) => {
+        console.log(res.data)
+        this.editWordForm.patchValue({
+          word: res.data.word,
+          translation: res.data.translation,
+          definition: res.data.definition
+        })
+      }
+    });
+  }
+
   getVocabulary() {
     console.log(this.name)
 
@@ -116,9 +144,14 @@ export class VocabularyPageComponent {
       return;
     }
 
+    const value = this.editVocabularyForm.get('collection')?.value;
+    const collection = {id: value !== '' ? Number(value) : null }
+
     const vocabulary: Vocabulary = {
       name: this.editVocabularyForm.get('name')?.value || ''
     }
+
+    this.vocabularyService.updateTopic(this.languageId, this.vocabularyId, collection).subscribe();
 
     this.vocabularyService.update(vocabulary, this.languageId, this.vocabularyId).subscribe(() => {
       this.name = vocabulary.name
@@ -141,12 +174,19 @@ export class VocabularyPageComponent {
 
   }
 
+  setId(id: number){
+    this.wordId = id;
+    this.getWord();
+  }
+
   togglePopover(index: number): void {
     if (this.isPopoverOpenIndex == index) {
       this.isPopoverOpenIndex = null; 
     } else {
       this.isPopoverOpenIndex = index; 
     }
+
+    this.getWords()
   }
 
   isPopoverOpen(index: number): boolean {
@@ -154,16 +194,6 @@ export class VocabularyPageComponent {
   }
 
   updateWord() {
-    /*this.wordService.findOne(this.vocabularyId, id).subscribe({
-      next: (res) => {
-        this.editWordForm.patchValue({
-          word: res.data.word,
-          translation: res.data.translation,
-          definition: res.data.definition
-        });
-      }
-    });
-
     if(this.editWordForm.invalid){
       return;
     }
@@ -174,13 +204,32 @@ export class VocabularyPageComponent {
       definition: this.editWordForm.get('definition')?.value || ''
     }
 
-    this.wordService.update(word, this.vocabularyId, id).subscribe();*/
+    this.wordService.update(word, this.vocabularyId, this.wordId).subscribe({
+      next: () => {
+        this.getWords();
+      }
+    });
+  }
+
+  isModalOpen = false;
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  openEditVocab(){
+    this.getCollections();
+    this.isEditVocabularyOpen = true;
   }
 
   deleteWord(id: number) {
     this.wordService.delete(this.vocabularyId, id).subscribe({
       next: () => {
-        
+        this.getWords();
       }
     });
   }

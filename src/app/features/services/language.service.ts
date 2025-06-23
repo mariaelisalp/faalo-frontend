@@ -23,4 +23,12 @@ export class LanguageService {
     return this.http.get<ApiResponse<LanguageResponse>>(`api/languages/${id}`);
   }
 
+  update(id: number, language: Language){
+    return this.http.patch(`api/languages/${id}`, language);
+  }
+
+  delete(id: number){
+    return this.http.delete(`api/languages/${id}`)
+  }
+
 }

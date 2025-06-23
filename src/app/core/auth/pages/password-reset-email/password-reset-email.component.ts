@@ -12,7 +12,8 @@ import { CenterModalComponent } from '../../../../shared/modals/center-modal/cen
 
 @Component({
   selector: 'app-password-reset-email',
-  imports: [InputFieldComponent, InputButtonComponent, ReactiveFormsModule, CommonModule, ModalComponent, ErrorMessageComponent, CenterModalComponent],
+  imports: [InputFieldComponent, InputButtonComponent, ReactiveFormsModule, CommonModule, ModalComponent, ErrorMessageComponent, 
+    CenterModalComponent],
   templateUrl: './password-reset-email.component.html',
   styleUrl: './password-reset-email.component.scss'
 })
@@ -28,8 +29,11 @@ export class PasswordResetEmailComponent {
   constructor(private service: AuthService, private title: Title,){}
 
   ngOnInit(){
-    HSOverlay.autoInit();
     this.title.setTitle('Forgot my password');
+  }
+
+  ngAfterViewInit(){
+    HSOverlay.autoInit();
   }
 
   sendEmail(){

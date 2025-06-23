@@ -17,12 +17,13 @@ import { VocabularyListComponent } from './features/pages/vocabulary-list/vocabu
 import { VocabularyPageComponent } from './features/pages/vocabulary-page/vocabulary-page.component';
 import { VocabularyCollectionComponent } from './features/pages/vocabulary-collection/vocabulary-collection.component';
 import { UserProfileComponent } from './core/user/pages/user-profile/user-profile.component';
+import { RedirectGuard } from './core/auth/guards/redirect.guard';
 
 export const routes: Routes = [
     {path: 'register', component: RegisterComponent, canActivate: [IsSignedIn]},
     {path: 'login', component: LoginComponent, canActivate: [IsSignedIn]},
-    {path: 'email-verification', component: EmailVerificationComponent},
-    {path: 'password-reset', component: PasswordResetComponent},
+    {path: 'email-verification', component: EmailVerificationComponent, canActivate: [AuthGuard, RedirectGuard]},
+    {path: 'password-reset', component: PasswordResetComponent, canActivate: [IsSignedIn]},
     {path: 'forgot-password', component: PasswordResetEmailComponent, canActivate: [IsSignedIn]},
     {path: 'home', component: HomeComponent, canActivate: [AuthGuard], title: 'Home'},
     {path: 'dashboard/:languageId', component: LanguageDashboardComponent, canActivate: [AuthGuard], title: 'Dashboard'},

@@ -17,6 +17,7 @@ export class SidebarComponent {
   @Input() isSidebarOpen: boolean = false;
   @Output() toggleSidebar = new EventEmitter<void>();
 
+
   public userName: string = '';
 
   constructor(private auth: AuthService, private router: Router, private token: TokenService, private user: UserService) { }
@@ -37,6 +38,7 @@ export class SidebarComponent {
 
   logout() {
     this.auth.logout();
+    localStorage.clear();
     this.router.navigate(['/login'])
   }
 }

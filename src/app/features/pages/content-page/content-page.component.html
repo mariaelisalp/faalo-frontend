@@ -6,7 +6,7 @@
 
             <form [formGroup]="form">
 
-                <div class="flex flex-col gap-y-8">
+                <div class="flex flex-col gap-y-6">
 
                     <button (click)="back()"
                         class="flex size-8 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 justify-center items-center">
@@ -45,13 +45,13 @@
 
                     </div>
 
-                    <app-input-field class="w-full" placeholder="Enter a content title" id="title"
+                    <app-input-field class="w-2/3" placeholder="Enter a content title" id="title"
                         formControlName="title" name="title">
 
                     </app-input-field>
 
-                    <div>
-                        <app-medium-label class="pb-5">Content</app-medium-label>
+                    <div class="flex flex-col gap-y-6 pt-4">
+                        <app-medium-label>Content</app-medium-label>
 
                         <app-textarea placeholder="Type anything you want here" id="content" formControlName="content"
                             name="content" (input)="updatePreview(form.get('content')?.value || '')"></app-textarea>
@@ -114,22 +114,24 @@
 
     <app-center-modal id="hs-move-animation-modal" title="Move to a topic">
         <ng-template #customContent>
-            <label for="hs-select-label" class="block text-sm font-medium mb-2 dark:text-white">Select a topic</label>
-            <select id="hs-select-label" class="block w-full rounded-xl border-2 border-gray-400 px-4 py-2.5 sm:text-sm placeholder-gray-500 
+            <form [formGroup]="editTopicForm">
+                <label for="hs-select-label" class="block text-sm font-medium mb-2 dark:text-white">Select a
+                    topic</label>
+                <select formControlName="topic" id="hs-select-label" class="block w-full rounded-xl border-2 border-gray-400 px-4 py-2.5 sm:text-sm placeholder-gray-500 
          focus:border-[var(--color-secondary)] focus:border-2 focus:shadow-md 
          focus:shadow-[var(--color-primary)] focus:ring-0 focus:outline-none 
          dark:placeholder-gray-300 dark:border-[var(--color-primary)] 
          dark:focus:bg-neutral-700 dark:text-white">
-                <option value="" disabled selected>Selecione um tópico</option>
-                <option value="">Root</option>
-                <option *ngFor="let topic of topics" [value]="topic.id">
-                    {{ topic.name }}
-                </option>
-            </select>
+                    <option value="">No topic</option>
+                    <option *ngFor="let topic of topics" value="{{ topic.id }}">
+                        {{ topic.name }}
+                    </option>
+                </select>
+            </form>
         </ng-template>
 
         <ng-template #customFooter>
-            <app-input-button>Move</app-input-button>
+            <app-input-button (click)="updateTopic()" aria-label="Close" data-hs-overlay="#hs-move-animation-modal">Move</app-input-button>
         </ng-template>
     </app-center-modal>
 
