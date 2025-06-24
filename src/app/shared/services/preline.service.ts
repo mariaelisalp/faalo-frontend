@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import HSFileUpload from '@preline/file-upload';
 
 declare const HSStaticMethods: any; 
 
@@ -16,6 +15,6 @@ export class PrelineService {
   }
 
   initializeFileUpload() {
-    HSFileUpload.autoInit();
+  
   }
 }
