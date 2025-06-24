@@ -12,7 +12,7 @@
 
         <div class="flex flex-row justify-between items-center">
             <p class="text-3xl pt-2 font-semibold text-[var(--color-secondary)] dark:text-white">
-                Vocabulary
+                Vocabulário
             </p>
 
             <app-input-button (click)="openModal()" class="w-25 h-9" aria-haspopup="dialog" aria-expanded="false"
@@ -22,7 +22,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
 
-                New
+                Novo
             </app-input-button>
 
         </div>
@@ -33,7 +33,7 @@
 
         <div class="flex flex-col gap-1">
             <div class="flex flex-row gap-1 pb-2 items-center">
-                <p class="font-semibold text-xl text-[var(--color-secondary)] dark:text-neutral-100">Collections</p>
+                <p class="font-semibold text-xl text-[var(--color-secondary)] dark:text-neutral-100">Coleções</p>
 
                 <a class="cursor-pointer" aria-haspopup="dialog" aria-expanded="false"
                     aria-controls="hs-col-animation-modal" data-hs-overlay="#hs-col-animation-modal">
@@ -81,21 +81,21 @@
         </div>
     </div>
 
-    <app-center-modal id="hs-scale-animation-modal" title="Add new vocabulary">
+    <app-center-modal id="hs-scale-animation-modal" title="Novo vocabulário">
         <ng-template #customContent>
             <form [formGroup]="formVocab">
-                <app-form-label>Name</app-form-label>
-                <app-input-field id="vocabulary" placeholder="type vocabulary name"
+                <app-form-label>Nome</app-form-label>
+                <app-input-field id="vocabulary" placeholder="insira o nome do vocabulário"
                     formControlName="name"></app-input-field>
 
                 <div *ngIf="modalIsOpen" class="pt-3">
-                    <app-form-label>Add to a collection</app-form-label>
+                    <app-form-label>Adicionar a uma coleção</app-form-label>
                     <select formControlName="collection" id="hs-select-label" class="block w-full rounded-xl border-2 border-gray-400 px-4 py-2.5 sm:text-sm placeholder-gray-500 
                         focus:border-[var(--color-secondary)] focus:border-2 focus:shadow-md 
                         focus:shadow-[var(--color-primary)] focus:ring-0 focus:outline-none 
                         dark:placeholder-gray-300 dark:border-[var(--color-primary)] 
                         dark:focus:bg-neutral-700 dark:text-white">
-                        <option value="">No collection</option>
+                        <option value="">Sem coleção</option>
                         <option *ngFor="let collection of collections" value="{{ collection.id}}">
                             {{ collection.name }}
                         </option>
@@ -107,21 +107,21 @@
 
         <ng-template #customFooter>
             <app-input-button (onClick)="createVocabulary()" aria-label="Close"
-                data-hs-overlay="#hs-scale-animation-modal">Save</app-input-button>
+                data-hs-overlay="#hs-scale-animation-modal">Salvar</app-input-button>
         </ng-template>
     </app-center-modal>
 
-    <app-center-modal id="hs-col-animation-modal" title="Add new collection">
+    <app-center-modal id="hs-col-animation-modal" title="Nova coleção">
         <ng-template #customContent>
             <form [formGroup]="formCol">
-                <app-input-field id="collection" placeholder="type name" formControlName="name"></app-input-field>
+                <app-input-field id="collection" placeholder="insira o nome da coleção" formControlName="name"></app-input-field>
 
             </form>
         </ng-template>
 
         <ng-template #customFooter>
             <app-input-button (onClick)="createCollection()" aria-label="Close"
-                data-hs-overlay="#hs-col-animation-modal">Save</app-input-button>
+                data-hs-overlay="#hs-col-animation-modal">Salvar</app-input-button>
         </ng-template>
     </app-center-modal>
 

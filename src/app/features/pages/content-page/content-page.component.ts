@@ -53,7 +53,7 @@ export class ContentPageComponent implements AfterViewInit {
   @ViewChild(TopicsTreeComponent) treeComponent!: TopicsTreeComponent;
 
   form = new FormGroup({
-    title: new FormControl<string>('Untitled', Validators.required),
+    title: new FormControl<string>('Sem título', Validators.required),
     content: new FormControl<string>('', Validators.required)
   });
 
@@ -92,7 +92,7 @@ export class ContentPageComponent implements AfterViewInit {
 
     const savesInProgress$ = inputToSave$.pipe(
       tap(() => this.count++),
-      mapTo(of("Saving...").pipe(
+      mapTo(of("Salvando...").pipe(
         delay(3000)
       )),
     );
@@ -100,7 +100,7 @@ export class ContentPageComponent implements AfterViewInit {
     const savesCompleted$ = inputToSave$.pipe(
       mergeMap(value => {
         const content: Content = {
-          title: value.title ?? 'Untitled',
+          title: value.title ?? 'Sem título',
           content: value.content ?? ''
         };
         return this.saveChanges(content);
@@ -113,10 +113,10 @@ export class ContentPageComponent implements AfterViewInit {
     );
 
     this.saveIndicator$ = merge(
-      savesInProgress$.pipe(mapTo("Saving...")),
-      savesCompleted$.pipe(mapTo("Saved!"))
+      savesInProgress$.pipe(mapTo("Salvando..")),
+      savesCompleted$.pipe(mapTo("Salvo!"))
     ).pipe(
-      startWith("All changes saved.")
+      startWith("Todas as mudanças foram salvas.")
     );
 
     inputToSave$.subscribe(console.log);

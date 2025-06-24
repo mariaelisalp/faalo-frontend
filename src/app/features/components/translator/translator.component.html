@@ -1,4 +1,4 @@
-<app-right-offcanvas [offcanvasId]="'hs-offcanvas-translator-right'" [title]="'Translator'">
+<app-right-offcanvas [offcanvasId]="'hs-offcanvas-translator-right'" [title]="'Tradutor'">
     <ng-template #customContent>
 
         <form [formGroup]="form">
@@ -6,7 +6,7 @@
                 <div class="flex flex-col gap-y-2">
                     <select formControlName="source"
                         class="p-1 block w-2/3 h-10 border-2 border-gray-300 rounded-lg text-sm focus:shadow-md focus:border-[var(--color-primary)] outline-none disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-                        <option value="" disabled>Select language</option>
+                        <option value="" disabled>Selecionar idioma</option>
                         <option *ngFor="let lang of sourceLanguages" [value]="lang.value">
                             {{ lang.label }}
                         </option>
@@ -18,7 +18,7 @@
                 <div class="flex flex-col gap-y-2">
                     <select formControlName="target"
                         class="p-1 block w-2/3 h-10 border-2 border-gray-300 rounded-lg text-sm focus:shadow-md focus:border-[var(--color-primary)] outline-none disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-                        <option value="" disabled>Select language</option>
+                        <option value="" disabled>Selecionar idioma</option>
                         <option *ngFor="let lang of targetLanguages" [value]="lang.value">
                             {{ lang.label }}
                         </option>
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="flex justify-end">
-                    <app-input-button class="w-1/2 pb-3" (click)="translate()">Translate</app-input-button>
+                    <app-input-button class="w-1/2 pb-3" (click)="translate()">Traduzir</app-input-button>
                 </div>
 
             </div>

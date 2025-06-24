@@ -63,11 +63,11 @@
 
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <p class="text-xl font-semibold text-[var(--color-secondary)] dark:text-white">
-                    All resources
+                    Todos os recursos
                 </p>
 
                 <form class="flex flex-row gap-2 justify-end items-center">
-                    <app-input-field placeholder="Search" id="search" [(ngModel)]="searchTerm"
+                    <app-input-field placeholder="Pesquisar" id="search" [(ngModel)]="searchTerm"
                         name="search"></app-input-field>
                 </form>
 
@@ -81,7 +81,7 @@
                         d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
                 </svg>
 
-                <p class="text text-gray-500 dark:text-neutral-200">Start adding resources</p>
+                <p class="text text-gray-500 dark:text-neutral-200">Comece a adicionar recursos</p>
 
 
             </div>
@@ -95,40 +95,38 @@
 
 
 
-    <app-center-modal id="hs-scale-animation-modal" title="Edit collection">
+    <app-center-modal id="hs-scale-animation-modal" title="Editar coleção">
         <ng-template #customContent>
             <form [formGroup]="collectionForm">
-                <app-input-field id="collection" placeholder="insert collection name"
+                <app-input-field id="collection" placeholder="insira o nome da coleção"
                     formControlName="collection"></app-input-field>
             </form>
         </ng-template>
 
         <ng-template #customFooter>
-            <app-input-button (onClick)="saveCollectionChange()" aria-label="Close" data-hs-overlay="#hs-scale-animation-modal">Save changes</app-input-button>
+            <app-input-button (onClick)="saveCollectionChange()" aria-label="Close" data-hs-overlay="#hs-scale-animation-modal">Salvar</app-input-button>
         </ng-template>
     </app-center-modal>
 
-    <app-center-modal id="hs-delete-animation-modal" title="Delete">
+    <app-center-modal id="hs-delete-animation-modal" title="Excluir">
         <ng-template #customContent>
-            <p>Are you sure you want to delete this collection? You won't be able to recover it unless you keep the
-                resources (they will appear in the main list).</p>
+            <p>Você tem certeza de que deseja excluir esta coleção? Você não poderá recuperá-la, a menos que mantenha os recursos (eles aparecerão na lista principal).</p>
         </ng-template>
 
         <ng-template #customFooter>
-            <app-input-button (click)="moveResourcesToRoot()" aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">I want to keep the resources</app-input-button>
-            <app-danger-button (onClick)="deleteCollection()" routerLink="/{{ languageId}}/resources" aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Delete
-                all</app-danger-button>
+            <app-input-button (click)="moveResourcesToRoot()" aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Quero manter os recursos</app-input-button>
+            <app-danger-button (onClick)="deleteCollection()" routerLink="/{{ languageId}}/resources" aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Excluir tudo</app-danger-button>
         </ng-template>
     </app-center-modal>
 
     <app-center-modal id="hs-delete-resource-animation-modal" title="Delete">
         <ng-template #customContent>
-            <p>Are you sure you want to delete this resource? You won't be able to recover it.</p>
+            <p>Você tem certeza de que deseja excluir este recurso? Você não poderá recuperá-lo.</p>
         </ng-template>
 
         <ng-template #customFooter>
             <app-danger-button (onClick)="deleteResource()"
-                routerLink="/{{ languageId}}/resources">Delete</app-danger-button>
+                routerLink="/{{ languageId}}/resources">Excluir</app-danger-button>
         </ng-template>
     </app-center-modal>
 

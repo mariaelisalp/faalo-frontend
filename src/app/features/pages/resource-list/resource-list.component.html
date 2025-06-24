@@ -12,13 +12,13 @@
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
                 <p class="text-3xl font-semibold text-[var(--color-secondary)] dark:text-white">
-                    Resources
+                    Recursos
                 </p>
 
                 <div class="flex gap-4">
                     <app-input-button aria-haspopup="dialog" aria-expanded="false"
                         aria-controls="hs-scale-animation-modal" data-hs-overlay="#hs-scale-animation-modal">
-                        New collection
+                        Nova coleção
                     </app-input-button>
 
                     <app-input-button (click)="openModal()" aria-haspopup="dialog" aria-expanded="false"
@@ -28,7 +28,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>
 
-                        Add resource
+                        Adicionar recurso
                     </app-input-button>
                 </div>
 
@@ -38,7 +38,7 @@
 
 
             <div *ngIf="collections.length == 0">
-                <p class="text-sm text-gray-500 dark:text-neutral-100">Your resources collections will appear here.</p>
+                <p class="text-sm text-gray-500 dark:text-neutral-100">Suas coleções de recurso aparecerão aqui.</p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -68,12 +68,12 @@
 
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <p class="text-xl font-semibold text-[var(--color-secondary)] dark:text-white">
-                    All resources
+                    Todos os recursos
                 </p>
 
 
                 <form class="flex flex-row gap-2 justify-end items-center">
-                    <app-input-field placeholder="Search" id="search" [(ngModel)]="searchTerm"
+                    <app-input-field placeholder="Pesquisar" id="search" [(ngModel)]="searchTerm"
                         name="search"></app-input-field>
 
                 </form>
@@ -89,7 +89,7 @@
                         d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
                 </svg>
 
-                <p class="text text-gray-500 dark:text-neutral-200">Start adding resources</p>
+                <p class="text text-gray-500 dark:text-neutral-200">Comece adicionando recursos</p>
 
             </div>
 
@@ -100,23 +100,23 @@
 
     </div>
 
-    <app-medium-modal id="hs-medium-modal" title="Add new resource">
+    <app-medium-modal id="hs-medium-modal" title="Adicionar novo recurso">
         <ng-template #customContent>
             <form [formGroup]="form">
                 <div class="grid grid-cols-2 gap-2 gap-y-8">
                     <div>
-                        <app-form-label>Name</app-form-label>
-                        <app-input-field placeholder="resource name" formControlName="name"></app-input-field>
+                        <app-form-label>Nome</app-form-label>
+                        <app-input-field placeholder="nome do recurso" formControlName="name"></app-input-field>
                     </div>
 
                     <div>
-                        <app-form-label>Description</app-form-label>
-                        <app-input-field placeholder="add a description"
+                        <app-form-label>Descrição</app-form-label>
+                        <app-input-field placeholder="adicione uma restrição"
                             formControlName="description"></app-input-field>
                     </div>
 
                     <div>
-                        <app-form-label>Type</app-form-label>
+                        <app-form-label>Tipo</app-form-label>
                         <select formControlName="type" data-hs-select='{
                                 "placeholder": "Select...",
                                 "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
@@ -126,20 +126,20 @@
                                 "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-3.5 text-blue-600 dark:text-blue-500 \" xmlns=\"http:.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>",
                                 "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"shrink-0 size-3.5 text-gray-500 dark:text-neutral-500 \" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
                             }' class="hidden p-2">
-                            <option value="">Choose</option>
+                            <option value="">Selecionar</option>
                             <option value="URL">URL</option>
-                            <option value="File">File</option>
+                            <option value="File">Arquivo</option>
                         </select>
                     </div>
 
                     <div *ngIf="modalIsOpen">
-                        <app-form-label>Add to a collection</app-form-label>
+                        <app-form-label>Adicionar a uma coleção</app-form-label>
                         <select formControlName="collection" id="hs-select-label" class="block w-full rounded-xl border-2 border-gray-400 px-4 py-2.5 sm:text-sm placeholder-gray-500 
                         focus:border-[var(--color-secondary)] focus:border-2 focus:shadow-md 
                         focus:shadow-[var(--color-primary)] focus:ring-0 focus:outline-none 
                         dark:placeholder-gray-300 dark:border-[var(--color-primary)] 
                         dark:focus:bg-neutral-700 dark:text-white">
-                            <option value="">No collection</option>
+                            <option value="">Sem coleção</option>
                             <option *ngFor="let collection of collections" value="{{ collection.id}}">
                                 {{ collection.name }}
                             </option>
@@ -149,15 +149,15 @@
                 </div>
 
                 <div *ngIf="selectedType === 'URL'" class="pt-8">
-                    <app-form-label>Resource URL</app-form-label>
+                    <app-form-label>URL do recurso</app-form-label>
 
-                    <app-input-field placeholder="insert your resource URL here"
+                    <app-input-field placeholder="insira a URL do recurso aqui"
                         formControlName="access"></app-input-field>
                 </div>
 
                 <div *ngIf="selectedType === 'File'" class="pt-8">
 
-                    <app-form-label>Upload file</app-form-label>
+                    <app-form-label>Upload de arquivo</app-form-label>
 
                     <app-file-upload formControlName="access" (fileSelected)="onFileSelected($event)"
                         progress="progress"></app-file-upload>
@@ -169,23 +169,23 @@
         <ng-template #customFooter>
 
             <app-input-button (click)="create()" aria-label="Close"
-                data-hs-overlay="#hs-medium-modal">Save</app-input-button>
+                data-hs-overlay="#hs-medium-modal">Salvar</app-input-button>
 
         </ng-template>
 
     </app-medium-modal>
 
-    <app-center-modal id="hs-scale-animation-modal" title="New collection">
+    <app-center-modal id="hs-scale-animation-modal" title="Nova coleção">
         <ng-template #customContent>
             <form [formGroup]="collectionForm">
-                <app-input-field id="collection" placeholder="insert collection name"
+                <app-input-field id="collection" placeholder="insira o nome da coleção"
                     formControlName="collection"></app-input-field>
             </form>
         </ng-template>
 
         <ng-template #customFooter>
             <app-input-button (onClick)="createCollection()" aria-label="Close"
-                data-hs-overlay="#hs-scale-animation-modal">Save</app-input-button>
+                data-hs-overlay="#hs-scale-animation-modal">Salvar</app-input-button>
         </ng-template>
     </app-center-modal>
 

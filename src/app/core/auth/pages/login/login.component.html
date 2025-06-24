@@ -14,37 +14,37 @@
             </div><br><br>
 
             <div class="text-center mb-4">
-                <h2 class="text-xl font-semibold">Sign in</h2>
+                <h2 class="text-xl font-semibold">Entrar</h2>
             </div>
 
             <form [formGroup]="forms" (ngSubmit)="login()" class="flex flex-col gap-y-3">
 
                 <div class="flex flex-col">
                     <app-form-label for="email">Email</app-form-label>
-                    <app-input-field id="email" name="email" placeholder="enter your email" formControlName="email" ></app-input-field>
+                    <app-input-field id="email" name="email" placeholder="insira seu email" formControlName="email" ></app-input-field>
                     <p class="text-sm ml-2 pt-2 text-red-500"
                     *ngIf="forms.get('email')?.touched && forms.get('email')?.hasError('required')">
-                    Email is required
+                    Email é obrigatório
                     </p>
 
                     <p class="text-sm ml-2 pt-2 text-red-500"
                     *ngIf="forms.get('email')?.touched && forms.get('email')?.hasError('email')">
-                    Email must have a valid format
+                    Formato de email inválido.
                     </p>
                 </div>
 
                 <div class="flex flex-col">
-                    <app-form-label for="password">Password</app-form-label>
-                    <app-password-input-field placeholder="enter your password" formControlName="password"></app-password-input-field>
+                    <app-form-label for="password">Senha</app-form-label>
+                    <app-password-input-field placeholder="insira sua senha" formControlName="password"></app-password-input-field>
 
                     <p class="text-sm ml-2 pt-2 text-red-500"
                     *ngIf="forms.get('password')?.touched && forms.get('password')?.hasError('required')">
-                    Password is required
+                    Senha é obrigatório
                     </p>
 
                     <p class="text-sm ml-2 pt-2 text-red-500"
                     *ngIf="forms.get('password')?.touched && forms.get('password')?.hasError('minlength')">
-                    Password must have at least 8 characters
+                    A senha deve conter pelo menos 8 caracteres.
                     </p>
 
                     <p class="text-sm ml-2 pt-2 text-red-500" *ngIf="errorMessage != ' ' ">
@@ -57,14 +57,14 @@
                 routerLink="/forgot-password" 
                 class="text-[var(--color-primary)] hover:text-[var(--color-primary)] decoration-2 hover:underline focus:outline-hidden focus:underline opacity-90" 
                 style="justify-content:right; display: flex; font-size: small;">
-                Forgot your password?
+                Esqueceu a senha?
                 </a>
 
                 
 
                 <div class="mb-2">
                     <app-input-button class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2" type="submit" [disabled]="forms.invalid">
-                        <div *ngIf="!sent">Sign in</div>
+                        <div *ngIf="!sent">Entrar</div>
 
                         <app-spinner *ngIf="sent" class="flex items-center"></app-spinner>
                     </app-input-button>
@@ -74,7 +74,7 @@
             </form>
 
             <div class="flex justify-center text-center">
-                <p><a class="text-[var(--color-secondary)] text-sm underline underline-offset-2 decoration-[var(--color-secondary)] hover:opacity-80 focus:outline-hidden focus:opacity-80" routerLink="/register">Don't have an account yet? Sign up here.</a></p>
+                <p><a class="text-[var(--color-secondary)] text-sm underline underline-offset-2 decoration-[var(--color-secondary)] hover:opacity-80 focus:outline-hidden focus:opacity-80" routerLink="/register">Ainda não tem uma conta? Cadastre-se aqui.</a></p>
             </div>
 
         </div>

@@ -52,7 +52,7 @@ export class LoginComponent implements AfterViewInit {
   sloganTyping() {
     this.typed$ = this.typeWriter
 
-      .getTypewriterEffect(['One language at a time...', '...in your way.'])
+      .getTypewriterEffect(['Um idioma de cada vez...', '...do seu jeito.'])
       .pipe(map((text) => text));
   }
 

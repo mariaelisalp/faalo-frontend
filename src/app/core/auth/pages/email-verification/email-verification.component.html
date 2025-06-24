@@ -1,6 +1,6 @@
 <div class="flex flex-col justify-center items-center pt-10">
-    <p class="flex items-end text-3xl font-bold text-[var(--color-secondary)] pb-5">Thanks for joining <span><img class="w-30 ml-2" src="/Faalo.svg" alt=""></span>!</p>
-    <h4>We've just sent a verification code on your email.</h4>
+    <p class="flex items-end text-3xl font-bold text-[var(--color-secondary)] pb-5"><span><img class="w-30 ml-2" src="/Faalo.svg" alt=""></span>!</p>
+    <h4>Acabamos de enviar um código de verificação no seu email..</h4>
     <div class="flex justify-center items-center pt-20 px-4 sm:px-6">
 
         <div
@@ -8,9 +8,9 @@
 
             <form [formGroup]="form" (ngSubmit)="sendCode()">
                 <div class="flex flex-col items-center gap-y-4">
-                    <p>Please insert your verification code below:</p>
+                    <p>Por favor, insira seu código de verificação abaixo.</p>
                     <app-input-field id="code" name="code" formControlName="code"
-                        placeholder="enter code"></app-input-field>
+                        placeholder="código de verificação"></app-input-field>
 
                     <p class="text-sm ml-2 pt-2 text-red-500" *ngIf="errorMessage">
                         {{ errorMessage }}
@@ -19,17 +19,17 @@
                     <div class="flex flex-row gap-4 items-center">
                         <div>
                             <ng-container *ngIf="!countdownFinished; else showButton">
-                                <app-cooldown [duration]="30" [message]="'Resend code in'"
+                                <app-cooldown [duration]="30" [message]="'Reenviar código em '"
                                     (cooldownFinished)="onCountDownFinished()">
                                 </app-cooldown>
                             </ng-container>
 
                             <ng-template #showButton>
-                                <app-input-button (click)="resendCode()">Resend code</app-input-button>
+                                <app-input-button (click)="resendCode()">Reenviar código</app-input-button>
                             </ng-template>
                         </div>
 
-                        <app-input-button type="submit" [disabled]="form.invalid">Verify
+                        <app-input-button type="submit" [disabled]="form.invalid">Verificar
                             email</app-input-button>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
 
     <p class="pt-10 pb-5"><a
             class="text-[var(--color-secondary)] text-sm underline underline-offset-2 decoration-[var(--color-secondary)] hover:opacity-80 focus:outline-hidden focus:opacity-80"
-            routerLink="/home">Skip for now.</a></p>
+            routerLink="/home">Pular por enquanto.</a></p>
 
     <!-- Toast -->
     <div *ngIf="verified"
@@ -57,7 +57,7 @@
             </div>
             <div class="ms-3">
                 <p id="hs-toast-success-example-label" class="text-sm text-gray-700 dark:text-neutral-400">
-                    Email verified!
+                    Email verificado!
                 </p>
             </div>
         </div>

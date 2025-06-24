@@ -1,18 +1,16 @@
 <app-basic-layout>
     <div class="flex-1 p-12 pr-40 overflow-auto">
         <div class="flex flex-col gap-4">
-            <h1 class="text-3xl pt-4 pb-3 text-[var(--color-primary)] dark:text-white">Welcome! Your learning journey
-                starts here.</h1>
+            <h1 class="text-3xl pt-4 pb-3 text-[var(--color-primary)] dark:text-white">Bem-vindo! Sua jornada de aprendizado começa aqui.</h1>
             <hr class="border-[var(--color-primary)] dark:border-white">
 
-            <p class="text-xl pt-5 font-semibold text-[var(--color-secondary)] dark:text-white">My languages</p>
+            <p class="text-xl pt-5 font-semibold text-[var(--color-secondary)] dark:text-white">Meus idiomas</p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <div *ngFor="let lang of languages">
                     <a routerLink="/dashboard/{{ lang.id }}">
                         <app-language-button class="w-full">
-                            <p class="text-xl font-medium text-[var(--color-secondary)] dark:text-white">{{ lang.name }}
-                            </p>
+                            <p class="text-xl font-medium text-[var(--color-secondary)] dark:text-white">{{ lang.name }}</p>
                         </app-language-button>
                     </a>
                 </div>
@@ -26,23 +24,23 @@
                                 d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
 
-                        <p class="text-xl font-medium text-[var(--color-secondary)] dark:text-white">New</p>
+                        <p class="text-xl font-medium text-[var(--color-secondary)] dark:text-white">Novo</p>
                     </div>
                 </app-language-button>
 
             </div>
         </div>
 
-        <app-center-modal id="hs-scale-animation-modal" title="Add new language">
+        <app-center-modal id="hs-scale-animation-modal" title="Adicionar novo idioma">
             <ng-template #customContent>
                 <form [formGroup]="form">
-                    <app-input-field id="language" placeholder="add language name"
+                    <app-input-field id="language" placeholder="adicionar nome do idioma"
                         formControlName="language"></app-input-field>
                 </form>
             </ng-template>
 
             <ng-template #customFooter>
-                <app-input-button (onClick)="createLanguage()" aria-label="Close" data-hs-overlay="#hs-scale-animation-modal">Save</app-input-button>
+                <app-input-button (onClick)="createLanguage()" aria-label="Close" data-hs-overlay="#hs-scale-animation-modal">Salvar</app-input-button>
             </ng-template>
 
         </app-center-modal>

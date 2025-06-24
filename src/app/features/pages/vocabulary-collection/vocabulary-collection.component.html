@@ -13,10 +13,10 @@
 
                 <div>
                     <p class="text-xl font-semibold text-[var(--color-secondary)] dark:text-white">
-                        Vocabulary
+                        Vocabulário
                     </p>
 
-                    <p class="text-sm font-semibold text-[var(--color-secondary)] dark:text-white">Collection</p>
+                    <p class="text-sm font-semibold text-[var(--color-secondary)] dark:text-white">Coleção</p>
                 </div>
 
                 <div class="flex flex-row justify-between">
@@ -61,11 +61,11 @@
 
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <p class="text-xl font-semibold text-[var(--color-secondary)] dark:text-white">
-                    Vocabularies
+                    Vocabulários
                 </p>
 
                 <form class="flex flex-row gap-2 justify-end items-center">
-                    <app-input-field placeholder="Search" id="search" [(ngModel)]="searchTerm"
+                    <app-input-field placeholder="Pesquisar" id="search" [(ngModel)]="searchTerm"
                         name="search"></app-input-field>
 
 
@@ -82,7 +82,7 @@
                 </svg>
 
 
-                <p class="text text-gray-500 dark:text-neutral-200">Start adding vocabularies</p>
+                <p class="text text-gray-500 dark:text-neutral-200">Comece adicionando vocabulários</p>
 
 
             </div>
@@ -106,30 +106,29 @@
 
 
 
-    <app-center-modal id="hs-scale-animation-modal" title="Edit collection">
+    <app-center-modal id="hs-scale-animation-modal" title="Editar coleção">
         <ng-template #customContent>
             <form [formGroup]="collectionForm">
-                <app-input-field id="collection" placeholder="insert collection name"
+                <app-input-field id="collection" placeholder="adicione o nome da coleção"
                     formControlName="collection"></app-input-field>
             </form>
         </ng-template>
 
         <ng-template #customFooter>
             <app-input-button (onClick)="updateCollection()" aria-label="Close"
-                data-hs-overlay="#hs-scale-animation-modal">Save changes</app-input-button>
+                data-hs-overlay="#hs-scale-animation-modal">Salvar</app-input-button>
         </ng-template>
     </app-center-modal>
 
-    <app-center-modal id="hs-delete-animation-modal" title="Delete">
+    <app-center-modal id="hs-delete-animation-modal" title="Excluir">
         <ng-template #customContent>
-            <p>Are you sure you want to delete this collection? You can delete everything related to it or you can keep de vocabularies in the main list.</p>
+            <p>Você tem certeza de que deseja excluir esta coleção? Você pode excluir tudo o que está relacionado a ela ou manter os vocabulários na lista principal.</p>
         </ng-template>
 
         <ng-template #customFooter>
-            <app-input-button (click)="moveVocabulariesToRoot()" aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">I want to keep the vocabularies</app-input-button>
+            <app-input-button (click)="moveVocabulariesToRoot()" aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Quero manter os vocabulários</app-input-button>
             <app-danger-button (onClick)="deleteCollection()" routerLink="/{{ languageId}}/vocabulary"
-                aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Delete
-                all</app-danger-button>
+                aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Excluir tudo</app-danger-button>
         </ng-template>
     </app-center-modal>
 
