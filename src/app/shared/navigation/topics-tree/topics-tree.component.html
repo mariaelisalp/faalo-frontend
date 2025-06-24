@@ -11,9 +11,9 @@
         class="hs-accordion-heading py-0.5 flex items-center gap-x-0.5 w-full hover:bg-gray-200 dark:hover:bg-neutral-600 focus:bg-gray-100 rounded-md">
         <!-- Toggle Accordion -->
         <button *ngIf="node.tree" (click)="toggleNode(node)"
-          class="hs-accordion-toggle size-6 flex justify-center items-center hover:bg-gray-100 rounded-md">
+          class="hs-accordion-toggle size-6 flex justify-center items-center rounded-md cursor-pointer">
           <svg [ngClass]="{'rotate-90': node.expanded, 'rotate-0': !node.expanded}"
-            class="transition-transform duration-300 size-2.5 text-gray-600" xmlns="http://www.w3.org/2000/svg"
+            class="transition-transform duration-300 size-2.5 text-[var(--color-secondary)] dark:text-white" xmlns="http://www.w3.org/2000/svg"
             width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
             <path
               d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
