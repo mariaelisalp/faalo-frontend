@@ -9,7 +9,6 @@ import { InputFieldComponent } from '../../../shared/fields/input-field/input-fi
 import { TopicResponse } from '../../interfaces/response/topic-response.interface';
 import { MediumModalComponent } from '../../../shared/modals/medium-modal/medium-modal.component';
 import { FormLabelComponent } from '../../../shared/labels/form-label/form-label.component';
-import { SelectFieldComponent } from '../../../shared/fields/select-field/select-field.component';
 import { FileUploadComponent } from '../../../shared/upload/file-upload/file-upload.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CenterModalComponent } from '../../../shared/modals/center-modal/center-modal.component';
@@ -24,7 +23,7 @@ declare var HSOverlay: any;
 @Component({
   selector: 'app-resource-list',
   imports: [BasicLayoutComponent, CommonModule, ResourceTableComponent, InputButtonComponent, InputFieldComponent, MediumModalComponent,
-    FormLabelComponent, ReactiveFormsModule, SelectFieldComponent, FileUploadComponent, CenterModalComponent, LanguageButtonComponent,
+    FormLabelComponent, ReactiveFormsModule, FileUploadComponent, CenterModalComponent, LanguageButtonComponent,
     RouterModule, FormsModule
   ],
   templateUrl: './resource-list.component.html',

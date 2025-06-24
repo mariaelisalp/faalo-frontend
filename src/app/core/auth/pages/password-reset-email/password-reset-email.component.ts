@@ -1,18 +1,17 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component} from '@angular/core';
 import { InputFieldComponent } from '../../../../shared/fields/input-field/input-field.component';
 import { InputButtonComponent } from '../../../../shared/buttons/input-button/input-button.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { ModalComponent } from '../../../../shared/modals/modal/modal.component';
 import { ErrorMessageComponent } from '../../../../shared/error-message/error-message.component';
 import { HSOverlay } from 'preline/dist';
 import { CenterModalComponent } from '../../../../shared/modals/center-modal/center-modal.component';
 
 @Component({
   selector: 'app-password-reset-email',
-  imports: [InputFieldComponent, InputButtonComponent, ReactiveFormsModule, CommonModule, ModalComponent, ErrorMessageComponent, 
+  imports: [InputFieldComponent, InputButtonComponent, ReactiveFormsModule, CommonModule, ErrorMessageComponent, 
     CenterModalComponent],
   templateUrl: './password-reset-email.component.html',
   styleUrl: './password-reset-email.component.scss'

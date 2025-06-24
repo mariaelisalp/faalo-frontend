@@ -36,7 +36,6 @@
             ],
             "scripts": [
               "node_modules/lodash/lodash.min.js",
-              "node_modules/dropzone/dist/dropzone-min.js",
               "node_modules/preline/dist/index.js"
             ]
           },
@@ -46,7 +45,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",

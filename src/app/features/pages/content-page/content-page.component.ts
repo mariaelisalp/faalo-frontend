@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { ContentService } from '../../services/content.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { debounceTime, delay, distinctUntilChanged, filter, mapTo, merge, mergeMap, of, share, startWith, tap } from 'rxjs';
@@ -20,7 +20,6 @@ import { CenterModalComponent } from '../../../shared/modals/center-modal/center
 import { DangerButtonComponent } from '../../../shared/buttons/danger-button/danger-button.component';
 import { InputButtonComponent } from '../../../shared/buttons/input-button/input-button.component';
 import { ExampleTableComponent } from '../../components/example-table/example-table.component';
-import { TopicsTreeComponent } from '../../../shared/navigation/topics-tree/topics-tree.component';
 import { HSDropdown, HSOverlay } from 'preline/dist';
 import { TopicResponse } from '../../interfaces/response/topic-response.interface';
 import { TopicService } from '../../services/topic.service';
@@ -30,7 +29,7 @@ import { TranslatorComponent } from '../../components/translator/translator.comp
   selector: 'app-content-page',
   imports: [ReactiveFormsModule, BasicLayoutComponent, CommonModule, RouterModule, CenterModalComponent,
     TextareaComponent, InputFieldComponent, MediumLabelComponent, DangerButtonComponent, OverflowMenuComponent, NotesOffcanvasComponent,
-    FormsModule, InputButtonComponent, ExampleTableComponent, TopicsTreeComponent, TranslatorComponent],
+    FormsModule, InputButtonComponent, ExampleTableComponent, TranslatorComponent],
   templateUrl: './content-page.component.html',
   styleUrl: './content-page.component.scss'
 })
@@ -50,7 +49,6 @@ export class ContentPageComponent implements AfterViewInit {
 
   @ViewChild('hs-dropdown-custom-icon-trigger') modalElement!: ElementRef;
   @ViewChild('hsScaleAnimationModal') modal!: ElementRef;
-  @ViewChild(TopicsTreeComponent) treeComponent!: TopicsTreeComponent;
 
   form = new FormGroup({
     title: new FormControl<string>('Sem título', Validators.required),

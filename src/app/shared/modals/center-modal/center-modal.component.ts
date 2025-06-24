@@ -1,10 +1,9 @@
 import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
-import { InputButtonComponent } from '../../buttons/input-button/input-button.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-center-modal',
-  imports: [InputButtonComponent, CommonModule],
+  imports: [ CommonModule],
   templateUrl: './center-modal.component.html',
   styleUrl: './center-modal.component.scss'
 })

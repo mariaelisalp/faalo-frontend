@@ -5,7 +5,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { SecondInputFieldComponent } from '../../../../shared/fields/second-input-field/second-input-field.component';
 import { FormLabelComponent } from '../../../../shared/labels/form-label/form-label.component';
 import { InputButtonComponent } from '../../../../shared/buttons/input-button/input-button.component';
-import { UploadProfilePhotoComponent } from '../../../../shared/file/upload-profile-photo/upload-profile-photo.component';
 import { Router, RouterModule } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { PasswordInputFieldComponent } from '../../../../shared/fields/password-input-field/password-input-field.component';
@@ -18,7 +17,7 @@ import { NavigationService } from '../../navigation.service';
   selector: 'app-register',
   standalone: true,
   imports: [ReactiveFormsModule, SecondInputFieldComponent, FormLabelComponent, InputButtonComponent, 
-    UploadProfilePhotoComponent, RouterModule, PasswordInputFieldComponent, CommonModule, SpinnerComponent],
+     RouterModule, PasswordInputFieldComponent, CommonModule, SpinnerComponent],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })

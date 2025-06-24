@@ -2,8 +2,6 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { BasicLayoutComponent } from '../../basic-layout/basic-layout.component';
 import { InputButtonComponent } from '../../../shared/buttons/input-button/input-button.component';
 import { InputFieldComponent } from '../../../shared/fields/input-field/input-field.component';
-import { EditableTableComponent } from '../../../shared/tables/editable-table/editable-table.component';
-import { MediumModalComponent } from '../../../shared/modals/medium-modal/medium-modal.component';
 import { CommonModule, Location } from '@angular/common';
 import { ResourceService } from '../../services/resource.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
@@ -12,12 +10,8 @@ import { TopicService } from '../../services/topic.service';
 import { ModuleType } from '../../enum/module-type.enum';
 import { ResourceTableComponent } from '../../../shared/tables/resource-table/resource-table.component';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormLabelComponent } from '../../../shared/labels/form-label/form-label.component';
-import { FileUploadComponent } from '../../../shared/upload/file-upload/file-upload.component';
 import { CenterModalComponent } from '../../../shared/modals/center-modal/center-modal.component';
 import { DangerButtonComponent } from '../../../shared/buttons/danger-button/danger-button.component';
-import { ResourceListComponent } from '../resource-list/resource-list.component';
-import { TopicResponse } from '../../interfaces/response/topic-response.interface';
 declare global {
   interface Window {
     HSOverlay: any;
@@ -26,8 +20,8 @@ declare global {
 
 @Component({
   selector: 'app-collection-page',
-  imports: [BasicLayoutComponent, InputButtonComponent, FileUploadComponent, CenterModalComponent, FormLabelComponent, InputFieldComponent,
-    ResourceTableComponent, MediumModalComponent, CommonModule, ReactiveFormsModule, RouterModule, DangerButtonComponent, FormsModule],
+  imports: [BasicLayoutComponent, InputButtonComponent, CenterModalComponent, InputFieldComponent,
+    ResourceTableComponent, CommonModule, ReactiveFormsModule, RouterModule, DangerButtonComponent, FormsModule],
   templateUrl: './collection-page.component.html',
   styleUrl: './collection-page.component.scss'
 })

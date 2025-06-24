@@ -5,7 +5,7 @@ import { NoteFieldComponent } from '../../fields/note-field/note-field.component
 
 @Component({
   selector: 'app-editable-table',
-  imports: [CommonModule, NoteFieldComponent],
+  imports: [CommonModule],
   templateUrl: './editable-table.component.html',
   styleUrl: './editable-table.component.scss'
 })

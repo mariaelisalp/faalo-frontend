@@ -1,11 +1,8 @@
 import { Component, ElementRef, ViewChild,} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { SidebarComponent } from '../../../shared/navigation/sidebar/sidebar.component';
-import { NavigationToggleComponent } from '../../../shared/buttons/navigation-toggle/navigation-toggle.component';
 import { InputFieldComponent } from '../../../shared/fields/input-field/input-field.component';
 import { CenterModalComponent } from '../../../shared/modals/center-modal/center-modal.component';
-import { ThemeToggleComponent } from '../../../shared/buttons/theme-toggle/theme-toggle.component';
 import { InputButtonComponent } from '../../../shared/buttons/input-button/input-button.component';
 import { LanguageButtonComponent } from '../../../shared/buttons/language-button/language-button.component';
 import { Router, RouterModule } from '@angular/router';
@@ -17,7 +14,7 @@ import { BasicLayoutComponent } from '../../basic-layout/basic-layout.component'
 
 @Component({
   selector: 'app-home',
-  imports: [ReactiveFormsModule, BasicLayoutComponent, InputFieldComponent, ThemeToggleComponent, CommonModule, 
+  imports: [ReactiveFormsModule, BasicLayoutComponent, InputFieldComponent, CommonModule, 
     CenterModalComponent, InputButtonComponent, LanguageButtonComponent, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
