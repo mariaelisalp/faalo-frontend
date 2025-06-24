@@ -12,7 +12,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   findByEmail() {
-    return this.http.get<ApiResponse<UserResponse>>('api/users/user/');
+    return this.http.get<ApiResponse<UserResponse>>('api/users/user');
   }
 
   update(user: UserEdit) {
