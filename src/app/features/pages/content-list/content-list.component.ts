@@ -69,8 +69,6 @@ export class ContentListComponent {
       this.findOneTopic()
       this.findManyContents();
 
-      console.log(this.contents)
-
     });
 
   }
@@ -96,9 +94,6 @@ export class ContentListComponent {
         next: () => {
           this.findManyTopics();
         },
-        error: (err) => {
-          console.log(err);
-        }
       });
     }
     else {
@@ -106,9 +101,6 @@ export class ContentListComponent {
         next: () => {
           this.findManyTopics();
         },
-        error: (err) => {
-          console.log(err);
-        }
       });
     }
   }
@@ -155,11 +147,7 @@ export class ContentListComponent {
     this.contentService.findMany(this.languageId, this.topicId).subscribe({
       next: (res) => {
         this.contents = res.data;
-        console.log(this.contents)
       },
-      error: (err) => {
-        console.log(err)
-      }
     });
   }
 
@@ -168,7 +156,6 @@ export class ContentListComponent {
 
     for (const content of this.contents) {
       this.contentService.updateTopic(this.languageId, content.id, topic).subscribe();
-      console.log('movido');
     }
 
     this.deleteTopic();

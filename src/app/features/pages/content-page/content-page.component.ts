@@ -67,7 +67,6 @@ export class ContentPageComponent implements AfterViewInit {
     this.languageId = this.activatedRoute.snapshot.params['languageId'];
     this.contentId = this.activatedRoute.snapshot.params['id'];
     this.topicId = this.activatedRoute.snapshot.queryParams['topic'];
-    console.log(this.topicId, 'topicid');
     this.moduleType = ModuleType.CONTENT
   }
 
@@ -119,7 +118,7 @@ export class ContentPageComponent implements AfterViewInit {
       startWith("Todas as mudanças foram salvas.")
     );
 
-    inputToSave$.subscribe(console.log);
+    inputToSave$.subscribe();
   }
 
   toggleSidebar() {
@@ -165,7 +164,6 @@ export class ContentPageComponent implements AfterViewInit {
 
   updateTopic() {
     const value = this.editTopicForm.get('topic')?.value;
-    console.log('valuee', value)
     const topic = { id: value !== '' ? Number(value) : null };
 
     this.contentService.updateTopic(this.languageId, this.contentId, topic).subscribe();

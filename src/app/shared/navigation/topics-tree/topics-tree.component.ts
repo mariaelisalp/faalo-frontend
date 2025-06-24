@@ -32,9 +32,7 @@ export class TopicsTreeComponent implements OnInit{
   ngOnInit(): void {
     this.topicService.findAll(this.languageId, ModuleType.CONTENT).subscribe(
       (res) => {
-        console.log(res.data)
         this.tree = TopicTreeNode.buildTree(res.data);
-        console.log(this.tree)
       }
     );
   }

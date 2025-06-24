@@ -20,7 +20,6 @@ export class UserService {
   }
 
   updatePassword(password: PasswordEdit){
-    console.log(password)
     return this.http.put('api/users/update-password', password);
   }
 

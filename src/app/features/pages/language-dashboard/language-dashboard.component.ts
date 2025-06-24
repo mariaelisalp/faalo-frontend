@@ -56,7 +56,6 @@ export class LanguageDashboardComponent {
         this.editForm.patchValue({
           name: res.data.name
         })
-        console.log(this.language);
       }
     });
   }

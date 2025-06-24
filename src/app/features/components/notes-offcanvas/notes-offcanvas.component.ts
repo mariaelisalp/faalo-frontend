@@ -108,14 +108,7 @@ export class NotesOffcanvasComponent implements OnInit {
       finalize(() => {
         this.savingInProgress = false;
       })
-    ).subscribe({
-      next: (res) => {
-        console.log(`Nota ${index} salva com sucesso:`, res);
-      },
-      error: (err) => {
-        console.error(`Erro ao salvar nota ${index}:`, err);
-      }
-    });
+    ).subscribe({});
   }
 
   addNoteArea() {
@@ -134,9 +127,6 @@ export class NotesOffcanvasComponent implements OnInit {
         
         this.setupAutoSave(notesArray.length - 1, noteGroup);
       },
-      error: (err) => {
-        console.error('Erro ao criar nota:', err);
-      }
     });
   }
 
@@ -150,14 +140,7 @@ export class NotesOffcanvasComponent implements OnInit {
     }
     
     if (noteToRemove.id) {
-      this.notesService.delete(this.moduleId, noteToRemove.id).subscribe({
-        next: () => {
-          console.log(`Nota ${index} excluída com sucesso`);
-        },
-        error: (err) => {
-          console.error(`Erro ao excluir nota ${index}:`, err);
-        }
-      });
+      this.notesService.delete(this.moduleId, noteToRemove.id).subscribe({});
     }
     
     notesArray.removeAt(index);

@@ -23,7 +23,6 @@ export class NoteService{
     findOne(){}
 
     update(note: Note, id: number, moduleId: number){
-        console.log(note)
         return this.http.patch<ApiResponse<NoteResponse>>(`api/${moduleId}/note/${id}`, note);
     }
 

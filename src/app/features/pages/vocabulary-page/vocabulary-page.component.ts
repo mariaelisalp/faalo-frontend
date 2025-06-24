@@ -120,7 +120,6 @@ export class VocabularyPageComponent {
   getWord() {
     this.wordService.findOne(this.vocabularyId, this.wordId).subscribe({
       next: (res) => {
-        console.log(res.data)
         this.editWordForm.patchValue({
           word: res.data.word,
           translation: res.data.translation,
@@ -131,8 +130,6 @@ export class VocabularyPageComponent {
   }
 
   getVocabulary() {
-    console.log(this.name)
-
     this.editVocabularyForm.patchValue({
       name: this.name
     })

@@ -41,7 +41,6 @@ export class PasswordResetComponent {
 
 
     if(this.form.invalid){
-      console.log('senhas erradas')
       return;
     }
 

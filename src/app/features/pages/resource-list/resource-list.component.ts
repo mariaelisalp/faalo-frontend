@@ -152,10 +152,6 @@ export class ResourceListComponent {
       }
     }
 
-    for (const pair of resource.entries()) {
-      console.log(`${pair[0]}:`, pair[1]);
-    }
-
     const collection = this.form.get('collection')?.value;
 
     if (collection) {
@@ -206,8 +202,6 @@ export class ResourceListComponent {
     this.topicService.findAll(this.languageId, ModuleType.RESOURCE).subscribe({
       next: (res) => {
         this.collections = res.data;
-
-        console.log(this.collections)
       }
     });
   }

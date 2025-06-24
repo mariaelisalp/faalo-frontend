@@ -83,7 +83,6 @@ export class ResourceTableComponent {
 
   onFileSelected(file: File) {
     this.selectedFile = file;
-    console.log(file)
   }
 
   getResourceValues() {
@@ -101,7 +100,6 @@ export class ResourceTableComponent {
       next: (res) => {
         this.currentResource = res.data
         this.getResourceValues();
-        console.log(this.currentResource)
       }
     })
   }

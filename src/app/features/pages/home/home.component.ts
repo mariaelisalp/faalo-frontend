@@ -62,9 +62,6 @@ export class HomeComponent {
         this.closeModal();
         this.getLanguages();
       },
-      error: (err) => {
-        console.log(err)
-      }
     });
   }
 
@@ -75,7 +72,6 @@ export class HomeComponent {
   getLanguages(){
     this.language.findMany().subscribe((res) => {
         this.languages =  res.data
-        console.log(this.languages)
       }, 
     )
   }

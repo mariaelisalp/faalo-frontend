@@ -52,11 +52,8 @@ export class VocabularyListComponent {
   }
 
   openModal() {
-    console.log('chamou a função')
     this.getCollections();
     this.modalIsOpen = true;
-
-    console.log(this.collections, "collections");
   }
 
   ngOnInit() {
@@ -65,7 +62,6 @@ export class VocabularyListComponent {
   }
 
   createCollection() {
-    console.log('está sendo chamada')
     if (this.formCol.invalid) {
       return;
     }
@@ -95,11 +91,9 @@ export class VocabularyListComponent {
 
     if (collection) {
 
-      console.log('id da coleção:', collection)
       this.vocabularyService.createByTopic(vocabulary, this.languageId, +collection).subscribe({
         next: (res) => {
           this.getVocabularies();
-          console.log('criado')
         }
       })
     }

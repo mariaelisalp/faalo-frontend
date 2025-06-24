@@ -41,11 +41,9 @@ export class EmailVerificationComponent {
       value: this.form.get('code')?.value || ''
     }
 
-    console.log(code);
-
     return this.service.sendVerificationCode(code).subscribe({
       next: (res) => {
-        console.log(res)
+
         this.verified = true;
 
         setTimeout(() => {
@@ -53,7 +51,7 @@ export class EmailVerificationComponent {
         }, 3000);
       },
       error: (err) => {
-        console.log(err)
+ 
         this.errorMessage = err.message;
       },
     })

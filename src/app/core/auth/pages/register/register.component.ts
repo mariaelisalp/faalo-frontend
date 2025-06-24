@@ -58,8 +58,6 @@ export class RegisterComponent{
       confirmPassword: this.forms.get('confirmPassword')?.value || '',
       profileImage: this.forms.get('profileImage')?.value || ''
     }
-
-    console.log(user)
     
     return this.service.create(user).subscribe(
       {

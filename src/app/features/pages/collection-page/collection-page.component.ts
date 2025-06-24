@@ -125,9 +125,7 @@ export class CollectionPageComponent {
 
     for (const content of this.resources) {
       this.resourceService.updateTopic(this.languageId, content.id, topic).subscribe(() => {
-        console.log('chegando tudo')
       });
-      console.log('movido');
     }
 
     this.deleteCollection();

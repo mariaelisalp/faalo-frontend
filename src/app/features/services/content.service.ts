@@ -41,7 +41,6 @@ export class ContentService {
     }
 
     updateTopic(languageId: number, id:number, topic: {id: number | null}){
-        console.log('chegando aqui')
         return this.http.put(`api/${languageId}/content/${id}`, topic);
     }
 

@@ -96,9 +96,7 @@ export class VocabularyCollectionComponent {
 
     for (const content of this.vocabularies) {
       this.vocabularyService.updateTopic(this.languageId, content.id, topic).subscribe(() => {
-        console.log('chegando tudo')
       });
-      console.log('movido');
     }
 
     this.deleteCollection();

@@ -95,7 +95,6 @@ export class UserProfileComponent {
 
     this.userService.update(userUpdated).subscribe({
       next: (res) => {
-        console.log('chegou aquiii')
       },
       error: (err) => {
         this.errorMessage = err.message;
