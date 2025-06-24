@@ -157,10 +157,12 @@
 
                 <div *ngIf="selectedType === 'File'" class="pt-8">
 
-                    <app-form-label>Upload de arquivo</app-form-label>
+                    <app-form-label>Upload de arquivo (max 20MB)</app-form-label>
 
                     <app-file-upload formControlName="access" (fileSelected)="onFileSelected($event)"
                         progress="progress"></app-file-upload>
+
+                    <p *ngIf="errorMessage" class="text-red-600 pt-2 text-sm dark:text-red-400">{{errorMessage}}</p>
 
                 </div>
             </form>
@@ -168,8 +170,7 @@
 
         <ng-template #customFooter>
 
-            <app-input-button (click)="create()" aria-label="Close"
-                data-hs-overlay="#hs-medium-modal">Salvar</app-input-button>
+            <app-input-button (click)="create()">Salvar</app-input-button>
 
         </ng-template>
 

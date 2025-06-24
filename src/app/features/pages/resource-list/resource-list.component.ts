@@ -18,6 +18,7 @@ import { Topic } from '../../interfaces/topic.interface';
 import { ModuleType } from '../../enum/module-type.enum';
 import { LanguageButtonComponent } from '../../../shared/buttons/language-button/language-button.component';
 import { ResourceTableComponent } from '../../../shared/tables/resource-table/resource-table.component';
+import { validateFileSize, validateFileType } from '../../../core/validators/file.validator';
 
 declare var HSOverlay: any;
 @Component({
@@ -36,9 +37,11 @@ export class ResourceListComponent {
   selectedType: string = '';
   selectedFile: File | null = null;
   languageId: number;
+  fileValid: boolean = false;
   searchTerm: string = '';
 
   modalIsOpen = false;
+  errorMessage: string = '';
 
   @ViewChild('hsScaleAnimationModal') modalElement!: ElementRef;
 
@@ -97,7 +100,6 @@ export class ResourceListComponent {
 
   onFileSelected(file: File) {
     this.selectedFile = file;
-    console.log(file)
   }
 
   openModal() {
@@ -105,11 +107,23 @@ export class ResourceListComponent {
     this.getCollections();
     this.modalIsOpen = true;
 
-    console.log(this.collections, "collections");
-    console.log(this.modalIsOpen)
   }
 
-  handleEdit(resource: ResourceResponse) { }
+  validateFile(file: File){
+    if(!validateFileSize(file)){
+      this.errorMessage = 'Esse arquivo é muito grande';
+
+      return false
+    }
+
+    if(!validateFileType(file)){
+      this.errorMessage = 'Formato de arquivo não suportado'
+
+      return false;
+    }
+
+    return true;
+  }
 
   create() {
     if (this.form.invalid) {
@@ -125,7 +139,17 @@ export class ResourceListComponent {
       resource.append('access', this.form.get('access')?.value || '');
     }
     else {
-      resource.append('file', this.selectedFile!);
+      
+      if(this.selectedFile){
+        this.fileValid =  this.validateFile(this.selectedFile);
+        
+        if(this.fileValid){
+          resource.append('file', this.selectedFile);
+        }
+        else{
+          return;
+        }
+      }
     }
 
     for (const pair of resource.entries()) {
@@ -133,11 +157,9 @@ export class ResourceListComponent {
     }
 
     const collection = this.form.get('collection')?.value;
-    console.log("collection vazia quando cria:", collection);
 
     if (collection) {
-      console.log('criando....')
-      console.log('id da coleção:', collection)
+ 
       this.resourceService.createByTopic(resource, this.languageId, +collection).subscribe({
         next: (res) => {
           this.getResources();

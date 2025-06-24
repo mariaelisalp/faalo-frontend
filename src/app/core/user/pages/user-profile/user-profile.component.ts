@@ -6,7 +6,7 @@ import { FormLabelComponent } from '../../../../shared/labels/form-label/form-la
 import { DangerButtonComponent } from '../../../../shared/buttons/danger-button/danger-button.component';
 import { PasswordInputFieldComponent } from '../../../../shared/fields/password-input-field/password-input-field.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { passwordMatchValidator } from '../../../auth/validators/password-match.validator';
+import { passwordMatchValidator } from '../../../validators/password-match.validator';
 import { TokenService } from '../../../auth/token.service';
 import { UserService } from '../../services/user.service';
 import { UserResponse } from '../../../interfaces/response/user-response.interface';

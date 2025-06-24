@@ -7,7 +7,7 @@ import { AuthService } from '../../auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { PasswordInputFieldComponent } from '../../../../shared/fields/password-input-field/password-input-field.component';
-import { passwordMatchValidator } from '../../validators/password-match.validator';
+import { passwordMatchValidator } from '../../../validators/password-match.validator';
 import { ErrorMessageComponent } from '../../../../shared/error-message/error-message.component';
 import { CommonModule } from '@angular/common';
 

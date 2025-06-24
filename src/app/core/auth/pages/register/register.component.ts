@@ -10,7 +10,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { PasswordInputFieldComponent } from '../../../../shared/fields/password-input-field/password-input-field.component';
 import { CommonModule } from '@angular/common';
-import { passwordMatchValidator } from '../../validators/password-match.validator';
+import { passwordMatchValidator } from '../../../validators/password-match.validator';
 import { SpinnerComponent } from '../../../../shared/elements/spinner/spinner.component';
 import { NavigationService } from '../../navigation.service';
 

@@ -172,14 +172,15 @@
           </p>
         </div>
 
+        <p *ngIf="errorMessage" class="text-red-600 pt-2 text-sm dark:text-red-400">{{errorMessage}}</p>
+
       </div>
     </form>
   </ng-template>
 
   <ng-template #customFooter>
 
-    <app-input-button (click)="updateResource()" aria-label="Close"
-      data-hs-overlay="#hs-edit-medium-modal">Salvar</app-input-button>
+    <app-input-button (click)="updateResource()">Salvar</app-input-button>
 
   </ng-template>
 

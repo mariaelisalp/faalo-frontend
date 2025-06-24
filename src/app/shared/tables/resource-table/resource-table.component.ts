@@ -13,6 +13,7 @@ import { TopicResponse } from '../../../features/interfaces/response/topic-respo
 import { FileUploadComponent } from '../../upload/file-upload/file-upload.component';
 import { InputFieldComponent } from '../../fields/input-field/input-field.component';
 import { HSOverlay } from 'preline/dist';
+import { validateFileSize, validateFileType } from '../../../core/validators/file.validator';
 
 @Component({
   selector: 'app-resource-table',
@@ -26,6 +27,8 @@ export class ResourceTableComponent {
   @Input() resourceList: ResourceResponse[] = [];
   @Input() collections: TopicResponse[] = [];
   @Output() editResource = new EventEmitter<any>();
+  errorMessage: string = '';
+  fileValid: boolean = true;
   currentResource: ResourceResponse = {
     id: 0,
     name: '',
@@ -112,6 +115,22 @@ export class ResourceTableComponent {
     });
   }
 
+  validateFile(file: File) {
+    if (!validateFileSize(file)) {
+      this.errorMessage = 'Esse arquivo é muito grande';
+
+      return false
+    }
+
+    if (!validateFileType(file)) {
+      this.errorMessage = 'Formato de arquivo não suportado'
+
+      return false;
+    }
+
+    return true;
+  }
+
   updateResource() {
     if (this.selectedId) {
       const resource = new FormData();
@@ -123,15 +142,19 @@ export class ResourceTableComponent {
         resource.append('access', this.editForm.get('access')?.value || '');
       }
       else {
-        resource.append('file', this.selectedFile!);
-      }
+        if (this.selectedFile) {
+          this.fileValid = this.validateFile(this.selectedFile);
 
-      for (const pair of resource.entries()) {
-        console.log(`${pair[0]}:`, pair[1]);
+          if (this.fileValid) {
+            resource.append('file', this.selectedFile);
+          }
+          else {
+            return;
+          }
+        }
       }
 
       const collection = this.editForm.get('collection')?.value;
-      console.log("colection vazia quando atualiza", collection);
 
       this.resourceService.update(resource, this.selectedId, this.languageId, +collection).subscribe({
         next: (res) => {
