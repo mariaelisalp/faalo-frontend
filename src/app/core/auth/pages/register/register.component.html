@@ -9,7 +9,7 @@
         </a>
       </div>
 
-      <h2 class="text-xl sm:text-xl text-center font-bold">Registrar</h2>
+      <h2 class="text-xl sm:text-xl text-center font-bold">Crie uma conta</h2>
     </div>
 
     <div class="flex items-center justify-center py-8">
@@ -19,7 +19,7 @@
         <form [formGroup]="forms" (ngSubmit)="create()" class="flex flex-col gap-y-3">
           <div class="flex flex-col">
             <app-form-label for="name">Nome</app-form-label>
-            <app-second-input-field placeholder="enter your name" formControlName="name" id="name" name="name">
+            <app-second-input-field placeholder="insira seu nome" formControlName="name" id="name" name="name">
             </app-second-input-field>
 
             <p class="text-sm ml-2 pt-2 text-red-500"
@@ -30,7 +30,7 @@
 
           <div class="flex flex-col">
             <app-form-label for="email">Email</app-form-label>
-            <app-second-input-field placeholder="enter your email" formControlName="email" id="email" name="email">
+            <app-second-input-field placeholder="insira seu email" formControlName="email" id="email" name="email">
             </app-second-input-field>
 
             <p class="text-sm ml-2 pt-2 text-red-500"
@@ -88,7 +88,7 @@
             <app-input-button class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2" type="submit"
               [disabled]="forms.invalid">
               
-              <div *ngIf="!sent">Registrar</div>
+              <div *ngIf="!sent">Criar conta</div>
 
               <app-spinner *ngIf="sent" class="flex items-center"></app-spinner>
             </app-input-button>
