@@ -1,15 +1,14 @@
 <app-basic-layout>
-    <div class="flex flex-col gap-y-10 p-12 overflow-auto">
+    <div class="flex flex-col gap-y-6 sm:gap-y-8 lg:gap-y-10 p-4 sm:p-6 lg:p-12 overflow-auto">
 
-        <div class="pr-8">
-            <p class="text-xs text-gray-500">{{ saveIndicator$ | async }}</p>
+        <div class="w-full max-w-none lg:pr-8">
+            <p class="text-xs text-gray-500 mb-4">{{ saveIndicator$ | async }}</p>
 
             <form [formGroup]="form">
-
-                <div class="flex flex-col gap-y-6">
+                <div class="flex flex-col gap-y-4 sm:gap-y-6">
 
                     <button (click)="back()"
-                        class="flex size-8 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 justify-center items-center">
+                        class="flex size-8 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 justify-center items-center self-start">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6 text-black dark:text-white">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -17,15 +16,14 @@
                         </svg>
                     </button>
 
-                    <div class="flex justify-between">
-                        <app-medium-label>Título</app-medium-label>
+                    <div class="flex flex-row justify-between items-start gap-4">
+                        <app-medium-label class="flex-shrink-0">Título</app-medium-label>
 
-                        <app-overflow-menu id="hs-dropdown-custom-icon-trigger">
+                        <app-overflow-menu id="hs-dropdown-custom-icon-trigger" class="self-start sm:self-center">
                             <ng-template #customContent>
-
                                 <a aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-scale-animation-modal"
                                     data-hs-overlay="#hs-scale-animation-modal"
-                                    class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-red-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-red-30 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700">
+                                    class="flex items-center gap-x-3.5 py-2 px-3 cursor-pointer rounded-lg text-sm text-red-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-red-500 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="2" stroke="currentColor" class="size-4">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -36,91 +34,116 @@
 
                                 <a aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-move-animation-modal"
                                     data-hs-overlay="#hs-move-animation-modal"
-                                    class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700">
-                                    Mover para outro tópico
+                                    class="flex items-center gap-x-3.5 py-2 px-3 cursor-pointer rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700">
+                                    <span class="hidden sm:inline">Mover para outro tópico</span>
+                                    <span class="sm:hidden">Mover</span>
                                 </a>
-
                             </ng-template>
                         </app-overflow-menu>
-
                     </div>
 
-                    <app-input-field class="w-2/3" placeholder="Enter a content title" id="title"
-                        formControlName="title" name="title">
-
+                    <app-input-field class="w-full sm:w-4/5 lg:w-2/3 xl:w-1/2" 
+                        placeholder="Enter a content title" 
+                        id="title" 
+                        formControlName="title" 
+                        name="title">
                     </app-input-field>
 
-                    <div class="flex flex-col gap-y-6 pt-4">
+                    <div class="flex flex-col gap-y-4 sm:gap-y-6 pt-2 sm:pt-4">
                         <app-medium-label>Conteúdo</app-medium-label>
 
-                        <app-textarea placeholder="Digite o que desejar aqui..." id="content" formControlName="content"
-                            name="content" (input)="updatePreview(form.get('content')?.value || '')"></app-textarea>
+                        <app-textarea 
+                            class="w-full min-h-[200px] sm:min-h-[300px] lg:min-h-[400px]"
+                            placeholder="Digite o que desejar aqui..." 
+                            id="content" 
+                            formControlName="content"
+                            name="content" 
+                            (input)="updatePreview(form.get('content')?.value || '')">
+                        </app-textarea>
                     </div>
 
-
+                    <!-- Tabela de exemplos  -->
                     <!--<app-example-table *ngIf="contentId && moduleType" [moduleId]="contentId"
                         [moduleType]="moduleType"></app-example-table>-->
 
                 </div>
             </form>
         </div>
-
     </div>
 
-    <div class="fixed bottom-4 right-4">
+
+    <div class="fixed bottom-4 right-4 z-50">
         <div class="flex flex-col gap-y-2">
+  
             <button type="button"
-                class="m-1 ms-0 py-3 px-4 inline-flex items-center cursor-pointer gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[var(--color-secondary)] text-white hover:bg-black focus:outline-hidden focus:bg-black disabled:opacity-50 disabled:pointer-events-none dark: bg-[var(--color-primary)]"
+                class="group relative py-3 px-4 inline-flex items-center justify-center cursor-pointer gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[var(--color-secondary)] text-white hover:bg-black focus:outline-hidden focus:bg-black disabled:opacity-50 disabled:pointer-events-none dark:bg-[var(--color-primary)] shadow-lg hover:shadow-xl transition-all duration-200"
                 aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-offcanvas-right"
                 data-hs-overlay="#hs-offcanvas-right">
 
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="size-6">
+                    stroke="currentColor" class="size-5 sm:size-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                 </svg>
 
+
+                <span class="absolute right-full mr-2 px-2 py-1 text-xs bg-gray-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap hidden lg:block">
+                    Notas
+                </span>
             </button>
 
+
             <button type="button"
-                class="m-1 ms-0 py-3 px-4 inline-flex items-center cursor-pointer gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[var(--color-secondary)] text-white hover:bg-black focus:outline-hidden focus:bg-black disabled:opacity-50 disabled:pointer-events-none dark: bg-[var(--color-primary)]"
+                class="group relative py-3 px-4 inline-flex items-center justify-center cursor-pointer gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[var(--color-secondary)] text-white hover:bg-black focus:outline-hidden focus:bg-black disabled:opacity-50 disabled:pointer-events-none dark:bg-[var(--color-primary)] shadow-lg hover:shadow-xl transition-all duration-200"
                 aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-offcanvas-translator-right"
                 data-hs-overlay="#hs-offcanvas-translator-right">
 
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="size-6">
+                    stroke="currentColor" class="size-5 sm:size-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" />
                 </svg>
 
+                <span class="absolute right-full mr-2 px-2 py-1 text-xs bg-gray-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap hidden lg:block">
+                    Tradutor
+                </span>
             </button>
         </div>
     </div>
 
+
     <app-notes-offcanvas [moduleId]="+contentId" [moduleType]="moduleType"></app-notes-offcanvas>
-
     <app-translator></app-translator>
-
 
     <app-center-modal id="hs-scale-animation-modal" title="Delete">
         <ng-template #customContent>
-            <p>Você tem certeza que deseja excluir esse conteúdo? Não será possível recuperá-lo.</p>
+            <p class="text-sm sm:text-base">
+                Você tem certeza que deseja excluir esse conteúdo? Não será possível recuperá-lo.
+            </p>
         </ng-template>
 
         <ng-template #customFooter>
-            <app-danger-button (onClick)="delete()" routerLink="/{{ languageId}}/content" aria-label="Close" data-hs-overlay="#hs-scale-animation-modal">Excluir</app-danger-button>
+            <app-danger-button (onClick)="delete()" routerLink="/{{ languageId}}/content" 
+                aria-label="Close" data-hs-overlay="#hs-scale-animation-modal"
+                class="w-full sm:w-auto">
+                Excluir
+            </app-danger-button>
         </ng-template>
     </app-center-modal>
+
 
     <app-center-modal id="hs-move-animation-modal" title="Mover para outro tópico">
         <ng-template #customContent>
             <form [formGroup]="editTopicForm">
-                <label for="hs-select-label" class="block text-sm font-medium mb-2 dark:text-white">Selecione um tópico</label>
-                <select formControlName="topic" id="hs-select-label" class="block w-full rounded-xl border-2 border-gray-400 px-4 py-2.5 sm:text-sm placeholder-gray-500 
-         focus:border-[var(--color-secondary)] focus:border-2 focus:shadow-md 
-         focus:shadow-[var(--color-primary)] focus:ring-0 focus:outline-none 
-         dark:placeholder-gray-300 dark:border-[var(--color-primary)] 
-         dark:focus:bg-neutral-700 dark:text-white">
+                <label for="hs-select-label" class="block text-sm font-medium mb-2 dark:text-white">
+                    Selecione um tópico
+                </label>
+                <select formControlName="topic" id="hs-select-label" 
+                    class="block w-full rounded-xl border-2 border-gray-400 px-4 py-2.5 text-sm placeholder-gray-500 
+                           focus:border-[var(--color-secondary)] focus:border-2 focus:shadow-md 
+                           focus:shadow-[var(--color-primary)] focus:ring-0 focus:outline-none 
+                           dark:placeholder-gray-300 dark:border-[var(--color-primary)] 
+                           dark:focus:bg-neutral-700 dark:text-white dark:bg-neutral-800">
                     <option value="">Sem tópico</option>
                     <option *ngFor="let topic of topics" value="{{ topic.id }}">
                         {{ topic.name }}
@@ -130,7 +153,11 @@
         </ng-template>
 
         <ng-template #customFooter>
-            <app-input-button (click)="updateTopic()" aria-label="Close" data-hs-overlay="#hs-move-animation-modal">Mover</app-input-button>
+            <app-input-button (click)="updateTopic()" aria-label="Close" 
+                data-hs-overlay="#hs-move-animation-modal"
+                class="w-full sm:w-auto">
+                Mover
+            </app-input-button>
         </ng-template>
     </app-center-modal>
 

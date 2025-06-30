@@ -21,6 +21,7 @@ export class TranslatorComponent {
   sourceLanguages = AVAILABLE_LANGUAGES_SOURCE;
   targetLanguages = AVAILABLE_LANGUAGES_TARGET;
   translation: string = '';
+  sent: boolean = false;
 
   @Input() translatorId?: string;
 
@@ -33,9 +34,13 @@ export class TranslatorComponent {
   constructor(private translator: TranslatorService) { }
 
   translate() {
+    this.translation = '';
+
     if (this.form.invalid) {
       return;
     }
+
+    this.sent = true;
 
     const content: Translation = {
       source: this.form.get('source')?.value as SuportedLanguagesSource,
@@ -45,6 +50,7 @@ export class TranslatorComponent {
 
     this.translator.translate(content).subscribe({
         next: (res) => {
+          this.sent = false
           this.translation = res.data.text;
         }
       })

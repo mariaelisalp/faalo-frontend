@@ -1,59 +1,57 @@
 <app-basic-layout>
 
-    <div class="flex-1 flex-col pt-10 pl-10">
+    <div class="flex-1 flex-col p-4 sm:p-6 lg:p-12">
+        <div class="flex flex-row items-center gap-4">
+            <button (click)="back()"
+                class="flex size-8 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6 text-black dark:text-white">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+                </svg>
+            </button>
 
-        <button (click)="back()"
-            class="flex size-8 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 justify-center items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="size-6 text-black dark:text-white">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
-            </svg>
-        </button>
-
-        <div class="flex flex-row justify-between items-center">
-            <p class="text-3xl pt-2 font-semibold text-[var(--color-secondary)] dark:text-white">
+            <p class="text-2xl md:text-3xl font-semibold text-[var(--color-secondary)] dark:text-white">
                 Vocabulário
             </p>
+        </div>
 
+        <div class="flex flex-row justify-between items-center pt-2">
+            <div class="w-8"></div> <!-- Spacer for alignment -->
+            
             <app-input-button (click)="openModal()" class="w-25 h-9" aria-haspopup="dialog" aria-expanded="false"
                 aria-controls="hs-scale-animation-modal" data-hs-overlay="#hs-scale-animation-modal">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
-
-                Novo
+                <span class="hidden sm:inline">Novo</span>
             </app-input-button>
-
         </div>
-
     </div>
 
-    <div class="flex h-full w-full p-10 ">
-
-        <div class="flex flex-col gap-1">
-            <div class="flex flex-row gap-1 pb-2 items-center">
-                <p class="font-semibold text-xl text-[var(--color-secondary)] dark:text-neutral-100">Coleções</p>
+    <!-- Main Content -->
+    <div class="flex flex-col lg:flex-row h-full w-full p-4 sm:p-6 md:p-10 gap-4 md:gap-6">
+        <!-- Collections Sidebar -->
+        <div class="flex flex-col gap-2 w-full lg:w-60">
+            <div class="flex flex-row gap-2 items-center">
+                <p class="font-semibold text-lg sm:text-xl text-[var(--color-secondary)] dark:text-neutral-100">Coleções</p>
 
                 <a class="cursor-pointer" aria-haspopup="dialog" aria-expanded="false"
                     aria-controls="hs-col-animation-modal" data-hs-overlay="#hs-col-animation-modal">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-7 text-[var(--color-secondary)] dark:text-neutral-100">
+                        stroke="currentColor" class="size-6 sm:size-7 text-[var(--color-secondary)] dark:text-neutral-100">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
-
                 </a>
             </div>
 
-            <div class="h-full w-60 bg-gray-100 dark:bg-neutral-900 rounded-lg pr-2">
-                <div class="flex flex-col p-4 gap-2">
-
-
+            <div class="h-full bg-gray-100 dark:bg-neutral-900 rounded-lg overflow-y-auto">
+                <div class="flex flex-col p-3 sm:p-4 gap-2">
                     <div *ngFor="let collection of collections">
                         <a [routerLink]="['/', languageId, 'vocabulary', 'collection', collection.id]"
                             [queryParams]="{ name: collection.name }">
-                            <app-secondary-button>
+                            <app-secondary-button class="w-full truncate">
                                 {{ collection.name }}
                             </app-secondary-button>
                         </a>
@@ -62,12 +60,13 @@
             </div>
         </div>
 
-        <div class="w-px h-full bg-gray-400 dark:bg-neutral mx-2"></div>
+        <!-- Divider - Hidden on mobile -->
+        <div class="hidden lg:block w-px h-full bg-gray-400 dark:bg-neutral-700 mx-2"></div>
 
-        <div class="flex flex-col flex-1 gap-y-8 pl-4 pr-4 pb-4">
-
+        <!-- Vocabulary Grid -->
+        <div class="flex flex-col flex-1 gap-y-6 sm:gap-y-8">
             <div *ngIf="vocabularies.length > 0">
-                <div class="grid grid-cols-5 gap-3">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
                     <div *ngFor="let vocabulary of vocabularies">
                         <a routerLink="/{{ languageId }}/vocabulary/{{ vocabulary.id}}"
                             [queryParams]="{ vocabulary: vocabulary.name }">
@@ -76,11 +75,10 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 
+    <!-- Modals (unchanged) -->
     <app-center-modal id="hs-scale-animation-modal" title="Novo vocabulário">
         <ng-template #customContent>
             <form [formGroup]="formVocab">
@@ -100,7 +98,6 @@
                             {{ collection.name }}
                         </option>
                     </select>
-
                 </div>
             </form>
         </ng-template>
@@ -115,7 +112,6 @@
         <ng-template #customContent>
             <form [formGroup]="formCol">
                 <app-input-field id="collection" placeholder="insira o nome da coleção" formControlName="name"></app-input-field>
-
             </form>
         </ng-template>
 
@@ -124,5 +120,4 @@
                 data-hs-overlay="#hs-col-animation-modal">Salvar</app-input-button>
         </ng-template>
     </app-center-modal>
-
 </app-basic-layout>

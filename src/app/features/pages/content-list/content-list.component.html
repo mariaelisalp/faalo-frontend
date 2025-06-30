@@ -1,6 +1,6 @@
 <app-basic-layout>
-    <div class="flex-1 flex-col p-12 overflow-auto">
-        <div class="flex flex-col gap-y-8">
+    <div class="flex-1 flex-col p-4 sm:p-6 lg:p-12 overflow-auto">
+        <div class="flex flex-col gap-y-6 lg:gap-y-8">
             <button (click)="back()"
                 class="flex size-8 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 justify-center items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -9,31 +9,28 @@
                 </svg>
             </button>
 
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div *ngIf="!topicId">
-                    <p class="text-3xl font-semibold text-[var(--color-secondary)] dark:text-white">
+                    <p class="text-2xl sm:text-3xl font-semibold text-[var(--color-secondary)] dark:text-white">
                         Conteúdo
                     </p>
                 </div>
 
-                <div *ngIf="topicId">
-
+                <div *ngIf="topicId" class="min-w-0 flex-1">
                     <div class="flex flex-col gap-2">
                         <a routerLink="/{{ languageId }}/content">
-                            <p
-                                class="text-xl cursor-pointer font-semibold text-[var(--color-secondary)] dark:text-white hover:text-[var(--color-primary)]">
+                            <p class="text-lg sm:text-xl cursor-pointer font-semibold text-[var(--color-secondary)] dark:text-white hover:text-[var(--color-primary)] truncate">
                                 Conteúdo
                             </p>
                         </a>
 
-                        <div class="flex flex-row gap-3 items-center">
-                            <p class="text-3xl font-semibold text-[var(--color-secondary)] dark:text-white">
+                        <div class="flex flex-row gap-3 items-center min-w-0">
+                            <p class="text-2xl sm:text-3xl font-semibold text-[var(--color-secondary)] dark:text-white truncate">
                                 {{ topicName }}
                             </p>
 
-                            <app-overflow-menu id="hs-dropdown-custom-icon-trigger">
+                            <app-overflow-menu id="hs-dropdown-custom-icon-trigger" class="flex-shrink-0">
                                 <ng-template #customContent>
-
                                     <a aria-haspopup="dialog" aria-expanded="false"
                                         aria-controls="hs-edit-animation-modal"
                                         data-hs-overlay="#hs-edit-animation-modal"
@@ -43,15 +40,13 @@
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                                         </svg>
-
                                         Editar tópico
                                     </a>
-
 
                                     <a aria-haspopup="dialog" aria-expanded="false"
                                         aria-controls="hs-delete-animation-modal"
                                         data-hs-overlay="#hs-delete-animation-modal"
-                                        class="flex items-center gap-x-3.5 py-2 px-3 cursor-pointer rounded-lg text-sm text-red-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-red-30 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700">
+                                        class="flex items-center gap-x-3.5 py-2 px-3 cursor-pointer rounded-lg text-sm text-red-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-red-500 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="2" stroke="currentColor" class="size-4">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -59,88 +54,82 @@
                                         </svg>
                                         Excluir tópico
                                     </a>
-
                                 </ng-template>
                             </app-overflow-menu>
                         </div>
                     </div>
                 </div>
 
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <app-input-button (onClick)="addContentPage()">
+                <div class="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
+                    <app-input-button (onClick)="addContentPage()" class="w-full sm:w-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>
-
-                        Adicionar conteúdo
-
+                        <span class="hidden sm:inline">Adicionar conteúdo</span>
+                        <span class="sm:hidden">Conteúdo</span>
                     </app-input-button>
 
                     <app-input-button aria-haspopup="dialog" aria-expanded="false"
-                        aria-controls="hs-scale-animation-modal" data-hs-overlay="#hs-scale-animation-modal">
+                        aria-controls="hs-scale-animation-modal" data-hs-overlay="#hs-scale-animation-modal"
+                        class="w-full sm:w-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>
-
-                        Adicionar tópico
-
+                        <span class="hidden sm:inline">Adicionar tópico</span>
+                        <span class="sm:hidden">Tópico</span>
                     </app-input-button>
                 </div>
             </div>
 
             <hr class="border-[var(--color-primary)] dark:border-white">
 
-            <div class="grid grid-cols-12 gap-4">
+            <div class="flex flex-col xl:grid xl:grid-cols-12 gap-4 xl:gap-6">
 
-                <div class="col-span-3">
+                <div class="xl:col-span-3">
                     <div class="p-4 bg-gray-100 rounded-lg dark:bg-neutral-700">
-
-                        <p class="text-xl pb-3 font-bold text-[var(--color-secondary)] dark:text-white">Meus tópicos</p>
-
+                        <p class="text-lg sm:text-xl pb-3 font-bold text-[var(--color-secondary)] dark:text-white">
+                            Meus tópicos
+                        </p>
                         <app-topics-tree></app-topics-tree>
-
                     </div>
                 </div>
 
-                <div class="w-px h-full bg-[var(--color-secondary)] dark:bg-white mx-2"></div>
+                <div class="hidden xl:block w-px h-full bg-[var(--color-secondary)] dark:bg-white mx-2"></div>
 
-                <div class="col-span-8">
-                    <p class="text-xl pb-3 font-bold text-[var(--color-secondary)] dark:text-white">Meus conteúdos</p>
+                <div class="xl:col-span-8">
+                    <p class="text-lg sm:text-xl pb-3 font-bold text-[var(--color-secondary)] dark:text-white">
+                        Meus conteúdos
+                    </p>
 
-                    <div class=" justify-start">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+                    <div class="justify-start">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
                             *ngIf="contents">
                             <div *ngFor="let content of contents">
                                 <a routerLink="/{{ languageId }}/content/{{ content.id }}">
-                                    <app-content-button class="w-full rounded-full dark:bg-white">{{ content.title
-                                        }}</app-content-button>
+                                    <app-content-button class="w-full rounded-full dark:bg-white">
+                                        {{ content.title }}
+                                    </app-content-button>
                                 </a>
                             </div>
 
                             <div *ngIf="contents.length == 0"
-                                class="flex items-center justify-center col-span-full pt-20">
-
-                                <div
-                                    class="flex gap-2 bg-white border border-gray-200 shadow-2xs rounded-xl p-4 md:p-5 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400">
-                                    <p class="text-sm text-gray-500 dark:text-neutral-200">Comece adicionando conteúdos</p>
-
-
+                                class="flex items-center justify-center col-span-full pt-12 sm:pt-20">
+                                <div class="flex flex-col sm:flex-row gap-2 bg-white border border-gray-200 shadow-2xs rounded-xl p-4 md:p-5 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 text-center sm:text-left">
+                                    <p class="text-sm text-gray-500 dark:text-neutral-200">
+                                        Comece adicionando conteúdos
+                                    </p>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         strokeWidth={1.5} stroke="currentColor"
-                                        class="size-6 text-gray-500 dark:text-neutral-200">
+                                        class="size-6 text-gray-500 dark:text-neutral-200 mx-auto sm:mx-0">
                                         <path strokeLinecap="round" strokeLinejoin="round"
                                             d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
                                     </svg>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -174,18 +163,24 @@
 
             <app-center-modal id="hs-delete-animation-modal" title="Excluir tópico">
                 <ng-template #customContent>
-                    <p>Você tem certeza de que deseja excluir este tópico? Você pode excluir tudo o que está relacionado a ele ou manter os conteúdos na lista principal.</p>
+                    <p class="text-sm sm:text-base">
+                        Você tem certeza de que deseja excluir este tópico? Você pode excluir tudo o que está relacionado a ele ou manter os conteúdos na lista principal.
+                    </p>
                 </ng-template>
 
                 <ng-template #customFooter>
-                    <app-input-button (click)="moveContentsToRoot()" aria-label="Close"
-                        data-hs-overlay="#hs-delete-animation-modal">Quero manter os conteúdos</app-input-button>
-                    <app-danger-button (onClick)="deleteTopic()" aria-label="Close"
-                        data-hs-overlay="#hs-delete-animation-modal">Excluir tudo</app-danger-button>
+                    <div class="flex flex-col sm:flex-row gap-2 w-full">
+                        <app-input-button (click)="moveContentsToRoot()" aria-label="Close"
+                            data-hs-overlay="#hs-delete-animation-modal" class="w-full sm:w-auto">
+                            Quero manter os conteúdos
+                        </app-input-button>
+                        <app-danger-button (onClick)="deleteTopic()" aria-label="Close"
+                            data-hs-overlay="#hs-delete-animation-modal" class="w-full sm:w-auto">
+                            Excluir tudo
+                        </app-danger-button>
+                    </div>
                 </ng-template>
             </app-center-modal>
-
         </div>
-
     </div>
 </app-basic-layout>
