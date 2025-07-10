@@ -58,7 +58,7 @@
                             id="content" 
                             formControlName="content"
                             name="content" 
-                            (input)="updatePreview(form.get('content')?.value || '')">
+                            >
                         </app-textarea>
                     </div>
 
@@ -123,7 +123,7 @@
         </ng-template>
 
         <ng-template #customFooter>
-            <app-danger-button (onClick)="delete()" routerLink="/{{ languageId}}/content" 
+            <app-danger-button (onClick)="delete()" 
                 aria-label="Close" data-hs-overlay="#hs-scale-animation-modal"
                 class="w-full sm:w-auto">
                 Excluir

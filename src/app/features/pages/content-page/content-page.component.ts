@@ -12,8 +12,6 @@ import { OverflowMenuComponent } from '../../../shared/navigation/overflow-menu/
 import { ModuleType } from '../../enum/module-type.enum';
 import { ContentResponse } from '../../interfaces/response/content-response.interface';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import DOMPurify from 'dompurify';
-import { marked } from 'marked';
 import { BasicLayoutComponent } from '../../basic-layout/basic-layout.component';
 import { NotesOffcanvasComponent } from '../../components/notes-offcanvas/notes-offcanvas.component';
 import { CenterModalComponent } from '../../../shared/modals/center-modal/center-modal.component';
@@ -56,11 +54,11 @@ export class ContentPageComponent implements AfterViewInit {
   });
 
   editTopicForm = new FormGroup({
-    topic: new FormControl('')
+    topic: new FormControl()
   })
 
   constructor(private contentService: ContentService, private activatedRoute: ActivatedRoute, private router: Router,
-    private sanitizer: DomSanitizer, private location: Location, private topicService: TopicService) {
+    private location: Location, private topicService: TopicService) {
 
     this.languageId = this.activatedRoute.snapshot.params['languageId'];
     this.contentId = this.activatedRoute.snapshot.params['id'];
@@ -136,14 +134,6 @@ export class ContentPageComponent implements AfterViewInit {
     return this.contentService.update(content, this.contentId, this.languageId, this.topicId);
   }
 
-  async updatePreview(value: string) {
-
-    const markdown = await marked.parse((value));
-    const clean = DOMPurify.sanitize(markdown);
-
-    this.html = this.sanitizer.bypassSecurityTrustHtml(clean);
-    //this.form.get('content')?.setValue(this.html, { emitEvent: false });
-  }
 
   getContent() {
     this.contentService.findOne(this.languageId, this.contentId).subscribe({
@@ -155,7 +145,9 @@ export class ContentPageComponent implements AfterViewInit {
           content: this.content.content
         });
 
-        this.updatePreview(this.content.content);
+        this.editTopicForm.patchValue({
+          topic: this.content.topic ?? ""
+        })
       }
     });
   }

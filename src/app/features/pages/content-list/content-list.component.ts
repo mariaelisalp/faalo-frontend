@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { InputButtonComponent } from '../../../shared/buttons/input-button/input-button.component';
 import { TopicService } from '../../services/topic.service';
@@ -15,7 +15,7 @@ import { ContentResponse } from '../../interfaces/response/content-response.inte
 import { ContentButtonComponent } from '../../../shared/buttons/content-button/content-button.component';
 import { BasicLayoutComponent } from '../../basic-layout/basic-layout.component';
 import { TopicsTreeComponent } from '../../../shared/navigation/topics-tree/topics-tree.component';
-import { HSAccordion, HSOverlay } from 'preline/dist';
+import { HSAccordion, HSDropdown, HSOverlay } from 'preline/dist';
 import { OverflowMenuComponent } from '../../../shared/navigation/overflow-menu/overflow-menu.component';
 import { DangerButtonComponent } from '../../../shared/buttons/danger-button/danger-button.component';
 
@@ -36,6 +36,7 @@ export class ContentListComponent {
   topicName: string = '';
   moduleType = ModuleType.CONTENT;
   showTopicField: boolean = false;
+  change: EventEmitter<void> = new EventEmitter();
 
   form = new FormGroup({
     topic: new FormControl('', [Validators.required])
@@ -76,6 +77,7 @@ export class ContentListComponent {
   ngAfterViewInit() {
     HSAccordion.autoInit();
     HSOverlay.autoInit();
+    HSDropdown.autoInit();
   }
 
   createTopic() {
@@ -92,14 +94,14 @@ export class ContentListComponent {
     if (this.topicId) {
       this.topicService.createSubtopic(this.languageId, topic, this.topicId).subscribe({
         next: () => {
-          this.findManyTopics();
+          this.change.emit()
         },
       });
     }
     else {
       this.topicService.create(topic, this.languageId).subscribe({
         next: () => {
-          this.findManyTopics();
+          this.change.emit();
         },
       });
     }
@@ -118,6 +120,7 @@ export class ContentListComponent {
     this.topicService.update(this.languageId, this.topicId, topic).subscribe({
       next: (res) => {
         this.topicName = res.data.name;
+        this.change.emit();
       }
     }
     );
@@ -163,7 +166,12 @@ export class ContentListComponent {
   }
 
   deleteTopic() {
-    this.topicService.delete(this.languageId, this.topicId).subscribe();
+    this.topicService.delete(this.languageId, this.topicId).subscribe({
+      next: () => {
+        this.router.navigate([`/${this.languageId}/content`]);
+        this.change.emit();
+      }
+    });
   }
 
   addContentPage() {

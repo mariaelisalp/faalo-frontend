@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BasicLayoutComponent } from '../../basic-layout/basic-layout.component';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { VocabularyResponse } from '../../interfaces/response/vocabulary-response';
 import { CommonModule, Location } from '@angular/common';
 import { CenterModalComponent } from '../../../shared/modals/center-modal/center-modal.component';
@@ -28,7 +28,7 @@ export class VocabularyCollectionComponent {
   collectionId: number;
   searchTerm: string = '';
 
-  constructor(private route: ActivatedRoute, private topicService: TopicService, private vocabularyService: VocabularyService, private location: Location) {
+  constructor(private route: ActivatedRoute, private topicService: TopicService, private vocabularyService: VocabularyService, private location: Location, private router: Router) {
     this.name = this.route.snapshot.queryParams['name'];
     this.languageId = this.route.snapshot.params['languageId'];
     this.collectionId = this.route.snapshot.params['id'];
@@ -88,7 +88,11 @@ export class VocabularyCollectionComponent {
   }
 
   deleteCollection() {
-    this.topicService.delete(this.languageId, this.collectionId).subscribe();
+    this.topicService.delete(this.languageId, this.collectionId).subscribe({
+      next: () => {
+        this.router.navigate([`/${this.languageId}/vocabulary`])
+      }
+    });
   }
 
   moveVocabulariesToRoot() {

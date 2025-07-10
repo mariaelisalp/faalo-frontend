@@ -170,7 +170,7 @@
 
         <ng-template #customFooter>
 
-            <app-input-button (click)="create()">Salvar</app-input-button>
+            <app-input-button (click)="create()" [disabled]="form.invalid">Salvar</app-input-button>
 
         </ng-template>
 

@@ -12,7 +12,7 @@
             <div class="flex flex-col gap-4">
 
                 <p class="text-xl font-semibold text-[var(--color-secondary)] dark:text-white">
-                    Resources
+                    Recursos
                 </p>
 
                 <div class="flex flex-row justify-between">
@@ -115,11 +115,11 @@
 
         <ng-template #customFooter>
             <app-input-button (click)="moveResourcesToRoot()" aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Quero manter os recursos</app-input-button>
-            <app-danger-button (onClick)="deleteCollection()" routerLink="/{{ languageId}}/resources" aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Excluir tudo</app-danger-button>
+            <app-danger-button (onClick)="deleteCollection()" aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Excluir tudo</app-danger-button>
         </ng-template>
     </app-center-modal>
 
-    <app-center-modal id="hs-delete-resource-animation-modal" title="Delete">
+    <app-center-modal id="hs-delete-resource-animation-modal" title="Excluir">
         <ng-template #customContent>
             <p>Você tem certeza de que deseja excluir este recurso? Você não poderá recuperá-lo.</p>
         </ng-template>

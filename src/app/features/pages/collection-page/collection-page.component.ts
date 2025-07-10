@@ -4,7 +4,7 @@ import { InputButtonComponent } from '../../../shared/buttons/input-button/input
 import { InputFieldComponent } from '../../../shared/fields/input-field/input-field.component';
 import { CommonModule, Location } from '@angular/common';
 import { ResourceService } from '../../services/resource.service';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ResourceResponse } from '../../interfaces/response/resource-response.interface';
 import { TopicService } from '../../services/topic.service';
 import { ModuleType } from '../../enum/module-type.enum';
@@ -44,7 +44,8 @@ export class CollectionPageComponent {
     collection: new FormControl('', Validators.required)
   })
 
-  constructor(private location: Location, private resourceService: ResourceService, private activatedRoute: ActivatedRoute, private topic: TopicService) {
+  constructor(private location: Location, private resourceService: ResourceService, private activatedRoute: ActivatedRoute,
+     private topic: TopicService, private router: Router) {
     this.languageId = this.activatedRoute.snapshot.params['languageId'];
     this.collectionId = this.activatedRoute.snapshot.params['collectionId'];
   }
@@ -126,7 +127,11 @@ export class CollectionPageComponent {
   }
 
   deleteCollection() {
-    this.topic.delete(this.languageId, this.collectionId).subscribe();
+    this.topic.delete(this.languageId, this.collectionId).subscribe({
+      next: () => {
+        this.router.navigate([`/${this.languageId}/resources`]);
+      }
+    });
   }
 
   deleteResource() { }

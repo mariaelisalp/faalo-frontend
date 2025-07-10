@@ -23,11 +23,12 @@ import { Vocabulary } from '../../interfaces/vocabulary.interface';
 import { TranslatorComponent } from '../../components/translator/translator.component';
 import { TopicResponse } from '../../interfaces/response/topic-response.interface';
 import { TopicService } from '../../services/topic.service';
+import { VocabularyResponse } from '../../interfaces/response/vocabulary-response';
 
 @Component({
   selector: 'app-vocabulary-page',
   imports: [BasicLayoutComponent, SecondaryButtonComponent, RoundedButtonComponent, CenterModalComponent, ReactiveFormsModule,
-    InputFieldComponent, NoteFieldComponent, InputButtonComponent, FormLabelComponent, CommonModule, NotesOffcanvasComponent, 
+    InputFieldComponent, NoteFieldComponent, InputButtonComponent, FormLabelComponent, CommonModule, NotesOffcanvasComponent,
     DangerButtonComponent, RouterModule, TranslatorComponent],
   templateUrl: './vocabulary-page.component.html',
   styleUrl: './vocabulary-page.component.scss'
@@ -44,7 +45,7 @@ export class VocabularyPageComponent {
   moduleType = ModuleType.VOCABULARY;
   isPopoverOpenIndex: number | null = null;
 
-  constructor(private location: Location, private wordService: WordService, private route: ActivatedRoute, private router: Router, 
+  constructor(private location: Location, private wordService: WordService, private route: ActivatedRoute, private router: Router,
     private vocabularyService: VocabularyService, private topicService: TopicService) {
     this.languageId = this.route.snapshot.params['languageId'];
     this.vocabularyId = this.route.snapshot.params['id'];
@@ -65,7 +66,7 @@ export class VocabularyPageComponent {
 
   editVocabularyForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    collection: new FormControl('')
+    collection: new FormControl()
   });
 
   back() {
@@ -96,6 +97,7 @@ export class VocabularyPageComponent {
 
     this.wordService.create(word, this.vocabularyId).subscribe(
       () => {
+        this.wordForm.reset();
         this.getWords();
       }
     );
@@ -130,9 +132,20 @@ export class VocabularyPageComponent {
   }
 
   getVocabulary() {
-    this.editVocabularyForm.patchValue({
-      name: this.name
-    })
+    let vocabulary: VocabularyResponse;
+
+    this.vocabularyService.findOne(this.languageId, this.vocabularyId).subscribe({
+      next: (res) => {
+        vocabulary = res.data;
+
+        if (vocabulary) {
+          this.editVocabularyForm.patchValue({
+            name: this.name,
+            collection: vocabulary.topic ?? ''
+          })
+        }
+      }
+    });
 
   }
 
@@ -142,7 +155,7 @@ export class VocabularyPageComponent {
     }
 
     const value = this.editVocabularyForm.get('collection')?.value;
-    const collection = {id: value !== '' ? Number(value) : null }
+    const collection = { id: value !== '' ? Number(value) : null }
 
     const vocabulary: Vocabulary = {
       name: this.editVocabularyForm.get('name')?.value || ''
@@ -171,16 +184,16 @@ export class VocabularyPageComponent {
 
   }
 
-  setId(id: number){
+  setId(id: number) {
     this.wordId = id;
     this.getWord();
   }
 
   togglePopover(index: number): void {
     if (this.isPopoverOpenIndex == index) {
-      this.isPopoverOpenIndex = null; 
+      this.isPopoverOpenIndex = null;
     } else {
-      this.isPopoverOpenIndex = index; 
+      this.isPopoverOpenIndex = index;
     }
 
     this.getWords()
@@ -191,7 +204,7 @@ export class VocabularyPageComponent {
   }
 
   updateWord() {
-    if(this.editWordForm.invalid){
+    if (this.editWordForm.invalid) {
       return;
     }
 
@@ -218,7 +231,7 @@ export class VocabularyPageComponent {
     this.isModalOpen = false;
   }
 
-  openEditVocab(){
+  openEditVocab() {
     this.getCollections();
     this.isEditVocabularyOpen = true;
   }
@@ -226,7 +239,7 @@ export class VocabularyPageComponent {
   deleteWord(id: number) {
     this.wordService.delete(this.vocabularyId, id).subscribe({
       next: () => {
-        this.getWords();
+        this.words = this.words.filter(word => word.id !== id);
       }
     });
   }

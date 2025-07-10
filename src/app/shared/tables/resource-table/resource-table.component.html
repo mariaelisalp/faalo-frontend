@@ -94,7 +94,7 @@
 
 <app-center-modal id="delete-resource-modal" title="Excluir recurso">
   <ng-template #customContent>
-    <p>AVocê tem certeza que deseja excluir esse recurso?</p>
+    <p>Você tem certeza que deseja excluir esse recurso?</p>
   </ng-template>
 
   <ng-template #customFooter>
@@ -108,7 +108,7 @@
     <form [formGroup]="editForm">
       <div class="grid grid-cols-2 gap-2 gap-y-8">
         <div>
-          <app-form-label>N0me</app-form-label>
+          <app-form-label>Nome</app-form-label>
           <app-input-field placeholder="nome do recurso" formControlName="name"></app-input-field>
         </div>
 
@@ -138,7 +138,7 @@
               dark:placeholder-gray-300 dark:border-[var(--color-primary)] 
               dark:focus:bg-neutral-700 dark:text-white">
             <option value="">Sem coleção</option>
-            <option *ngFor="let collection of collections" value="{{ collection.id}}">
+            <option *ngFor="let collection of collections" value="{{ collection.id }}">
               {{ collection.name }}
             </option>
           </select>

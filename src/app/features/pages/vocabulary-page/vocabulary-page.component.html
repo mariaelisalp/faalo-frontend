@@ -21,7 +21,7 @@
                         {{ name }}
                     </h1>
 
-                    <div class="flex flex-row gap-2 self-end sm:self-auto">
+                    <div class="flex flex-row gap-2 self-end sm:self-auto items-center">
                         <div class="hs-tooltip [--placement:bottom] inline-block relative">
                             <app-input-button [disabled]="true" class="hs-tooltip-toggle w-full">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -228,7 +228,7 @@
         </ng-template>
 
         <ng-template #customFooter>
-            <app-danger-button (onClick)="deleteVocabulary()" routerLink="/{{ languageId}}/vocabulary"
+            <app-danger-button (onClick)="deleteVocabulary()"
                 aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Excluir</app-danger-button>
         </ng-template>
     </app-center-modal>

@@ -46,7 +46,7 @@ export class ResourceListComponent {
 
   form = new FormGroup({
     name: new FormControl(),
-    type: new FormControl(),
+    type: new FormControl('', Validators.required),
     collection: new FormControl(''),
     description: new FormControl(),
     access: new FormControl('',),
@@ -56,7 +56,8 @@ export class ResourceListComponent {
     collection: new FormControl('', Validators.required)
   });
 
-  constructor(private resourceService: ResourceService, private location: Location, private activatedRoute: ActivatedRoute, private topicService: TopicService) {
+  constructor(private resourceService: ResourceService, private location: Location, private activatedRoute: ActivatedRoute, 
+    private topicService: TopicService) {
     this.languageId = this.activatedRoute.snapshot.params['languageId'];
   }
 
@@ -69,7 +70,7 @@ export class ResourceListComponent {
   ngOnInit() {
     this.form.get('type')?.valueChanges.subscribe((value) => {
 
-      this.selectedType = this.form.get('type')?.value;
+      this.selectedType = this.form.get('type')?.value ?? '';
     });
 
     this.getCollections();
@@ -108,14 +109,20 @@ export class ResourceListComponent {
 
   }
 
-  validateFile(file: File){
-    if(!validateFileSize(file)){
+  clearForm() {
+    this.form.reset();
+    this.selectedFile = null;
+    this.selectedType = '';
+  }
+
+  validateFile(file: File) {
+    if (!validateFileSize(file)) {
       this.errorMessage = 'Esse arquivo é muito grande';
 
       return false
     }
 
-    if(!validateFileType(file)){
+    if (!validateFileType(file)) {
       this.errorMessage = 'Formato de arquivo não suportado'
 
       return false;
@@ -131,21 +138,21 @@ export class ResourceListComponent {
 
     const resource = new FormData();
     resource.append('name', this.form.get('name')?.value);
-    resource.append('type', this.form.get('type')?.value);
+    resource.append('type', this.form.get('type')?.value ?? '');
     resource.append('description', this.form.get('description')?.value);
 
     if (this.selectedType == 'URL') {
       resource.append('access', this.form.get('access')?.value || '');
     }
     else {
-      
-      if(this.selectedFile){
-        this.fileValid =  this.validateFile(this.selectedFile);
-        
-        if(this.fileValid){
+
+      if (this.selectedFile) {
+        this.fileValid = this.validateFile(this.selectedFile);
+
+        if (this.fileValid) {
           resource.append('file', this.selectedFile);
         }
-        else{
+        else {
           return;
         }
       }
@@ -154,7 +161,7 @@ export class ResourceListComponent {
     const collection = this.form.get('collection')?.value;
 
     if (collection) {
- 
+
       this.resourceService.createByTopic(resource, this.languageId, +collection).subscribe({
         next: (res) => {
           this.getResources();
@@ -184,6 +191,7 @@ export class ResourceListComponent {
 
     this.topicService.create(collection, this.languageId).subscribe({
       next: () => {
+        this.collectionForm.reset();
         this.getCollections();
       }
     })

@@ -127,7 +127,7 @@
 
         <ng-template #customFooter>
             <app-input-button (click)="moveVocabulariesToRoot()" aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Quero manter os vocabulários</app-input-button>
-            <app-danger-button (onClick)="deleteCollection()" routerLink="/{{ languageId}}/vocabulary"
+            <app-danger-button (onClick)="deleteCollection()"
                 aria-label="Close" data-hs-overlay="#hs-delete-animation-modal">Excluir tudo</app-danger-button>
         </ng-template>
     </app-center-modal>

@@ -43,6 +43,7 @@ export class ResourceTableComponent {
   }
   selectedFile: File | null = null;
   languageId: number;
+  collectionId: number;
   selectedId: number | null = null;
   modalIsOpen = false;
   selectedType: string = '';
@@ -57,6 +58,7 @@ export class ResourceTableComponent {
 
   constructor(private resourceService: ResourceService, private activatedRoute: ActivatedRoute) {
     this.languageId = this.activatedRoute.snapshot.params['languageId'];
+    this.collectionId = this.activatedRoute.snapshot.params['collectionId'];
   }
 
   ngOnInit() {
@@ -90,7 +92,7 @@ export class ResourceTableComponent {
       name: this.currentResource.name,
       type: this.currentResource.type,
       description: this.currentResource.description,
-      collection: this.currentResource.topic,
+      collection: this.currentResource.topic ?? "",
       access: this.currentResource.access,
     })
   }
@@ -102,6 +104,30 @@ export class ResourceTableComponent {
         this.getResourceValues();
       }
     })
+  }
+
+  getResources() {
+    if (this.collectionId) {
+      this.resourceService.findMany(this.languageId, this.collectionId).subscribe({
+        next: (res) => {
+          this.resourceList = res.data
+        }
+      });
+    }
+    else {
+      this.resourceService.findAll(this.languageId).subscribe({
+        next: (res) => {
+          this.resourceList = res.data
+        }
+      });
+    }
+
+  }
+
+  clearForm() {
+    this.editForm.reset(); 
+    this.selectedFile = null;
+    this.selectedType = '';
   }
 
   openFile(topicId: number) {
@@ -156,7 +182,8 @@ export class ResourceTableComponent {
 
       this.resourceService.update(resource, this.selectedId, this.languageId, +collection).subscribe({
         next: (res) => {
-          //this.getResources();
+          this.getResources();
+          this.clearForm();
         }
       })
     }
@@ -166,6 +193,7 @@ export class ResourceTableComponent {
     if (this.selectedId) {
       this.resourceService.delete(this.selectedId, this.languageId).subscribe({
         next: () => {
+          this.getResources();
           this.selectedId = null;
         }
       });

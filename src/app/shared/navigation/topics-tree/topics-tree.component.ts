@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { ModuleType } from '../../../features/enum/module-type.enum';
 import { TopicTreeNode } from '../../../features/interfaces/response/topic-tree.class';
 import { TopicService } from '../../../features/services/topic.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HSAccordion } from 'preline/dist';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-topics-tree',
@@ -13,7 +14,9 @@ import { HSAccordion } from 'preline/dist';
   styleUrl: './topics-tree.component.scss'
 })
 export class TopicsTreeComponent implements OnInit{
-  //@Input() moduleType!: ModuleType;
+  @Input() refreshTree!: EventEmitter<void>;
+  private refreshSubscription!: Subscription;
+  
   languageId: number;
   tree: TopicTreeNode[] = [];
 
@@ -30,6 +33,14 @@ export class TopicsTreeComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.getTopics();
+    
+    this.refreshSubscription = this.refreshTree.subscribe(() => {
+      this.getTopics();
+    });
+  }
+
+  getTopics(){
     this.topicService.findAll(this.languageId, ModuleType.CONTENT).subscribe(
       (res) => {
         this.tree = TopicTreeNode.buildTree(res.data);
